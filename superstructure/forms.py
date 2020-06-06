@@ -13,6 +13,11 @@ class LogischeForm(metaclass=AllgemeineForm):
 
     @abstractmethod
     @property
+    def id(self):
+        pass
+
+    @abstractmethod
+    @property
     def besonderheit(self):
         pass
 

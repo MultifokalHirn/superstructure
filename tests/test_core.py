@@ -10,10 +10,11 @@ from superstructure.singletons import AbstrakteAllgemeinheit, Identität
 class TestCore(unittest.TestCase):
     @given(text())
     def create_new_structure(self, s):
-        aa = AbstrakteAllgemeinheit()
-        a = Allgemeinheit("Jetzt")
-        self.assertEqual(aa.allgemeinheit, a.__class__)
-        self.assertEqual(Identität, Identität)
+        aa1 = AbstrakteAllgemeinheit.instance()
+        aa2 = AbstrakteAllgemeinheit.instance()
+        # a = Allgemeinheit("Jetzt")
+        self.assertEqual(aa.allgemeinheit, Allgemeinheit)
+        self.assertEqual(aa1, aa2)
 
 
 """
