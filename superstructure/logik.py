@@ -19,8 +19,8 @@ class Relation(LogischeForm):
         super().__init__()
         self._name = name
         self._synonyms = synonyms
-        self.a = a
-        self.b = b
+        self._a = a
+        self._b = b
         self.is_directed = is_directed
 
     @property
@@ -30,6 +30,14 @@ class Relation(LogischeForm):
     @property
     def synonyms(self):
         return self._synonyms
+
+    @property
+    def a(self):
+        return self._a
+
+    @property
+    def b(self):
+        return self._b
 
 
 class Allgemeinheit(LogischeForm):
@@ -53,6 +61,18 @@ class Allgemeinheit(LogischeForm):
     def instances(self):
         # einzelnheiten
         return self._instances
+
+    @property
+    def besonderheit(self):
+        return "Sein"
+
+    @property
+    def allgemeinheit(self):
+        return "AbstrakteAllgemeinheit"
+
+    @property
+    def einzelheit(self):
+        return "AbstrakteAllgemeinheit"
 
 
 class Einzelnheit(LogischeForm):
