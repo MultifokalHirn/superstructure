@@ -16,7 +16,7 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: |
-        python3 -m pip install requirements-dev.txt
+        python3 -m pip install -r requirements-dev.txt
 
     - name: pytest
       run: |
