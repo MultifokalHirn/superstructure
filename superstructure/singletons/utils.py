@@ -1,18 +1,21 @@
+class Singleton(type):
+    _instances = {}  # noqa
 
-class Singleton:
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
+class SingletonOld:
     """
     A non-thread-safe helper class to ease implementing singletons.
-    This should be used as a decorator -- not a metaclass -- to the
-    class that should be a singleton.
+    This should be used as a decorator -- not a metaclass -- to the class that should be a singleton.
 
     The decorated class can define one `__init__` function that
-    takes only the `self` argument. Also, the decorated class cannot be
-    inherited from. Other than that, there are no restrictions that apply
-    to the decorated class.
+    takes only the `self` argument. Also, the decorated class cannot be inherited from. Other than that, there are no restrictions that apply to the decorated class.
 
-    To get the singleton instance, use the `instance` method. Trying
-    to use `__call__` will result in a `TypeError` being raised.
-
+    To get the singleton instance, use the `instance` method. Trying to use `__call__` will result in a `TypeError` being raised.
     """
 
     def __init__(self, decorated):
@@ -32,7 +35,7 @@ class Singleton:
             return self._instance
 
     def __call__(self):
-        raise TypeError('Singletons must be accessed through `instance()`.')
+        raise TypeError("Singletons must be accessed through `instance()`.")
 
     def __instancecheck__(self, inst):
         return isinstance(inst, self._decorated)

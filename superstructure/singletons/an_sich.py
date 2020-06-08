@@ -2,22 +2,24 @@ from ..logik import Allgemeinheit, Begriff, Relation
 from .utils import Singleton
 
 
-@Singleton
 class Identität(Relation):
     """Identität an sich"""
 
     def __init__(self):
         criterium = lambda a, b: a == b  # TODO
-        super().__init__(name="Identität", synonyms=set(), is_directed=False, criterium=criterium)
+        super().__init__(
+            name="Identität", synonyms=set(), is_directed=False, criterium=criterium
+        )
+        self._id = "Identität"
 
     def __repr__(self):
-        return f'<{self.name}>'
+        return f"<{self.name}>"
 
 
-@Singleton
 class Leere(Begriff):
     def __init__(self):
         super().__init__(name="Leere", synonyms=set(["Die Leere"]))
+        self._id = "Leere"
 
     @property
     def besonderheit(self):
@@ -32,13 +34,14 @@ class Leere(Begriff):
         return self
 
     def __repr__(self):
-        return f'<{self.name}>'
+        return f"<{self.name}>"
 
 
-@Singleton
+# @Singleton
 class AbstrakteAllgemeinheit(Allgemeinheit):
     def __init__(self):
         super().__init__(name="Abstrakte Allgemeinheit")
+        self._id = "AbstrakteAllgemeinheit"
 
     @property
     def besonderheit(self):
@@ -56,4 +59,4 @@ class AbstrakteAllgemeinheit(Allgemeinheit):
         return self
 
     def __repr__(self):
-        return f'<{self.name}>'
+        return f"<{self.name}>"
