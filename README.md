@@ -20,9 +20,26 @@
 ```console
 python3 -mvenv env
 source env/bin/activate
-pip3 install -r requirements.txt
+pip3 install -r requirements-dev.txt
 ```
 
+## testing
+```console
+source env/bin/activate
+python3 -mpytest tests
+```
+## running
+terminal 1
+```console
+redis-server
+```
+terminal 2
+```console
+source env/bin/activate
+python3 main.py
+```
+
+redis-server
 ## license
 
 [MIT](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)

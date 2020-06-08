@@ -1,4 +1,4 @@
 redisworks==0.2.7
 redis==3.5.3
 dotobject==1.2.1
-hypothesis==4.57.1
+

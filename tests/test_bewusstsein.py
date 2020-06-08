@@ -4,17 +4,17 @@ from hypothesis import example, given
 from hypothesis.strategies import text
 
 from superstructure.logik import Allgemeinheit, Einzelnheit
+from superstructure.geist import Bewusstsein
 from superstructure.singletons import AbstrakteAllgemeinheit, Identität
 
 
-class TestCore(unittest.TestCase):
+class TestBewusstsein(unittest.TestCase):
     @given(text())
     def create_new_structure(self, s):
-        aa1 = AbstrakteAllgemeinheit.instance()
-        aa2 = AbstrakteAllgemeinheit.instance()
-        # a = Allgemeinheit("Jetzt")
-        self.assertEqual(aa.allgemeinheit, Allgemeinheit)
-        self.assertEqual(aa1, aa2)
+        b = Bewusstsein(name="TestBewusstsein")
+        print(b)
+        # self.assertEqual(aa.allgemeinheit, Allgemeinheit)
+        # self.assertEqual(aa1, aa2)
 
 
 """
