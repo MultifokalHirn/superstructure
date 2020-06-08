@@ -1,8 +1,9 @@
 # superstructure
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](#testing-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-![](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat-square)
+
 **a tool for Erkenntnis through dialectical notetaking**
 
 ## motivation
@@ -40,6 +41,9 @@ source env/bin/activate
 python3 main.py
 ```
 
-## license
+## documentation
+[subertructure](https://github.com/MultifokalHirn/superstructure/blob/master/superstructure/README.md)
 
+
+## license
 [MIT](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
