@@ -12,7 +12,8 @@ class Bewusstsein:
         self._wissen = {}  # {name: [ids]}
         if len(begriffe) == 0:
             self.generate_basic_begriffe()
-        self._update_wissen()
+        else:
+            self._update_wissen()
 
     @property
     def wissen(self):
@@ -37,7 +38,7 @@ class Bewusstsein:
     def _update_wissen(self):
         """create a hashmap from names to Begriff objects"""
         # print("_update_wissen....")
-        wissen = {"me": [0]}
+        wissen = {}
         for id, begriff in self._begriffe.items():
             for name in begriff.names:
                 wissen[name] = wissen.get(name, []) + [id]
@@ -59,14 +60,16 @@ class Bewusstsein:
         else:
             for id in self.wissen[begriff.name]:
                 self._begriffe[id] = begriff
+            self._update_wissen()
 
     def forget(self, begriff):
         # TODO should maybe take name and begriff
         if not begriff.name not in self.wissen:
             raise ValueError(f"Trying to forget unknown begriff {begriff.name}")
         else:
-            self._begriffe[begriff.id] = None
-            # self._begriffe[begriff.id] = Leere()
+            # self._begriffe[begriff.id] = None
+            self._begriffe[begriff.id] = Leere()
+            self._update_wissen()
 
     def learn(self, begriff):
         # TODO should maybe take name and begriff
@@ -77,12 +80,14 @@ class Bewusstsein:
             )
         else:
             self._begriffe[begriff.id] = begriff
+            self._update_wissen()
 
     def generate_basic_begriffe(self):
         """should fill up the Bewusstseins wissen with most basic Begriffe, for example a self, relations such as Identität and so on"""
         # TODO
         s = Begriff(name="self", id=0)
         self.learn(s)
+        self._update_wissen()
 
     @property
     def known_relations(self):

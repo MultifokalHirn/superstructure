@@ -9,7 +9,7 @@ from superstructure.singletons import AbstrakteAllgemeinheit, Identität
 
 class TestLogik(unittest.TestCase):
     @given(text())
-    def create_new_structure(self, s):
+    def test_basic_logik(self, s):
         aa1 = AbstrakteAllgemeinheit()
         aa2 = AbstrakteAllgemeinheit()
         self.assertEqual(aa1.allgemeinheit, Allgemeinheit)

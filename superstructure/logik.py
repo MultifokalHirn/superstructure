@@ -18,11 +18,11 @@ class Begriff(LogischeForm):
 
     @property
     def name(self):
-        return self._name
+        return self._name.lower()
 
     @property
     def synonyms(self):
-        return self._synonyms
+        return [s.lower() for s in self._synonyms]
 
     @property
     def names(self):

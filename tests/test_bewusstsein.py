@@ -3,18 +3,16 @@ import unittest
 from hypothesis import example, given
 from hypothesis.strategies import text
 
-from superstructure.logik import Allgemeinheit, Einzelnheit
 from superstructure.geist import Bewusstsein
-from superstructure.singletons import AbstrakteAllgemeinheit, Identität
+from superstructure.singletons import Leere
 
 
 class TestBewusstsein(unittest.TestCase):
     @given(text())
-    def create_new_structure(self, s):
+    def test_basic_bewusstsein(self, s):
         b = Bewusstsein(name="TestBewusstsein")
-        print(b)
-        # self.assertEqual(aa.allgemeinheit, Allgemeinheit)
-        # self.assertEqual(aa1, aa2)
+        self.assertEqual(b.begriff("self"), b.begriff("sein"))
+        self.assertEqual(b.begriff(s), Leere())
 
 
 """
