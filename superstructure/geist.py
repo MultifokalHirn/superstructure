@@ -1,4 +1,4 @@
-from .singletons.an_sich import Leere
+from .singletons.an_sich import Leere, Identität
 
 from .logik import Begriff, Relation
 from .utils import is_compatible
@@ -10,6 +10,7 @@ class Bewusstsein:
         self.state = "coherent"  # should become singleton
         self._begriffe = {}  # {id: Begriff}
         self._wissen = {}  # {name: [ids]}
+        self._other = self
         if len(begriffe) == 0:
             self.generate_basic_begriffe()
         else:
@@ -17,10 +18,22 @@ class Bewusstsein:
 
     @property
     def wissen(self):
-        # should beorganized like dict, where begriffe can be searched by their name
         if len(self._wissen.keys()) == 0:
             self._update_wissen()
         return self._wissen
+
+    @property
+    def self(self):
+        return self.begriff("self")
+
+    @property
+    def other(self):
+        return self._other
+
+    def _set_other(self, other):
+        if self.other == other:
+            return
+        self._other = other
 
     def begriff(self, name):
         """Bewusstsein returns their Begriff of {name}"""
@@ -29,11 +42,11 @@ class Bewusstsein:
         for id in ids:
             result.append(self._begriffe[id])
         if len(result) == 0:
-            return Leere()
+            return self.other
         elif len(result) == 1:
             return result[0]
         else:
-            raise ValueError(f"{self} has multiple begriffe of {name}")
+            raise ValueError(f"{self} has multiple begriffe of {name}: {result}")
 
     def _update_wissen(self):
         """create a hashmap from names to Begriff objects"""
@@ -68,7 +81,7 @@ class Bewusstsein:
             raise ValueError(f"Trying to forget unknown begriff {begriff.name}")
         else:
             # self._begriffe[begriff.id] = None
-            self._begriffe[begriff.id] = Leere()
+            self._begriffe[begriff.id] = self.other
             self._update_wissen()
 
     def learn(self, begriff):
@@ -87,6 +100,11 @@ class Bewusstsein:
         # TODO
         s = Begriff(name="self", id=0)
         self.learn(s)
+        identity = Identität()
+        self.learn(identity)
+        leere = Leere()
+        self.learn(leere)
+        self._set_other(leere)
         self._update_wissen()
 
     @property

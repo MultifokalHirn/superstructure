@@ -10,7 +10,7 @@ class Begriff(LogischeForm):
         else:
             self._id = id
         self._name = name if name else "Reiner Begriff"
-        self._synonyms = synonyms if synonyms else ["Sein"]
+        self._synonyms = synonyms
 
     @property
     def id(self):

@@ -42,7 +42,7 @@ python3 main.py
 ```
 
 ## documentation
-[subertructure](https://github.com/MultifokalHirn/superstructure/blob/master/superstructure/README.md)
+[supertructure](https://github.com/MultifokalHirn/superstructure/blob/master/superstructure/README.md)
 
 
 ## license

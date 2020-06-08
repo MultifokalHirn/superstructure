@@ -14,4 +14,4 @@ coming soon
 
 ## singletons
 
-[link](https://github.com/MultifokalHirn/superstructure/blob/master/superstructure/README.md)
+[link](https://github.com/MultifokalHirn/superstructure/blob/master/superstructure/singletons/README.md)
