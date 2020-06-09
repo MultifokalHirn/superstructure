@@ -1,7 +1,6 @@
 import itertools
 
 from redisworks import Root
-
 from superstructure.infrastructure.logo import print_logo
 from superstructure.metastructure.geist import Bewusstsein
 

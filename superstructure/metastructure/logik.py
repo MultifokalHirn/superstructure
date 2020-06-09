@@ -1,5 +1,6 @@
-from .forms import LogischeForm
 from uuid import uuid4
+
+from .forms import LogischeForm
 
 
 class Begriff(LogischeForm):

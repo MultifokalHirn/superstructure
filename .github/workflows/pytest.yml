@@ -26,7 +26,7 @@ jobs:
           black . --check --diff
       - name: Import Sorting
         run: |
-          isort -rc . --check --diff
+          isort -rc superstructure --check --diff
   test:
     runs-on: ubuntu-latest
     needs: linter
@@ -44,13 +44,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
       - name: Test
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
-          pytest tests
-  coveralls_finish:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-    - name: Coveralls Finished
-      uses: AndreMiras/coveralls-python-action@develop
-      with:
-        parallel-finished: true
+          pytest --cov=. tests/
+          coveralls

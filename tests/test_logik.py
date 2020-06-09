@@ -1,9 +1,8 @@
 import unittest
 
-from superstructure.metastructure.logik import Begriff
-
-from superstructure.metastructure.grundbegriffe import Einzelheit
 from superstructure.metastructure.geist import Bewusstsein
+from superstructure.metastructure.grundbegriffe import Einzelheit
+from superstructure.metastructure.logik import Begriff
 
 
 class TestLogik(unittest.TestCase):

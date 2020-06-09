@@ -1,6 +1,6 @@
 <!-- IMAGE-->
 <p align="center">
-  <img width="60%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window_2.png" />
+  <img width="60%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window.png" />
 </p>
 
 # superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit) [![Dependabot Status](https://badgen.net/dependabot/MultifokalHirn/superstructure?icon=dependabot&labelColor=2e3a44&color=blue)](https://dependabot.com) [![Coverage Status](https://coveralls.io/repos/github/MultifokalHirn/superstructure/badge.svg)](https://coveralls.io/github/MultifokalHirn/superstructure) [![Code Style](https://badgen.net/badge/Code%20Style/black?labelColor=2e3a44&color=000000)](https://github.com/psf/black) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)

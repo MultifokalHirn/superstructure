@@ -1,10 +1,9 @@
 import unittest
 
 import pytest
-
 from superstructure.metastructure.geist import Bewusstsein
-from superstructure.metastructure.logik import Begriff, Unknown
 from superstructure.metastructure.grundbegriffe import Identität
+from superstructure.metastructure.logik import Begriff, Unknown
 
 
 class TestBewusstsein(unittest.TestCase):
