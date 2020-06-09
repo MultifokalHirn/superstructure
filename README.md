@@ -28,7 +28,7 @@
     * [External Resources](#external_resources)
     * [Development Notes](#notes)
 * [Acknowledgements](#acknowledgements)
-* [License](#license)
+* [Licensing](#licensing)
 
 <!-- OVERVIEW -->
 <a name="overview"></a>
@@ -55,14 +55,14 @@ __tl;dr__: tools to help order your thoughts generally do not accomodate dialect
 * what we can do however, is to facilitate the _Erkenntnisprozess_ in your _Bewusstsein_
 * any (future) claims of the opposite are either ironic, or should be ignored
 
+
 <!-- USAGE -->
 <a name="usage"></a>
 ## Usage
 
-
-<!-- SETUP -->
+<!-- PREREQUISITES -->
 <a name="prerequisites"></a>
-### Setup
+### Prerequisites
 * you need a running `redis` instance
 
 <!-- SETUP -->
@@ -75,6 +75,7 @@ python3 -mvenv env
 source env/bin/activate
 pip3 install -r requirements-dev.txt
 ```
+
 <!-- TESTING -->
 <a name="testing"></a>
 ### Testing
@@ -108,6 +109,7 @@ python3 main.py
     ·
     <a href="https://github.com/MultifokalHirn/superstructure/issues">Request Feature</a>
 </p>
+
 <!-- GENERAL REMARKS -->
 <a name="remarks"></a>
 ### General Remarks
@@ -126,6 +128,7 @@ Any contributions, be they in the form of comments or code, are **greatly apprec
 * development on superstructure should use `black` for formatting and `bandit` for linting
 * development happens on `dev`, merging into `master` constitutes a version bump
 
+
 <!-- FURTHER READING -->
 <a name="further_reading"></a>
 ## Further Reading
@@ -134,9 +137,26 @@ Any contributions, be they in the form of comments or code, are **greatly apprec
 <a name="documentation"></a>
 ### Documentation
 
-[superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/README.md) constitutes the logical backend
+    ```
+    .
+    ├── metastructure
+    |   └── layout.py
+    ├── superstructure
+    |   ├── forms.py
+    |   ├── geist.py
+    |   ├── grundbegriffe.py
+    |   ├── logik.py
+    |   └── utils.py
+    └── tests
+        ├── test_geist.py
+        └── test_logik.py
+    ```
 
 [metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/metastructure/README.md) constitutes the tooling for user interaction 
+
+[superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/README.md) constitutes the logical backend
+
+
 
 <!-- EXTERNAL RESOURCES -->
 <a name="external_resources"></a>
@@ -157,9 +177,9 @@ Any contributions, be they in the form of comments or code, are **greatly apprec
 ## Acknowledgements
 * [hegel.net](https://hegel.net/en/e0.htm)
 
-<!-- LICENSE -->
-<a name="licene"></a>
-## License
+<!-- LICENSING -->
+<a name="licensing"></a>
+## Licensing
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure?ref=badge_large)
 
