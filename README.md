@@ -1,18 +1,12 @@
-# superstructure
-
-**a tool for Erkenntnis through dialectical notetaking**
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](#testing-)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) 
-[![Contributors][contributors-shield]][contributors-url]
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 <!-- IMAGE-->
 <p align="center">
   <img width="100%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window_2.png" />
 </p>
+
+
+# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)  [![Contributors][contributors-shield]][contributors-url]  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
+**a tool for Erkenntnis through dialectical notetaking**
+
 
 <!-- CONTENTS -->
 <a name="contents"></a>
@@ -69,7 +63,7 @@ __tl;dr__: tools to help order your thoughts generally do not accomodate dialect
 <!-- SETUP -->
 <a name="prerequisites"></a>
 ### Setup
-* you need a running `redis` instance, and then just run `main.py`
+* you need a running `redis` instance
 
 <!-- SETUP -->
 <a name="setup"></a>
