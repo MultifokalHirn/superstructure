@@ -1,10 +1,4 @@
-from .grundbegriffe import (
-    Allgemeinheit,
-    AnsichSein,
-    Einzelheit,
-    FürUnsSein,
-    Identität,
-)
+from .grundbegriffe import Allgemeinheit, AnsichSein, Einzelheit, FürUnsSein, Identität
 from .logik import Begriff, Relation, Unknown
 from .utils import is_compatible
 

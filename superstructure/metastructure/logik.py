@@ -1,18 +1,29 @@
-
 from .forms import LogischeForm
 from uuid import uuid4
 
 
 class Begriff(LogischeForm):
-    """probably not the perfect term, what is meant is a singular Thing of any sort; important: a Begriff is always a _of_ some thing and a thing of a Bewusstsein. thus begriff.besonderheit is always just what is true for the Bewusstseinm not 'objectively', which does not exist"""
+    """probably not the perfect term, what is meant is a singular Thing of any sort; \
+    important: a Begriff is always a _of_ some thing and a thing of a Bewusstsein.
+    thus begriff.besonderheit is always just what is true for the Bewusstsein, not 'objectively'\
+    objective reality is a spook"""
 
-    def __init__(self, name=None, synonyms=[], besonderheit_id=None, allgemeinheit_id=None, einzelheit_id=None):
+    def __init__(
+        self,
+        name=None,
+        synonyms=[],
+        besonderheit_id=None,
+        allgemeinheit_id=None,
+        einzelheit_id=None,
+    ):
         self._id = uuid4()
         self._name = name
         self._synonyms = synonyms
         self._besonderheit = None
         self._allgemeinheit = None
         self._einzelheit = None
+        if einzelheit_id is not None and allgemeinheit_id is not None:
+            raise ValueError()
         if besonderheit_id is not None:
             self.besonderheit = besonderheit_id
         if allgemeinheit_id is not None:
@@ -57,17 +68,17 @@ class Begriff(LogischeForm):
 
     @allgemeinheit.setter
     def allgemeinheit(self, value):
-        'setting'
+        "setting"
         self._allgemeinheit = value
 
     @besonderheit.setter
     def besonderheit(self, value):
-        'setting'
+        "setting"
         self._besonderheit = value
 
     @einzelheit.setter
     def einzelheit(self, value):
-        'setting'
+        "setting"
         self._einzelheit = value
 
     def __eq__(self, other):
@@ -80,7 +91,7 @@ class Begriff(LogischeForm):
         return hash(self.id)
 
     def __repr__(self):
-        return f'<Begriff :: {self.name}>'
+        return f"<Begriff :: {self.name}>"
 
 
 class Unknown(LogischeForm):
@@ -160,4 +171,4 @@ class Relation(Begriff):
         return self._nodes
 
     def __repr__(self):
-        return f'<Relation :: {self.name}>'
+        return f"<Relation :: {self.name}>"

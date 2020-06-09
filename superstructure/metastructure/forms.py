@@ -1,4 +1,3 @@
-
 from abc import ABCMeta as AllgemeineForm  # Form an sich
 
 

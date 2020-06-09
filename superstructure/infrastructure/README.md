@@ -1,7 +1,7 @@
 # infrastructure
 
-[infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure) constitutes the tooling for user interaction 
+[infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure) constitutes the tooling for user interaction
 
-## layout
+## cli
 
 coming soon

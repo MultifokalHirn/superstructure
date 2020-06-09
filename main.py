@@ -2,7 +2,7 @@ import itertools
 
 from redisworks import Root
 
-from superstructure.infrastructure.layout import print_logo
+from superstructure.infrastructure.logo import print_logo
 from superstructure.metastructure.geist import Bewusstsein
 
 
@@ -19,9 +19,9 @@ def main():
     weltgeist.spill()
     print(weltgeist)
     begriff_id_combos = list(itertools.product(weltgeist._begriffe.keys(), repeat=2))
-    for (begriff_idA, begriff_idB) in begriff_id_combos:
+    for (a, b) in begriff_id_combos:
         print(
-            f"{weltgeist.begriff(begriff_idA).name} and {weltgeist.begriff(begriff_idB).name}: {[relation.name for relation in (weltgeist.determine_relations(begriff_idA, begriff_idB))]}"
+            f"{weltgeist.begriff(a).name} and {weltgeist.af(b).name}: {[relation.name for relation in (weltgeist.determine_relations(a, b))]}"
         )
     root.weltgeist = weltgeist
 

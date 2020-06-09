@@ -1,12 +1,6 @@
 from .logik import Begriff, Relation
 
 
-"""
-(Inneres / Ding-An-Sich, Äußeres) ->  Ding
-
-"""
-
-
 class Identität(Relation):
     """Identität an sich"""
 
@@ -118,9 +112,7 @@ class Etwas(Relation):
 
     def __init__(self):
         criterium = lambda a, geist: False  # TODO
-        super().__init__(
-            nodes=1, criterium=criterium, is_directed=False, name="Etwas",
-        )
+        super().__init__(nodes=1, criterium=criterium, is_directed=False, name="Etwas")
 
     @property
     def id(self):
