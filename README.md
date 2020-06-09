@@ -1,16 +1,22 @@
 # superstructure
+
+**a tool for Erkenntnis through dialectical notetaking**
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](#testing-)
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat)](#contributors-)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-**a tool for Erkenntnis through dialectical notetaking**
 
 <p align="center">
   <img width="100%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window.png" />
 </p>
 
+<a name="contents"></a>
+## Contents
+
+- [Contents](#contents)
 - [Overview](#overview)
     - [The Idea](#idea)
     - [Caveats](#caveats)
@@ -33,7 +39,7 @@ __tl;dr__: tools to help order your thoughts generally do not accomodate dialect
 
 <a name="idea"></a>
 ### The Idea
- - as any enlightened person will tell you, dialectical thinking is the only method for gain any actual [Erkenntnis](https://en.wiktionary.org/wiki/Erkenntnis)
+ - as any enlightened person will tell you, dialectical thinking is the only method for gaining any actual [Erkenntnis](https://en.wiktionary.org/wiki/Erkenntnis)
  - dialectical thinking inevitably brings about highly complex and interwoven networks of [Begriffe](https://en.wikipedia.org/wiki/Notion_(philosophy))
  - keeping track of all the things that have already been considered during contemplation is difficult enough by itself, but to then also continuously integrate each one of your insights with the next to uncover all the relations between them, and to revise your understanding of them, is, for any sufficiently complex reflection, virtually impossible
  - people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
@@ -97,21 +103,26 @@ python3 main.py
 
 <a name="documentation"></a>
 ### Documentation
-[superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/README.md)
 
-[metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/metastructure/README.md)
+[superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/README.md) constitutes the logical backend
 
+[metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/metastructure/README.md) constitutes the tooling for user interaction 
+
+<a name="external_resources"></a>
+### External Resources
+coming soon
 
 <a name="notes"></a>
 ### Development Notes
-[development_notes.md](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/development_notes.md)
+[development_notes.md](https://github.com/MultifokalHirn/superstructure/blob/dev/development_notes.md)
 
 <a name="remember"></a>
 ### Things to Remember
-[things_to_remember.md](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/things_to_remember.md)
+[things_to_remember.md](https://github.com/MultifokalHirn/superstructure/blob/dev/things_to_remember.md)
 
 <a name="license"></a>
 ### License
-[MIT](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure?ref=badge_large)
+
+[License File](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
