@@ -7,6 +7,9 @@
 
 **a tool for Erkenntnis through dialectical notetaking**
 
+<p align="center">
+  <img width="100%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window.png" />
+</p>
 
 - [Overview](#overview)
     - [The Idea](#idea)
@@ -18,7 +21,8 @@
     - [Style Guide](#style)
 - [Further Reading](#further_reading)
     - [Documentation](#documentation)
-    - [development Notes](#notes)
+    - [Development Notes](#notes)
+    - [Things to Remember](#remember)
     - [License](#license)
 
 
@@ -89,16 +93,25 @@ python3 main.py
 - development happens on `dev`, merging into `master` constitutes a version bump
 
 <a name="further_reading"></a>
-## further reading
+## Further Reading
 
 <a name="documentation"></a>
 ### Documentation
 [superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/README.md)
 
+[metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/metastructure/README.md)
+
+
 <a name="notes"></a>
 ### Development Notes
 [development_notes.md](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/development_notes.md)
 
+<a name="remember"></a>
+### Things to Remember
+[things_to_remember.md](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/things_to_remember.md)
+
 <a name="license"></a>
 ### License
 [MIT](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure?ref=badge_large)

@@ -1,6 +1,5 @@
-# development notes
+# Things to Remember
 
-**cause why not**
 
 ## June 6
 - bestimmen: Begriff X bestimmt Y als Z1. Schließt nicht aus: Begriff X bestimmt Y als Z2. Dann sind Z1 und Z2 aber auch (sehr unsicher über natur der beziehung) irgendwie sehr stark zusammenhängend. Beispiel:  

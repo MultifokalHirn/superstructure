@@ -12,6 +12,7 @@ coming soon
 
 coming soon
 
-## singletons
+## grundbegriffe
 
-[link](https://github.com/MultifokalHirn/superstructure/blob/master/superstructure/singletons/README.md)
+coming soon
+
