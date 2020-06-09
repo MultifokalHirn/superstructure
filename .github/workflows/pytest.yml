@@ -46,3 +46,11 @@ jobs:
       - name: Test
         run: |
           pytest tests
+  coveralls_finish:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - name: Coveralls Finished
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        parallel-finished: true
