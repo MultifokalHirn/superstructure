@@ -1,12 +1,12 @@
-from superstructure.grundbegriffe import (
+from .grundbegriffe import (
     Allgemeinheit,
     AnsichSein,
     Einzelheit,
     FürUnsSein,
     Identität,
 )
-from superstructure.logik import Begriff, Relation, Unknown
-from superstructure.utils import is_compatible
+from .logik import Begriff, Relation, Unknown
+from .utils import is_compatible
 
 
 class Bewusstsein:

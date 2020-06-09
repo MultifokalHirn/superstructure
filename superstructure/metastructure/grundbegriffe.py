@@ -1,4 +1,4 @@
-from superstructure.logik import Begriff, Relation
+from .logik import Begriff, Relation
 
 
 """

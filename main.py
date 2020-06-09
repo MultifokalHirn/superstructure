@@ -2,8 +2,8 @@ import itertools
 
 from redisworks import Root
 
-from metastructure.layout import print_logo
-from superstructure.geist import Bewusstsein
+from superstructure.infrastructure.layout import print_logo
+from superstructure.metastructure.geist import Bewusstsein
 
 
 def main():

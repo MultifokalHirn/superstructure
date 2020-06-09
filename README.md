@@ -1,12 +1,10 @@
+# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)  [![Contributors][contributors-shield]][contributors-url]  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
+**a tool for Erkenntnis through dialectical notetaking**
+
 <!-- IMAGE-->
 <p align="center">
   <img width="100%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window_2.png" />
 </p>
-
-
-# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)  [![Contributors][contributors-shield]][contributors-url]  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
-**a tool for Erkenntnis through dialectical notetaking**
-
 
 <!-- CONTENTS -->
 <a name="contents"></a>
@@ -23,6 +21,7 @@
 * [Contributing](#contributing)
     * [General Remarks](#remarks)
     * [Style Guide](#style)
+    * [Discussion](#discussion)
 * [Further Reading](#further_reading)
     * [Documentation](#documentation)
     * [External Resources](#external_resources)
@@ -39,19 +38,21 @@ __tl;dr__: tools to help order your thoughts generally do not accomodate dialect
 <!-- THE IDEA -->
 <a name="idea"></a>
 ### The Idea
- - as any enlightened person will tell you, dialectical thinking is the only method for gaining any actual [_Erkenntnis_](https://en.wiktionary.org/wiki/Erkenntnis)
- - dialectical thinking inevitably brings about highly complex and interwoven networks of [_Begriffe_](https://en.wikipedia.org/wiki/Notion_(philosophy))
- - keeping track of all the things that have already been considered during contemplation is difficult enough by itself, but to then also continuously integrate each one of your insights with the next to uncover all the relations between them, and to revise your understanding of them, is, for any sufficiently complex reflection, virtually impossible
- - people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
- - however, I could not find any tool that was well equipped to help with a dialectical approach to understanding things: each note taking tool was in some shape or form hierarchical - top-down or bottom-up - to accomodate _falsches Bewusstsein_
- - superstructure aims to do for the dialectic method, what mindmaps do for methods uninterested in any meaningful insight
+
+ * as any enlightened person will tell you, dialectical thinking is the only method for gaining any actual [_Erkenntnis_](https://en.wiktionary.org/wiki/Erkenntnis)
+ * dialectical thinking inevitably brings about highly complex and interwoven networks of [_Begriffe_](https://en.wikipedia.org/wiki/Notion_(philosophy))
+     * keeping track of all the things that have already been considered during contemplation is difficult enough by itself, but to then also continuously integrate each one of your insights with the next to uncover all the relations between them, and to revise your understanding of them, is, for any sufficiently complex reflection, virtually impossible
+ * people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
+     * however, I could not find any tool that was well equipped to help with a dialectical approach to understanding things: each note taking tool was in some shape or form hierarchical - top-down or bottom-up - to accomodate _falsches Bewusstsein_
+ * superstructure aims to do for the dialectic method, what mindmaps do for methods uninterested in any meaningful insight
 
 <!-- CAVEATS -->
 <a name="caveats"></a>
 ### Caveats
-* a computer program, as a thing in itself, can neither fully replicate nor contain the absolute 
-* designing the basic logical structure is difficult, because when talking about the Gegenstand of a _Begriff_, that _Gegenstand_ is not actually a Gegenstand, but itself just a _Begriff_, an object in computer land
-* isomorphism to the (real) Whole is thus currently not part of the roadmap
+
+* a computer program, as a thing in itself, can neither fully replicate nor contain the _Absolute_ 
+* designing the basic logical structure is difficult, because when talking about the _Gegenstand_ of a _Begriff_, that _Gegenstand_ is not actually a _Gegenstand_, but itself just a _Begriff_, an object in computer land
+* isomorphism to the (real) _Whole_ is thus currently not part of the roadmap
 * what we can do however, is to facilitate the _Erkenntnisprozess_ in your _Bewusstsein_
 * any (future) claims of the opposite are either ironic, or should be ignored
 
@@ -68,7 +69,7 @@ __tl;dr__: tools to help order your thoughts generally do not accomodate dialect
 <!-- SETUP -->
 <a name="setup"></a>
 ### Setup
-* superstructure requires python 3.7 or higher, as well as `redis`,because, as of now, it stores its data as pickled objects there
+* `superstructure` requires python 3.7 or higher, as well as `redis`, because, as of now, it stores its data as pickled objects there
 
 ```shell
 python3 -mvenv env
@@ -79,22 +80,23 @@ pip3 install -r requirements-dev.txt
 <!-- TESTING -->
 <a name="testing"></a>
 ### Testing
-* testing is fairly simple: a _Bewusstsein_ gets created and it is prefilled with _Begriffe_, and then we will check, whether superstructure obeys some fundamental rules of reality
+* testing is fairly simple: a _Bewusstsein_ gets created and it is prefilled with _Begriffe_, and then we will check, whether `superstructure` obeys some fundamental rules of reality
 
 ```shell
 source env/bin/activate
 python3 -mpytest tests
 ```
 
-<!-- TESTING -->
+<!-- RUNNING -->
 <a name="running"></a>
 ### Running
 
-terminal 1:
+start `redis` 
 ```shell
 redis-server
 ```
-terminal 2:
+
+start `superstructure`
 ```shell
 source env/bin/activate
 python3 main.py
@@ -114,7 +116,7 @@ python3 main.py
 <a name="remarks"></a>
 ### General Remarks
 
-Any contributions, be they in the form of comments or code, are **greatly appreciated**. If you want to contribute some code, please do so by following this common procedure:
+Any contributions to `superstructure`, be they in the form of comments or code, are **greatly appreciated**. If you want to contribute some code, please do so by following this common procedure:
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/new_stuff`)
@@ -125,8 +127,15 @@ Any contributions, be they in the form of comments or code, are **greatly apprec
 <!-- STYLE GUIDE -->
 <a name="style"></a>
 ### Style Guide
-* development on superstructure should use `black` for formatting and `bandit` for linting
+* development on `superstructure` should use `black` for formatting and `bandit` for linting
 * development happens on `dev`, merging into `master` constitutes a version bump
+
+<!-- DISCUSSION -->
+<a name="discussion"></a>
+### Discussion
+* [General Discussion](https://github.com/MultifokalHirn/superstructure/issues/1)
+* [General Questions](https://github.com/MultifokalHirn/superstructure/issues/3)
+
 
 
 <!-- FURTHER READING -->
@@ -137,45 +146,52 @@ Any contributions, be they in the form of comments or code, are **greatly apprec
 <a name="documentation"></a>
 ### Documentation
 
-    ```
-    .
-    ├── metastructure
-    |   └── layout.py
-    ├── superstructure
-    |   ├── forms.py
-    |   ├── geist.py
-    |   ├── grundbegriffe.py
-    |   ├── logik.py
-    |   └── utils.py
-    └── tests
-        ├── test_geist.py
-        └── test_logik.py
-    ```
+```shell
+.
+├── [superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure)
+|   |
+|   ├── [metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure)
+|   |   ├── forms.py
+|   |   ├── geist.py
+|   |   ├── grundbegriffe.py
+|   |   ├── logik.py
+|   |   └── utils.py
+|   |
+|   └── [infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure)
+|       └── layout.py
+|    
+└── [tests](https://github.com/MultifokalHirn/superstructure/blob/dev/tests)
+|       ├── test_geist.py
+|       └── test_logik.py
+|   
+└── main.py
+```
 
-[metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/metastructure/README.md) constitutes the tooling for user interaction 
+[metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure/README.md) constitutes the logical backend
 
-[superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/README.md) constitutes the logical backend
+[infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure/README.md) constitutes the tooling for user interaction
 
-
+[wiki](https://github.com/MultifokalHirn/superstructure/wiki)
 
 <!-- EXTERNAL RESOURCES -->
 <a name="external_resources"></a>
 ### External Resources
-* G.W.F. Hegel: [_Die Wissenschaft der Logik_](http://hegel.logik.1.abcphil.de)
+
+* G. W. F. Hegel: [_Die Wissenschaft der Logik_](http://hegel.logik.1.abcphil.de)
+* nLab: [Formalization of _Hegel's Science of Logic_ in Categorical logic / in Modal homotopy type theory](https://ncatlab.org/nlab/show/Science+of+Logic#FormalizationText)
+* Thomas Sören Hoffmann: [_Georg Wilhelm Friedrich Hegel - Eine Propädeutik_](https://www.verlagshaus-roemerweg.de/Marix_Verlag/Thomas_Soeren_Hoffmann-Georg_Wilhelm_Friedrich_Hegel-EAN:9783865392909.html)
+* [hegel.net](https://hegel.net/en/e0.htm)
+* Sven Jürgensen: [_Freiheit in den Systemen Hegels und Schellings_](https://books.google.ae/books?id=sL_fb9p-q5YC&dq=hegel+bestimmt+unbestimmt&hl=en)
+* [github.com/m-strasser/hegelizer](https://github.com/m-strasser/hegelizer)
 
 <!-- DEVELOPMENT NOTES -->
 <a name="notes"></a>
 ### Development Notes
 
-[development_notes.md](https://github.com/MultifokalHirn/superstructure/blob/dev/development_notes.md)
+[CHANGELOG.md](https://github.com/MultifokalHirn/superstructure/blob/dev/CHANGELOG.md)
 
 [things_to_remember.md](https://github.com/MultifokalHirn/superstructure/blob/dev/things_to_remember.md)
 
-
-<!-- ACKNOWLEDGEMENTS -->
-<a name="acknowledgements"></a>
-## Acknowledgements
-* [hegel.net](https://hegel.net/en/e0.htm)
 
 <!-- LICENSING -->
 <a name="licensing"></a>
@@ -190,3 +206,10 @@ Any contributions, be they in the form of comments or code, are **greatly apprec
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/badge/all_contributors-1-red.svg?style=flat
 [contributors-url]: https://github.com/MultifokalHirn/superstructure/graphs/contributors
+
+
+<!-- ACKNOWLEDGEMENTS -->
+<a name="acknowledgements"></a>
+## Acknowledgements
+
+* thanks Hegel
