@@ -10,12 +10,15 @@ class Begriff(LogischeForm):
         self._id = uuid4()
         self._name = name
         self._synonyms = synonyms
-        self._besonderheit = LogischeForm.id
-        self._allgemeinheit = LogischeForm.id
-        self._einzelheit = self._id
-        self.besonderheit = besonderheit_id
-        self.allgemeinheit = allgemeinheit_id
-        self.einzelheit = einzelheit_id
+        self._besonderheit = None
+        self._allgemeinheit = None
+        self._einzelheit = None
+        if besonderheit_id is not None:
+            self.besonderheit = besonderheit_id
+        if allgemeinheit_id is not None:
+            self.allgemeinheit = allgemeinheit_id
+        if einzelheit_id is not None:
+            self.einzelheit = einzelheit_id
 
     @property
     def id(self):
@@ -40,7 +43,11 @@ class Begriff(LogischeForm):
     @property
     def allgemeinheit(self):
         try:
-            return self._allgemeinheit
+            a = self._allgemeinheit
+            if a is None:
+                raise ValueError()
+            else:
+                return a
         except BaseException:
             return self.__class__.id
 

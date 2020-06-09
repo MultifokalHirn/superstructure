@@ -1,11 +1,11 @@
 from superstructure.grundbegriffe import (
+    Allgemeinheit,
     AnsichSein,
+    Einzelheit,
     FürUnsSein,
     Identität,
-    Allgemeinheit,
-    Einzelheit,
 )
-from superstructure.logik import Begriff, Relation, Unknown
+from superstructure.logik import Relation, Unknown
 from superstructure.utils import is_compatible
 
 
