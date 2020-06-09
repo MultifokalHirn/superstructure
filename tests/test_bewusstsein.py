@@ -14,7 +14,7 @@ class TestBewusstsein(unittest.TestCase):
         b.learn(a)
 
         self.assertTrue(
-            b.relation_applies(Identität, [b.begriff("A").allgemeinheit, Begriff.id])
+            b.relation_applies(Identität(), [b.begriff("A").allgemeinheit, Begriff.id])
         )
         self.assertEqual(b.begriff("A"), Unknown())
         self.assertFalse(b.other == b.self)

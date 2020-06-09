@@ -16,7 +16,7 @@ class TestLogik(unittest.TestCase):
         b.learn(j)
         # self.assertEqual(i.allgemeinheit, Begriff().id)
         self.assertEqual(j.allgemeinheit, i.id)
-        self.assertTrue(b.relation_applies(Einzelheit, [b.get(i.einzelheit), j]))
+        self.assertTrue(b.relation_applies(Einzelheit(), [j.id, i.id]))
 
 
 if __name__ == "__main__":

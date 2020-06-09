@@ -5,7 +5,7 @@ from superstructure.grundbegriffe import (
     FürUnsSein,
     Identität,
 )
-from superstructure.logik import Relation, Unknown
+from superstructure.logik import Begriff, Relation, Unknown
 from superstructure.utils import is_compatible
 
 
@@ -97,7 +97,7 @@ class Bewusstsein:
             self._begriffe[begriff.id] = self.other
             self._update_wissen()
 
-    def learn(self, begriff):
+    def learn(self, begriff, verbose=False):
         # TODO should maybe take name and begriff
         # print("learn....")
         if begriff.name in self.wissen.keys():
@@ -115,6 +115,8 @@ class Bewusstsein:
         """should fill up the Bewusstseins wissen with most basic Begriffe, for example a self, relations such as Identität and so on"""
         # TODO
         self._set_other(Unknown())
+        s = Begriff(name="self")
+        self.learn(s)
         self.learn(Identität())
         self.learn(Allgemeinheit())
         self.learn(Einzelheit())
@@ -135,22 +137,25 @@ class Bewusstsein:
         else:
             return relations
 
-    def relation_applies(self, relation, begriffe=[], verbose=True):
+    def relation_applies(self, relation, begriff_ids=[], verbose=True):
         # TODO it should be structurally impossible for a Bewusstsein to evaluate begriffe that are not its inhalt, with relations it does not know
-        if relation.nodes != len(begriffe):
+        if relation.nodes != len(begriff_ids):
             if verbose:
                 self.say(
-                    f"{relation} can only apply for {relation.nodes} Begriff{'e' if relation.nodes != 1 else ''}, thus it can not apply for {begriffe}"
+                    f"{relation} can only apply for {relation.nodes} Begriff{'e' if relation.nodes != 1 else ''}, thus it can not apply for {begriff_ids}"
                 )
             return False
         else:
+            begriffe = [self.get(begriff_id) for begriff_id in begriff_ids] + [self]
             args = tuple(begriffe)
-            return relation.condition(*args, self)
+            # print(f"relation.criterium({args})")
+            # print(f"({relation.criterium(*args)})")
+            return relation.criterium(*args)
 
     def determine_relations(self, a, b):
         """yield relations the Bewusstsein thinks exist between a and b"""
         for relation in self.known_relations:
-            if self.relation_applies(relation, a, b):
+            if self.relation_applies(relation, begriff_ids=[a, b], verbose=False):
                 yield relation
 
     def say(self, sentence):
@@ -164,5 +169,5 @@ class Bewusstsein:
                 self.say(f"I know {name} as {self._begriffe.get(id, None)}")
 
     def __repr__(self):
-        size = len(self.wissen)
-        return f"<Bewusstsein :: {self.name} [{self.state}] -- size {size}>"
+        size = len(self._begriffe)
+        return f"<Bewusstsein :: {self.name} -- knows {size} Begriffe>"
