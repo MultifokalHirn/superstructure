@@ -23,3 +23,10 @@ repos:
         additional_dependencies: ['pep8-naming']
         # Ignore all format-related checks as Black takes care of those.
         args: ['--ignore', 'E2,W5,E731', '--select', 'E,W,F,N', '--max-line-length=160']
+
+-   repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
+    sha: v1.0.4
+    hooks:
+    -   id: python-bandit-vulnerability-check
+        args: [-l, --recursive, -x, tests]
+        files: .py$

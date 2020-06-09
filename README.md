@@ -1,10 +1,10 @@
-# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)  [![Contributors][contributors-shield]][contributors-url]  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-**a tool for Erkenntnis through dialectical notetaking**
-
 <!-- IMAGE-->
 <p align="center">
   <img width="60%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window_2.png" />
 </p>
+
+# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)  [![Contributors][contributors-shield]][contributors-url] [![Code Style](https://badgen.net/badge/Code%20Style/black?labelColor=2e3a44&color=000000)](https://github.com/psf/black) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
+**a tool for Erkenntnis through dialectical notetaking**
 
 <!-- CONTENTS -->
 <a name="contents"></a>
@@ -120,11 +120,12 @@ Any contributions to `superstructure`, be they in the form of comments or code, 
 ### Setup for Development
 * `superstructure` requires python 3.7 or higher, as well as `redis`, because, as of now, it stores its data as pickled objects there
 
-```shell
+```sh
 python3 -mvenv env
 source env/bin/activate
-pre-commit install
 pip3 install -r requirements-dev.txt
+pre-commit install && pre-commit install -t pre-push
+pre-commit run --all-files
 ```
 
 
@@ -143,6 +144,7 @@ python3 -mpytest tests
 ### Style Guide
 * development on `superstructure` should use `black` for formatting and `bandit` for linting
 * development happens on `dev`, merging into `master` constitutes a version bump
+
 
 <!-- DISCUSSION -->
 <a name="discussion"></a>
