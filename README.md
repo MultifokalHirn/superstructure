@@ -3,7 +3,7 @@
 
 <!-- IMAGE-->
 <p align="center">
-  <img width="100%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window_2.png" />
+  <img width="60%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo.png" />
 </p>
 
 <!-- CONTENTS -->
@@ -11,7 +11,7 @@
 ## Contents
 
 * [Overview](#overview)
-    * [The Idea](#idea)
+    * [Idea](#idea)
     * [Caveats](#caveats)
 * [Usage](#usage)
     * [Prerequisites](#prerequisites)
@@ -26,8 +26,8 @@
     * [Documentation](#documentation)
     * [External Resources](#external_resources)
     * [Development Notes](#notes)
-* [Acknowledgements](#acknowledgements)
 * [Licensing](#licensing)
+* [Acknowledgements](#acknowledgements)
 
 <!-- OVERVIEW -->
 <a name="overview"></a>
@@ -35,9 +35,9 @@
 
 __tl;dr__: tools to help order your thoughts generally do not accomodate dialectical thinking in any meaningful way. superstructure is aiming to do so.
 
-<!-- THE IDEA -->
+<!-- IDEA -->
 <a name="idea"></a>
-### The Idea
+### Idea
 
  * as any enlightened person will tell you, dialectical thinking is the only method for gaining any actual [_Erkenntnis_](https://en.wiktionary.org/wiki/Erkenntnis)
  * dialectical thinking inevitably brings about highly complex and interwoven networks of [_Begriffe_](https://en.wikipedia.org/wiki/Notion_(philosophy))
@@ -91,12 +91,12 @@ python3 -mpytest tests
 <a name="running"></a>
 ### Running
 
-start `redis` 
+* start `redis` 
 ```shell
 redis-server
 ```
 
-start `superstructure`
+* start `superstructure`
 ```shell
 source env/bin/activate
 python3 main.py
@@ -146,30 +146,30 @@ Any contributions to `superstructure`, be they in the form of comments or code, 
 <a name="documentation"></a>
 ### Documentation
 
-```shell
+```
 .
-├── [superstructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure)
+├── superstructure
 |   |
-|   ├── [metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure)
+|   ├── metastructure
 |   |   ├── forms.py
 |   |   ├── geist.py
 |   |   ├── grundbegriffe.py
 |   |   ├── logik.py
 |   |   └── utils.py
 |   |
-|   └── [infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure)
+|   └── infrastructure
 |       └── layout.py
 |    
-└── [tests](https://github.com/MultifokalHirn/superstructure/blob/dev/tests)
+└── tests
 |       ├── test_geist.py
 |       └── test_logik.py
 |   
 └── main.py
 ```
 
-[metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure/README.md) constitutes the logical backend
-
-[infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure/README.md) constitutes the tooling for user interaction
+* [metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure) constitutes the logical backend
+* [infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure) constitutes the tooling for user interaction
+* [tests](https://github.com/MultifokalHirn/superstructure/blob/dev/tests)
 
 [wiki](https://github.com/MultifokalHirn/superstructure/wiki)
 
