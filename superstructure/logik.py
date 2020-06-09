@@ -4,13 +4,18 @@ from uuid import uuid4
 
 
 class Begriff(LogischeForm):
-    def __init__(self, name=None, synonyms=[], id=None):
-        if id is None:
-            self._id = uuid4()
-        else:
-            self._id = id
-        self._name = name if name else "Reiner Begriff"
+    """probably not the perfect term, what is meant is a singular Thing of any sort; important: a Begriff is always a _of_ some thing and a thing of a Bewusstsein. thus begriff.besonderheit is always just what is true for the Bewusstseinm not 'objectively', which does not exist"""
+
+    def __init__(self, name=None, synonyms=[], besonderheit_id=None, allgemeinheit_id=None, einzelheit_id=None):
+        self._id = uuid4()
+        self._name = name
         self._synonyms = synonyms
+        self._besonderheit = LogischeForm.id
+        self._allgemeinheit = LogischeForm.id
+        self._einzelheit = self._id
+        self.besonderheit = besonderheit_id
+        self.allgemeinheit = allgemeinheit_id
+        self.einzelheit = einzelheit_id
 
     @property
     def id(self):
@@ -30,15 +35,33 @@ class Begriff(LogischeForm):
 
     @property
     def besonderheit(self):
-        return self
+        return self._besonderheit
 
     @property
     def allgemeinheit(self):
-        return self
+        try:
+            return self._allgemeinheit
+        except BaseException:
+            return self.__class__.id
 
     @property
     def einzelheit(self):
-        return self
+        return self._einzelheit
+
+    @allgemeinheit.setter
+    def allgemeinheit(self, value):
+        'setting'
+        self._allgemeinheit = value
+
+    @besonderheit.setter
+    def besonderheit(self, value):
+        'setting'
+        self._besonderheit = value
+
+    @einzelheit.setter
+    def einzelheit(self, value):
+        'setting'
+        self._einzelheit = value
 
     def __eq__(self, other):
         """Overrides the default implementation"""
@@ -53,55 +76,81 @@ class Begriff(LogischeForm):
         return f'<Begriff :: {self.name}>'
 
 
-class Relation(Begriff):
-    """Relation of 2 Begriffe"""
+class Unknown(LogischeForm):
+    """polar opposite of a Begriff"""
 
-    def __init__(self, name, criterium, synonyms=[], is_directed=True):
-        super().__init__(name=name, synonyms=synonyms)
+    def __init__(self):
+        self._name = "Unknown"
+
+    @property
+    def id(self):
+        return self.name
+
+    @property
+    def name(self):
+        return self._name.lower()
+
+    @property
+    def synonyms(self):
+        return []
+
+    @property
+    def names(self):
+        return [self.name]
+
+    @property
+    def besonderheit(self):
+        return self.id
+
+    @property
+    def allgemeinheit(self):
+        return self.id
+
+    @property
+    def einzelheit(self):
+        return self.id
+
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        return isinstance(other, type(self))
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __repr__(self):
+        return f"<{self.name}>"
+
+
+class Relation(Begriff):
+    """Relation between Begriffe"""
+
+    def __init__(self, nodes=2, criterium=None, is_directed=True, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if nodes == 0:
+            raise ValueError("Relation needs to have at least one node")
+        self._nodes = nodes  # number of begriffe for relation
         self._is_directed = is_directed
         self._criterium = criterium  # lambda expression with ordered arguments
 
     @property
     def criterium(self):
-        if self._is_directed:
+        if self.is_directed:
             return self._criterium
         else:
-            # TODO copy cireterium, switch the arguments and verunde (and) them
+            # TODO copy criterium, switch the arguments and ver-unde (and) them
             return self._criterium
+
+    @property
+    def is_directed(self):
+        if self.nodes == 1:
+            return False
+        else:
+            return self._is_directed
+
+    @property
+    def nodes(self):
+        return self._nodes
 
     def __repr__(self):
         return f'<Relation :: {self.name}>'
-
-
-class Allgemeinheit(Begriff):
-    """allgemeine Allgemeinheit"""
-
-    def __init__(self, name, synonyms=[], instances=[]):
-        super().__init__(name=name, synonyms=synonyms)
-        self._instances = instances
-
-    @property
-    def instances(self):
-        # einzelnheiten
-        return self._instances
-
-    def __repr__(self):
-        return f'<Allgemeinheit :: {self.name}>'
-
-
-class Einzelnheit(LogischeForm):
-    """allgemeine Einzelnheit an und für sich"""
-
-    def __init__(self, name, synonyms=[], allgemeinheit=None):
-        super().__init__(name=name, synonyms=synonyms)
-        self._allgemeinheit = allgemeinheit
-
-    @property
-    def allgemeinheit(self):
-        return self._allgemeinheit
-
-    def set_allgemeinheit(self, x):
-        self._allgemeinheit = x
-
-    def __repr__(self):
-        return f'<Einzelnheit :: {self.name}>'

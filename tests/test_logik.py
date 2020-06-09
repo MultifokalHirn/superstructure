@@ -1,26 +1,27 @@
 import unittest
 
-from hypothesis import example, given
+from hypothesis import given
 from hypothesis.strategies import text
 
-from superstructure.logik import Allgemeinheit, Einzelnheit
-from superstructure.singletons import AbstrakteAllgemeinheit, Identität
+from superstructure.logik import Begriff
+
+from superstructure.grundbegriffe import Einzelheit
+from superstructure.geist import Bewusstsein
 
 
 class TestLogik(unittest.TestCase):
     @given(text())
     def test_basic_logik(self, s):
-        aa1 = AbstrakteAllgemeinheit()
-        aa2 = AbstrakteAllgemeinheit()
-        self.assertEqual(aa1.allgemeinheit, Allgemeinheit)
-        self.assertEqual(aa1, aa2)
+        b = Bewusstsein(name="TestBewusstsein")
+        i = Begriff(name="I")
+        j = Begriff(name="J", allgemeinheit_id=i.id)
+        i.set_einzelheit(j.id)
+        b.learn(i)
+        b.learn(j)
+        self.assertEqual(i.allgemeinheit, Begriff.id)
+        self.assertEqual(j.allgemeinheit, i.id)
+        self.assertTrue(b.relation_applies(Einzelheit, [b.get(i.einzelheit), j]))
 
-
-"""
-(Ansichsein, Sein-für-Anderes) -> Etwas
-(Inneres / Ding-An-Sich, Äußeres) ->  Ding
-
-"""
 
 if __name__ == "__main__":
     unittest.main()

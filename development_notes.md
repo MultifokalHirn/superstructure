@@ -1,6 +1,10 @@
 # development notes
 
 **cause why not**
+## June 9
+- started to get really unsure about the whole logical form thing. if the a.allgemeinheit == b and b.einzelheit == a and a.besonderheit == ... scratch that, it does make sense
+- Allgemeinheit and Einzelheit as classes however appear questionable; maybe even use even more abstract language? negative?
+- just realized from AbstrakteAllgemeinheit: it should actually be the class Allgemeinheit.. 
 
 ## June 6
 - defining abstract concepts that fold into themselves and are interconnected is pretty hard to do when restricted by a language that is interpreted bottom up, not top down

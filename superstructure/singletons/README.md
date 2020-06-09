@@ -1,3 +1,0 @@
-# singletons
-
-coming soon

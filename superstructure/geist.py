@@ -1,20 +1,33 @@
-from .singletons.an_sich import Leere, Identität
-
-from .logik import Begriff, Relation
-from .utils import is_compatible
+from superstructure.grundbegriffe import (
+    AnsichSein,
+    FürUnsSein,
+    Identität,
+    Allgemeinheit,
+    Einzelheit,
+)
+from superstructure.logik import Begriff, Relation, Unknown
+from superstructure.utils import is_compatible
 
 
 class Bewusstsein:
     def __init__(self, name, begriffe={}):
-        self.name = name
+        self._name = name
         self.state = "coherent"  # should become singleton
         self._begriffe = {}  # {id: Begriff}
         self._wissen = {}  # {name: [ids]}
-        self._other = self
+        self._other = Unknown()
         if len(begriffe) == 0:
             self.generate_basic_begriffe()
         else:
             self._update_wissen()
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def id(self):
+        return self.name
 
     @property
     def wissen(self):
@@ -35,9 +48,9 @@ class Bewusstsein:
             return
         self._other = other
 
-    def begriff(self, name):
-        """Bewusstsein returns their Begriff of {name}"""
-        ids = self.wissen.get(name, [])
+    def begriff(self, word):
+        """Bewusstsein returns their Begriff of {word}"""
+        ids = self.wissen.get(word, [])
         result = []
         for id in ids:
             result.append(self._begriffe[id])
@@ -46,7 +59,7 @@ class Bewusstsein:
         elif len(result) == 1:
             return result[0]
         else:
-            raise ValueError(f"{self} has multiple begriffe of {name}: {result}")
+            raise ValueError(f"{self} has multiple begriffe of {word}: {result}")
 
     def _update_wissen(self):
         """create a hashmap from names to Begriff objects"""
@@ -95,30 +108,44 @@ class Bewusstsein:
             self._begriffe[begriff.id] = begriff
             self._update_wissen()
 
+    def get(self, begriff_id):
+        return self._begriffe.get(begriff_id, Unknown())
+
     def generate_basic_begriffe(self):
         """should fill up the Bewusstseins wissen with most basic Begriffe, for example a self, relations such as Identität and so on"""
         # TODO
-        s = Begriff(name="self", id=0)
-        self.learn(s)
-        identity = Identität()
-        self.learn(identity)
-        leere = Leere()
-        self.learn(leere)
-        self._set_other(leere)
+        self._set_other(Unknown())
+        self.learn(Identität())
+        self.learn(Allgemeinheit())
+        self.learn(Einzelheit())
+        self.learn(AnsichSein())
+        self.learn(FürUnsSein())
         self._update_wissen()
 
     @property
-    def known_relations(self):
+    def known_relations(self, nodes=None):
         """list the relations the Bewusstsein has a Begriff of"""
-        return [
+        relations = [
             begriff
             for begriff in self._begriffe.values()
             if isinstance(begriff, Relation)
         ]
+        if nodes is not None:
+            return [relation for relation in relations if relation.nodes == nodes]
+        else:
+            return relations
 
-    def relation_applies(self, relation, a, b):
+    def relation_applies(self, relation, begriffe=[], verbose=True):
         # TODO it should be structurally impossible for a Bewusstsein to evaluate begriffe that are not its inhalt, with relations it does not know
-        return relation.condition(a, b)
+        if relation.nodes != len(begriffe):
+            if verbose:
+                self.say(
+                    f"{relation} can only apply for {relation.nodes} Begriff{'e' if relation.nodes != 1 else ''}, thus it can not apply for {begriffe}"
+                )
+            return False
+        else:
+            args = tuple(begriffe)
+            return relation.condition(*args, self)
 
     def determine_relations(self, a, b):
         """yield relations the Bewusstsein thinks exist between a and b"""

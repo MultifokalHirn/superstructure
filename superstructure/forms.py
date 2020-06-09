@@ -1,6 +1,5 @@
 
 from abc import ABCMeta as AllgemeineForm  # Form an sich
-from abc import abstractmethod
 
 
 class LogischeForm(metaclass=AllgemeineForm):
@@ -12,7 +11,7 @@ class LogischeForm(metaclass=AllgemeineForm):
 
     @property
     def id(self):
-        pass
+        return self.__name__
 
     @property
     def besonderheit(self):
