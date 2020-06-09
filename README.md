@@ -1,9 +1,9 @@
-# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)  [![Contributors][contributors-shield]][contributors-url]  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
+# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)  [![Contributors][contributors-shield]][contributors-url]  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 **a tool for Erkenntnis through dialectical notetaking**
 
 <!-- IMAGE-->
 <p align="center">
-  <img width="60%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo.png" />
+  <img width="60%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window_2.png" />
 </p>
 
 <!-- CONTENTS -->
@@ -16,10 +16,11 @@
 * [Usage](#usage)
     * [Prerequisites](#prerequisites)
     * [Setup](#setup)
-    * [Testing](#testing)
     * [Running](#running)
 * [Contributing](#contributing)
     * [General Remarks](#remarks)
+    * [Setup for Development](#setup_dev)
+    * [Testing](#testing)
     * [Style Guide](#style)
     * [Discussion](#discussion)
 * [Further Reading](#further_reading)
@@ -33,24 +34,24 @@
 <a name="overview"></a>
 ## Overview
 
-__tl;dr__: tools to help order your thoughts generally do not accomodate dialectical thinking in any meaningful way. superstructure is aiming to do so.
+__tl;dr__: tools to help order your thoughts generally do not accommodate dialectical thinking in any meaningful way. superstructure is aiming to do so.
 
 <!-- IDEA -->
 <a name="idea"></a>
 ### Idea
 
- * as any enlightened person will tell you, dialectical thinking is the only method for gaining any actual [_Erkenntnis_](https://en.wiktionary.org/wiki/Erkenntnis)
- * dialectical thinking inevitably brings about highly complex and interwoven networks of [_Begriffe_](https://en.wikipedia.org/wiki/Notion_(philosophy))
-     * keeping track of all the things that have already been considered during contemplation is difficult enough by itself, but to then also continuously integrate each one of your insights with the next to uncover all the relations between them, and to revise your understanding of them, is, for any sufficiently complex reflection, virtually impossible
- * people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
-     * however, I could not find any tool that was well equipped to help with a dialectical approach to understanding things: each note taking tool was in some shape or form hierarchical - top-down or bottom-up - to accomodate _falsches Bewusstsein_
- * superstructure aims to do for the dialectic method, what mindmaps do for methods uninterested in any meaningful insight
+* as any enlightened person will tell you, dialectical thinking is the only method for gaining any actual [_Erkenntnis_](https://en.wiktionary.org/wiki/Erkenntnis)
+* dialectical thinking inevitably brings about highly complex and interwoven networks of [_Begriffe_](https://en.wikipedia.org/wiki/Notion_(philosophy))
+    * keeping track of all the things that have already been considered during contemplation is difficult enough by itself, but to then also continuously integrate each one of your insights with the next to uncover all the relations between them, and to revise your understanding of them, is, for any sufficiently complex reflection, virtually impossible
+* people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
+    * however, I could not find any tool that was well equipped to help with a dialectical approach to understanding things: each note taking tool was in some shape or form hierarchical - top-down or bottom-up - to accommodate _falsches Bewusstsein_
+* superstructure aims to do for the dialectic method, what mindmaps do for methods uninterested in any meaningful insight
 
 <!-- CAVEATS -->
 <a name="caveats"></a>
 ### Caveats
 
-* a computer program, as a thing in itself, can neither fully replicate nor contain the _Absolute_ 
+* a computer program, as a thing in itself, can neither fully replicate nor contain the _Absolute_
 * designing the basic logical structure is difficult, because when talking about the _Gegenstand_ of a _Begriff_, that _Gegenstand_ is not actually a _Gegenstand_, but itself just a _Begriff_, an object in computer land
 * isomorphism to the (real) _Whole_ is thus currently not part of the roadmap
 * what we can do however, is to facilitate the _Erkenntnisprozess_ in your _Bewusstsein_
@@ -64,34 +65,23 @@ __tl;dr__: tools to help order your thoughts generally do not accomodate dialect
 <!-- PREREQUISITES -->
 <a name="prerequisites"></a>
 ### Prerequisites
-* you need a running `redis` instance
+* `superstructure` requires python 3.7 or higher, as well as `redis`, because, as of now, it stores its data as pickled objects there
 
 <!-- SETUP -->
 <a name="setup"></a>
 ### Setup
-* `superstructure` requires python 3.7 or higher, as well as `redis`, because, as of now, it stores its data as pickled objects there
 
 ```shell
 python3 -mvenv env
 source env/bin/activate
-pip3 install -r requirements-dev.txt
-```
-
-<!-- TESTING -->
-<a name="testing"></a>
-### Testing
-* testing is fairly simple: a _Bewusstsein_ gets created and it is prefilled with _Begriffe_, and then we will check, whether `superstructure` obeys some fundamental rules of reality
-
-```shell
-source env/bin/activate
-python3 -mpytest tests
+pip3 install -r requirements.txt
 ```
 
 <!-- RUNNING -->
 <a name="running"></a>
 ### Running
 
-* start `redis` 
+* start `redis`
 ```shell
 redis-server
 ```
@@ -123,6 +113,30 @@ Any contributions to `superstructure`, be they in the form of comments or code, 
 3. Commit your Changes (`git commit -m 'Add some new stuff'`)
 4. Push to the Branch (`git push origin feature/new_stuff`)
 5. Open a Pull Request
+
+
+<!-- SETUP -->
+<a name="setup_dev"></a>
+### Setup for Development
+* `superstructure` requires python 3.7 or higher, as well as `redis`, because, as of now, it stores its data as pickled objects there
+
+```shell
+python3 -mvenv env
+source env/bin/activate
+pre-commit install
+pip3 install -r requirements-dev.txt
+```
+
+
+<!-- TESTING -->
+<a name="testing"></a>
+### Testing
+* testing is fairly simple: a _Bewusstsein_ gets created and it is prefilled with _Begriffe_, and then we will check, whether `superstructure` obeys some fundamental rules of reality
+
+```shell
+source env/bin/activate
+python3 -mpytest tests
+```
 
 <!-- STYLE GUIDE -->
 <a name="style"></a>
@@ -159,11 +173,11 @@ Any contributions to `superstructure`, be they in the form of comments or code, 
 |   |
 |   └── infrastructure
 |       └── layout.py
-|    
+|
 └── tests
 |       ├── test_geist.py
 |       └── test_logik.py
-|   
+|
 └── main.py
 ```
 
@@ -188,7 +202,7 @@ Any contributions to `superstructure`, be they in the form of comments or code, 
 <a name="notes"></a>
 ### Development Notes
 
-[CHANGELOG.md](https://github.com/MultifokalHirn/superstructure/blob/dev/CHANGELOG.md)
+[CHANGES.md](https://github.com/MultifokalHirn/superstructure/blob/dev/CHANGES.md)
 
 [things_to_remember.md](https://github.com/MultifokalHirn/superstructure/blob/dev/things_to_remember.md)
 
