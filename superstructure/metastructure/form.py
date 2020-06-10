@@ -13,7 +13,11 @@ class LogischeForm(metaclass=AllgemeineForm):
         return self.__name__
 
     @property
-    def besonderheit(self):
+    def negation(self):
+        pass
+
+    @property
+    def aufhebung(self):
         pass
 
     @property

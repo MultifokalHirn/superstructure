@@ -1,32 +1,33 @@
 from uuid import uuid4
 
-from .forms import LogischeForm
+from .form import LogischeForm
 
 
 class Begriff(LogischeForm):
-    """probably not the perfect term, what is meant is a singular Thing of any sort; \
+    """probably not the perfect name, what is meant is a singular Thing of any sort; \
     important: a Begriff is always a _of_ some thing and a thing of a Bewusstsein.
-    thus begriff.besonderheit is always just what is true for the Bewusstsein, not 'objectively'\
+    thus begriff.aufhebung is always just what is true for the Bewusstsein, not 'objectively'\
     objective reality is a spook"""
 
     def __init__(
         self,
         name=None,
         synonyms=[],
-        besonderheit_id=None,
+        aufhebung_id=None,
         allgemeinheit_id=None,
         einzelheit_id=None,
     ):
         self._id = uuid4()
         self._name = name
         self._synonyms = synonyms
-        self._besonderheit = None
+        self._aufhebung = None
+        self._negation = None
         self._allgemeinheit = None
         self._einzelheit = None
         if einzelheit_id is not None and allgemeinheit_id is not None:
             raise ValueError()
-        if besonderheit_id is not None:
-            self.besonderheit = besonderheit_id
+        if aufhebung_id is not None:
+            self.aufhebung = aufhebung_id
         if allgemeinheit_id is not None:
             self.allgemeinheit = allgemeinheit_id
         if einzelheit_id is not None:
@@ -49,19 +50,16 @@ class Begriff(LogischeForm):
         return self.synonyms + [self.name]
 
     @property
-    def besonderheit(self):
-        return self._besonderheit
+    def aufhebung(self):
+        return self._aufhebung
+
+    @property
+    def negation(self):
+        return self._negation
 
     @property
     def allgemeinheit(self):
-        try:
-            a = self._allgemeinheit
-            if a is None:
-                raise ValueError()
-            else:
-                return a
-        except BaseException:
-            return self.__class__.id
+        return self._allgemeinheit
 
     @property
     def einzelheit(self):
@@ -72,10 +70,10 @@ class Begriff(LogischeForm):
         "setting"
         self._allgemeinheit = value
 
-    @besonderheit.setter
-    def besonderheit(self, value):
+    @aufhebung.setter
+    def aufhebung(self, value):
         "setting"
-        self._besonderheit = value
+        self._aufhebung = value
 
     @einzelheit.setter
     def einzelheit(self, value):
@@ -118,7 +116,7 @@ class Unknown(LogischeForm):
         return [self.name]
 
     @property
-    def besonderheit(self):
+    def aufhebung(self):
         return self.id
 
     @property

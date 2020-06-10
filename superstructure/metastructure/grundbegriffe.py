@@ -72,7 +72,7 @@ class AnsichSein(Relation):
         return "FürUnsSein"
 
     @property
-    def besonderheit(self):
+    def aufhebung(self):
         return "Etwas"
 
     def __repr__(self):
@@ -100,7 +100,7 @@ class FürUnsSein(Relation):
         return "AnsichSein"
 
     @property
-    def besonderheit(self):
+    def aufhebung(self):
         return "Etwas"
 
     def __repr__(self):
@@ -119,7 +119,7 @@ class Etwas(Relation):
         return self.name
 
     @property
-    def besonderheit(self):
+    def aufhebung(self):
         return self.id  # TODO
 
     @property
@@ -145,7 +145,7 @@ class Leere(Begriff):
         return self.name
 
     @property
-    def besonderheit(self):
+    def aufhebung(self):
         return self.id  # TODO
 
     @property

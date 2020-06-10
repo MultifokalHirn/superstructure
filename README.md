@@ -8,10 +8,10 @@
 
 [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)
 [![Coverage Status](https://coveralls.io/repos/github/MultifokalHirn/superstructure/badge.svg)](https://coveralls.io/github/MultifokalHirn/superstructure)
-[![Dependabot Status](https://badgen.net/dependabot/thepracticaldev/dev.to?icon=dependabot&labelColor=2e3a44&color=blue)](https://dependabot.com)
+[![Dependabot Status](https://badgen.net/dependabot/thepracticaldev/dev.to?icon=dependabot&color=brightgreen)](https://dependabot.com)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) [![Contributors][contributors-shield]][contributors-url]
-[![Code Style](https://badgen.net/badge/Code%20Style/black?labelColor=2e3a44&color=000000)](https://github.com/psf/black)
+[![Code Style](https://badgen.net/badge/Code%20Style/black?color=000000)](https://github.com/psf/black)
 
 
 
@@ -49,9 +49,9 @@
 ### Idea
 
 * as any enlightened person will tell you, dialectical thinking is the only method for gaining any actual [_Erkenntnis_](https://en.wiktionary.org/wiki/Erkenntnis)
-* dialectical thinking inevitably brings about highly complex and interwoven networks of [_Begriffe_](https://en.wikipedia.org/wiki/Notion_(philosophy))
+* dialectical thought inevitably brings about highly complex and interwoven networks of [_Begriffe_](https://en.wikipedia.org/wiki/Notion_(philosophy))
     * keeping track of all the things that have already been considered during contemplation is difficult enough by itself, but to then also continuously integrate each one of your insights with the next to uncover all the relations between them, and to revise your understanding of them, is, for any sufficiently complex reflection, virtually impossible
-* people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
+* hence, people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
     * however, I could not find any tool that was well equipped to help with a dialectical approach to understanding things: each note taking tool was in some shape or form hierarchical - top-down or bottom-up - to accommodate _falsches Bewusstsein_
 * `superstructure` aims to do for the dialectic method, what mindmaps do for methods uninterested in any meaningful insight
 
@@ -59,7 +59,7 @@
 <a name="caveats"></a>
 ### Caveats
 
-* a computer program, as a thing in itself, can neither fully replicate nor contain the _Absolute_
+* a computer program by its nature can neither fully replicate nor contain the _Absolute_
 * designing the basic logical structure is difficult, because when talking about the _Gegenstand_ of a _Begriff_, that _Gegenstand_ is not actually a _Gegenstand_, but itself just a _Begriff_, an object in computer land
 * isomorphism to the (real) _Whole_ is thus currently not part of the roadmap
 * what we can do however, is to facilitate the _Erkenntnisprozess_ in your _Bewusstsein_
@@ -184,7 +184,7 @@ $ python3 -mpytest tests
 |   |   └── utils.py
 |   |
 |   └── infrastructure
-|       └── layout.py
+|       └── logo.py
 |
 └── tests
 |       ├── test_geist.py
@@ -222,11 +222,11 @@ $ python3 -mpytest tests
 <!-- LICENSING -->
 <a name="licensing"></a>
 ## Licensing
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure?ref=badge_large)
 [LICENSE](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure?ref=badge_large)
 
-[LICENSE](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->

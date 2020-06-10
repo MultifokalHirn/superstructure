@@ -2,11 +2,15 @@
 
 [metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure) constitutes the logical backend
 
-## forms
+## form
 
 coming soon
 
 ## logik
+
+coming soon
+
+## natur
 
 coming soon
 

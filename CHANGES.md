@@ -2,7 +2,7 @@
 
 ## June 9
 * renamed superstructure to metastructure and metastructure to infrastructure to not confuse a module with the project. this naming makes way more sense anyway
-* started to get really unsure about the whole logical form thing. if the a.allgemeinheit == b and b.einzelheit == a and a.besonderheit == ... scratch that, it does make sense
+* started to get really unsure about the whole logical form thing. if the a.allgemeinheit == b and b.einzelheit == a and a.aufhebung == ... scratch that, it does make sense
 * Allgemeinheit and Einzelheit as classes however appear questionable; maybe even use even more abstract language? negative?
 * just realized from AbstrakteAllgemeinheit: it should actually be the class Allgemeinheit..
 
