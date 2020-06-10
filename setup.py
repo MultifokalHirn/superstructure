@@ -16,13 +16,10 @@ setuptools.setup(
     install_requires=["Click",],
     py_modules=["superstructure"],
     classifiers=[
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
-        "Development Status :: 3 - Alpha",
-        "Intended Audience :: Hegelians",
-        "Topic :: Dialectics :: Hegel",
+        # Classifiers: https://pypi.org/classifiers/
+        "Development Status :: 1 - Planning",
+        "Intended Audience :: Other Audience",
+        "Topic :: Utilities",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "License :: OSI Approved :: MIT License",

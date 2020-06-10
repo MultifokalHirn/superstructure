@@ -8,8 +8,8 @@
 
 [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)
 [![Coverage Status](https://coveralls.io/repos/github/MultifokalHirn/superstructure/badge.svg)](https://coveralls.io/github/MultifokalHirn/superstructure)
+[![Dependabot Status](https://badgen.net/dependabot/thepracticaldev/dev.to?icon=dependabot&labelColor=2e3a44&color=blue)](https://dependabot.com)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![Dependabot Status](https://badgen.net/dependabot/MultifokalHirn/superstructure?icon=dependabot&labelColor=2e3a44&color=blue)](https://dependabot.com)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) [![Contributors][contributors-shield]][contributors-url]
 [![Code Style](https://badgen.net/badge/Code%20Style/black?labelColor=2e3a44&color=000000)](https://github.com/psf/black)
 
@@ -42,7 +42,7 @@
 <a name="overview"></a>
 ## Overview
 
-__tl;dr__: tools to help order your thoughts generally do not accommodate dialectical thinking in any meaningful way. superstructure is aiming to do so.
+> __tl;dr__: tools to help order your thoughts generally do not accommodate dialectical thinking in any meaningful way. `superstructure` is aiming to do so.
 
 <!-- IDEA -->
 <a name="idea"></a>
@@ -53,7 +53,7 @@ __tl;dr__: tools to help order your thoughts generally do not accommodate dialec
     * keeping track of all the things that have already been considered during contemplation is difficult enough by itself, but to then also continuously integrate each one of your insights with the next to uncover all the relations between them, and to revise your understanding of them, is, for any sufficiently complex reflection, virtually impossible
 * people use note taking and thoughtful structuring of data as tools to aid them with all kinds of work that involves the mind
     * however, I could not find any tool that was well equipped to help with a dialectical approach to understanding things: each note taking tool was in some shape or form hierarchical - top-down or bottom-up - to accommodate _falsches Bewusstsein_
-* superstructure aims to do for the dialectic method, what mindmaps do for methods uninterested in any meaningful insight
+* `superstructure` aims to do for the dialectic method, what mindmaps do for methods uninterested in any meaningful insight
 
 <!-- CAVEATS -->
 <a name="caveats"></a>
@@ -206,8 +206,8 @@ $ python3 -mpytest tests
 * G. W. F. Hegel: [_Die Wissenschaft der Logik_](http://hegel.logik.1.abcphil.de)
 * nLab: [Formalization of _Hegel's Science of Logic_ in Categorical logic / in Modal homotopy type theory](https://ncatlab.org/nlab/show/Science+of+Logic#FormalizationText)
 * Thomas Sören Hoffmann: [_Georg Wilhelm Friedrich Hegel - Eine Propädeutik_](https://www.verlagshaus-roemerweg.de/Marix_Verlag/Thomas_Soeren_Hoffmann-Georg_Wilhelm_Friedrich_Hegel-EAN:9783865392909.html)
-* [hegel.net](https://hegel.net/en/e0.htm)
 * Sven Jürgensen: [_Freiheit in den Systemen Hegels und Schellings_](https://books.google.ae/books?id=sL_fb9p-q5YC&dq=hegel+bestimmt+unbestimmt&hl=en)
+* [hegel.net](https://hegel.net/en/e0.htm)
 * [github.com/m-strasser/hegelizer](https://github.com/m-strasser/hegelizer)
 
 <!-- DEVELOPMENT NOTES -->
