@@ -1,3 +1,4 @@
-redisworks==0.2.7
-redis==3.5.3
+Click==7.1.2
 dotobject==1.2.1
+redis==3.5.3
+redisworks==0.2.7

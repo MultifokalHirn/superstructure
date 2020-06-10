@@ -4,12 +4,15 @@ from .utils import is_compatible
 
 
 class Bewusstsein:
-    def __init__(self, name, begriffe={}):
+    def __init__(self, name, begriffe={}, verbose=False):
         self._name = name
         self.state = "coherent"  # should become singleton
         self._begriffe = {}  # {id: Begriff}
         self._wissen = {}  # {name: [ids]}
         self._other = Unknown()
+        self.verbose = verbose
+        if self.verbose:
+            print(f"New Bewusstsein rises: {name}")
         if len(begriffe) == 0:
             self.generate_basic_begriffe()
         else:
@@ -91,7 +94,7 @@ class Bewusstsein:
             self._begriffe[begriff.id] = self.other
             self._update_wissen()
 
-    def learn(self, begriff, verbose=False):
+    def learn(self, begriff):
         # TODO should maybe take name and begriff
         # print("learn....")
         if begriff.name in self.wissen.keys():
@@ -131,10 +134,10 @@ class Bewusstsein:
         else:
             return relations
 
-    def relation_applies(self, relation, begriff_ids=[], verbose=True):
+    def relation_applies(self, relation, begriff_ids=[]):
         # TODO it should be structurally impossible for a Bewusstsein to evaluate begriffe that are not its inhalt, with relations it does not know
         if relation.nodes != len(begriff_ids):
-            if verbose:
+            if self.verbose:
                 self.say(
                     f"{relation} can only apply for {relation.nodes} Begriff{'e' if relation.nodes != 1 else ''}, thus it can not apply for {begriff_ids}"
                 )
@@ -149,7 +152,7 @@ class Bewusstsein:
     def determine_relations(self, a, b):
         """yield relations the Bewusstsein thinks exist between a and b"""
         for relation in self.known_relations:
-            if self.relation_applies(relation, begriff_ids=[a, b], verbose=False):
+            if self.relation_applies(relation, begriff_ids=[a, b]):
                 yield relation
 
     def say(self, sentence):

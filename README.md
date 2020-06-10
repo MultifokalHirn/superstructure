@@ -3,8 +3,17 @@
   <img width="60%" src="https://raw.github.com/MultifokalHirn/superstructure/dev/assets/images/logo_window.png" />
 </p>
 
-# superstructure  &middot;  [![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)  [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit) [![Dependabot Status](https://badgen.net/dependabot/MultifokalHirn/superstructure?icon=dependabot&labelColor=2e3a44&color=blue)](https://dependabot.com) [![Coverage Status](https://coveralls.io/repos/github/MultifokalHirn/superstructure/badge.svg)](https://coveralls.io/github/MultifokalHirn/superstructure) [![Code Style](https://badgen.net/badge/Code%20Style/black?labelColor=2e3a44&color=000000)](https://github.com/psf/black) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
-**a tool for Erkenntnis through dialectical notetaking**
+# superstructure
+> a tool for Erkenntnis through dialectical notetaking
+
+[![Pytest](https://github.com/MultifokalHirn/superstructure/workflows/pytest/badge.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/actions)
+[![Coverage Status](https://coveralls.io/repos/github/MultifokalHirn/superstructure/badge.svg)](https://coveralls.io/github/MultifokalHirn/superstructure)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Dependabot Status](https://badgen.net/dependabot/MultifokalHirn/superstructure?icon=dependabot&labelColor=2e3a44&color=blue)](https://dependabot.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) [![Contributors][contributors-shield]][contributors-url]
+[![Code Style](https://badgen.net/badge/Code%20Style/black?labelColor=2e3a44&color=000000)](https://github.com/psf/black)
+
+
 
 <!-- CONTENTS -->
 <a name="contents"></a>
@@ -14,7 +23,6 @@
     * [Idea](#idea)
     * [Caveats](#caveats)
 * [Usage](#usage)
-    * [Prerequisites](#prerequisites)
     * [Setup](#setup)
     * [Running](#running)
 * [Contributing](#contributing)
@@ -62,19 +70,17 @@ __tl;dr__: tools to help order your thoughts generally do not accommodate dialec
 <a name="usage"></a>
 ## Usage
 
-<!-- PREREQUISITES -->
-<a name="prerequisites"></a>
-### Prerequisites
-* `superstructure` requires python 3.7 or higher, as well as `redis`, because, as of now, it stores its data as pickled objects there
+> `superstructure` requires python3.7 or higher, as well as [`redis`](https://redis.io), because, as of now, it stores its data as pickled objects there
 
 <!-- SETUP -->
 <a name="setup"></a>
 ### Setup
 
 ```shell
-python3 -mvenv env
-source env/bin/activate
-pip3 install -r requirements.txt
+$ python3 -m venv env
+$ source env/bin/activate
+$ python3 -m pip install -r requirements.txt
+$ python3 -m pip install --editable .
 ```
 
 <!-- RUNNING -->
@@ -83,20 +89,20 @@ pip3 install -r requirements.txt
 
 * start `redis`
 ```shell
-redis-server
+$ redis-server
 ```
 
 * start `superstructure`
 ```shell
-source env/bin/activate
-python3 main.py
+$ source env/bin/activate
+$ python3 main.py
 ```
 
 
 <!-- CONTRIBUTING -->
 <a name="contributing"></a>
 ## Contributing
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) [![Contributors][contributors-shield]][contributors-url]
+
  <p>
     <a href="https://github.com/MultifokalHirn/superstructure/issues">Report Bug</a>
     ·
@@ -109,24 +115,27 @@ python3 main.py
 
 Any contributions to `superstructure`, be they in the form of comments or code, are **greatly appreciated**. If you want to contribute some code, please do so by following this common procedure:
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/new_stuff`)
-3. Commit your Changes (`git commit -m 'Add some new stuff'`)
-4. Push to the Branch (`git push origin feature/new_stuff`)
-5. Open a Pull Request
+1. fork the project
+2. create your feature branch (`git checkout -b feature/new_stuff`)
+3. commit your changes (`git commit -m 'Add some new stuff'`)
+4. push to the branch (`git push origin feature/new_stuff`)
+5. open a pull request to `dev`
 
 
 <!-- SETUP -->
 <a name="setup_dev"></a>
 ### Setup for Development
-* `superstructure` requires python 3.7 or higher, as well as `redis`, because, as of now, it stores its data as pickled objects there
 
 ```sh
-python3 -mvenv env
-source env/bin/activate
-pip3 install -r requirements-dev.txt
-pre-commit install && pre-commit install -t pre-push
-pre-commit run --all-files
+$ python3 -m venv env
+$ source env/bin/activate
+$ python3 -m pip install -r requirements-dev.txt
+$ pre-commit install && pre-commit install -t pre-push
+$ pre-commit run --all-files
+$ python3 -m pip install --editable .  # build project according to setup.py
+$ python setup.py bdist_wheel  # create wheel
+$ twine upload --repository testpypi dist/*  # upload wheel to testpypi (requires ~/.pypirc)
+$ twine upload dist/*  # CAUTION: upload wheel to pypi (requires ~/.pypirc)
 ```
 
 
@@ -135,9 +144,9 @@ pre-commit run --all-files
 ### Testing
 * testing is fairly simple: a _Bewusstsein_ gets created and it is prefilled with _Begriffe_, and then we will check, whether `superstructure` obeys some fundamental rules of reality
 
-```shell
-source env/bin/activate
-python3 -mpytest tests
+```sh
+$ source env/bin/activate
+$ python3 -mpytest tests
 ```
 
 <!-- STYLE GUIDE -->
@@ -152,7 +161,7 @@ python3 -mpytest tests
 ### Discussion
 * [General Discussion](https://github.com/MultifokalHirn/superstructure/issues/1)
 * [General Questions](https://github.com/MultifokalHirn/superstructure/issues/3)
-
+* [wiki](https://github.com/MultifokalHirn/superstructure/wiki)
 
 
 <!-- FURTHER READING -->
@@ -184,11 +193,11 @@ python3 -mpytest tests
 └── main.py
 ```
 
-* [metastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure) constitutes the logical backend
-* [infrastructure](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure) constitutes the tooling for user interaction
-* [tests](https://github.com/MultifokalHirn/superstructure/blob/dev/tests)
+* [_metastructure_](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure): constitutes the logical backend
+* [_infrastructure_](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure): constitutes the tooling for user interaction
+* [_tests_](https://github.com/MultifokalHirn/superstructure/blob/dev/tests): constitutes tests
 
-[wiki](https://github.com/MultifokalHirn/superstructure/wiki)
+
 
 <!-- EXTERNAL RESOURCES -->
 <a name="external_resources"></a>
@@ -213,10 +222,11 @@ python3 -mpytest tests
 <!-- LICENSING -->
 <a name="licensing"></a>
 ## Licensing
-
+[LICENSE](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMultifokalHirn%2Fsuperstructure?ref=badge_large)
 
-[License File](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
+[LICENSE](https://github.com/MultifokalHirn/superstructure/blob/master/LICENSE)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
