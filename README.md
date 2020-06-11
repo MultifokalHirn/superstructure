@@ -76,7 +76,7 @@
 <a name="setup"></a>
 ### Setup
 
-```shell
+```sh
 $ python3 -m venv env
 $ source env/bin/activate
 $ python3 -m pip install -r requirements.txt
@@ -130,6 +130,7 @@ Any contributions to `superstructure`, be they in the form of comments or code, 
 $ python3 -m venv env
 $ source env/bin/activate
 $ python3 -m pip install -r requirements-dev.txt
+$ export BETTER_EXCEPTIONS=1
 $ pre-commit install && pre-commit install -t pre-push
 $ pre-commit run --all-files
 $ python3 -m pip install --editable .  # build project according to setup.py

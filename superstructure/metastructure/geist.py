@@ -1,3 +1,6 @@
+from collections.abc import Iterable
+from uuid import UUID
+
 from .grundbegriffe import Allgemeinheit, AnsichSein, Einzelheit, FürUnsSein, Identität
 from .logik import Begriff, Relation, Unknown
 from .utils import is_compatible
@@ -34,7 +37,7 @@ class Bewusstsein:
 
     @property
     def self(self):
-        return self.begriff("self")
+        return self.get("self")
 
     @property
     def other(self):
@@ -45,18 +48,30 @@ class Bewusstsein:
             return
         self._other = other
 
-    def begriff(self, word):
-        """Bewusstsein returns their Begriff of {word}"""
-        ids = self.wissen.get(word, [])
-        result = []
-        for id in ids:
-            result.append(self._begriffe[id])
-        if len(result) == 0:
-            return self.other
-        elif len(result) == 1:
-            return result[0]
+    def get(self, info):
+        """Bewusstsein returns their Begriff(e) of/in {info}"""
+        if isinstance(info, str):
+            # case: info is a name
+            ids = self.wissen.get(info, [])
+            result = []
+            for id in ids:
+                result.append(self._begriffe[id])
+            if len(result) == 0:
+                return Unknown()
+            elif len(result) == 1:
+                return result[0]
+            else:
+                raise ValueError(f"{self} has multiple begriffe of {info}: {result}")
+        elif isinstance(info, UUID):
+            # case: info is an id
+            return self._begriffe.get(info, Unknown())
+        elif isinstance(info, Iterable):
+            # case: info is a list of names
+            return [self.get(id) for id in info]
         else:
-            raise ValueError(f"{self} has multiple begriffe of {word}: {result}")
+            raise TypeError(
+                f"geist :: Bewusstsein.get(a): a should be str or Iterable, got {type(info)}! ({info})"
+            )
 
     def _update_wissen(self):
         """create a hashmap from names to Begriff objects"""
@@ -69,7 +84,7 @@ class Bewusstsein:
 
     def handle(self, name, begriff):
         # if contents of information can be integrated into _begriffe without raising a "incoherent" state,
-        subjective_begriff = self.begriff(name)
+        subjective_begriff = self.get(name)
         if begriff != subjective_begriff:
             if is_compatible(self.wissen, begriff):
                 self.update(begriff)
@@ -105,9 +120,6 @@ class Bewusstsein:
             self._begriffe[begriff.id] = begriff
             self._update_wissen()
 
-    def get(self, begriff_id):
-        return self._begriffe.get(begriff_id, Unknown())
-
     def generate_basic_begriffe(self):
         """should fill up the Bewusstseins wissen with most basic Begriffe, for example a self, relations such as Identität and so on"""
         # TODO
@@ -135,11 +147,14 @@ class Bewusstsein:
             return relations
 
     def relation_applies(self, relation, begriff_ids=[]):
-        # TODO it should be structurally impossible for a Bewusstsein to evaluate begriffe that are not its inhalt, with relations it does not know
         if relation.nodes != len(begriff_ids):
+            begriff_ids_set = set(begriff_ids)
+            if len(begriff_ids_set) < len(begriff_ids):
+                return self.relation_applies(relation, begriff_ids_set)
             if self.verbose:
                 self.say(
-                    f"{relation} can only apply for {relation.nodes} Begriff{'e' if relation.nodes != 1 else ''}, thus it can not apply for {begriff_ids}"
+                    f"{relation} can only apply for {relation.nodes} Begriff{'e' if relation.nodes != 1 else ''}, "
+                    f"thus it can not apply for {self.get(begriff_ids)}"
                 )
             return False
         else:

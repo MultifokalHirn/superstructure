@@ -1,10 +1,8 @@
-name: pytest
-
+name: Linting and Testing
 on:
   push:
     branches:
       - '*'
-
 jobs:
   linter:
     runs-on: ubuntu-latest
