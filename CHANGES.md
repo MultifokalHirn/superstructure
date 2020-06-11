@@ -1,5 +1,8 @@
 # changes
 
+## June 12
+* should probably throw out ids and shrink it down to name - whats the difference anyways?
+
 ## June 9
 * renamed superstructure to metastructure and metastructure to infrastructure to not confuse a module with the project. this naming makes way more sense anyway
 * started to get really unsure about the whole logical form thing. if the a.allgemeinheit == b and b.einzelheit == a and a.aufhebung == ... scratch that, it does make sense

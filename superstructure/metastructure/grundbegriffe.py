@@ -85,7 +85,7 @@ class FürUnsSein(Relation):
     def __init__(self):
         # geist has a notion of a that is not Leere
         criterium = lambda a, geist: any(
-            [geist.begriff(name) is not Leere() for name in a.names]
+            [geist.get(name) is not Leere() for name in a.names]
         )
         super().__init__(
             nodes=1, criterium=criterium, is_directed=False, name="FürUnsSein"
@@ -138,7 +138,7 @@ class Leere(Begriff):
     """the absolute absence """
 
     def __init__(self):
-        super().__init__(name="Leere")
+        super().__init__(name="leere")
 
     @property
     def id(self):
