@@ -3,6 +3,13 @@ from uuid import uuid4
 from .form import LogischeForm
 
 
+class ReinerBegriff:
+    """the Begriff 'class' itself"""
+
+    def __init__(self):
+        self._name = "reinerbegriff"
+
+
 class Begriff(LogischeForm):
     """probably not the perfect name, what is meant is a singular Thing of any sort; \
     important: a Begriff is always a _of_ some thing and a thing of a Bewusstsein.

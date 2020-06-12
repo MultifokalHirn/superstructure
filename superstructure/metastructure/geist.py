@@ -3,7 +3,6 @@ from uuid import UUID
 
 from .grundbegriffe import Allgemeinheit, AnsichSein, Einzelheit, FürUnsSein, Identität
 from .logik import Begriff, Relation, Unknown
-from .utils import is_compatible
 
 
 class Bewusstsein:
@@ -12,7 +11,7 @@ class Bewusstsein:
         self.state = "coherent"  # should become singleton
         self._begriffe = {}  # {id: Begriff}
         self._wissen = {}  # {name: [ids]}
-        self._other = Unknown()
+        self._other = Unknown().name
         self.verbose = verbose
         if self.verbose:
             print(f"New Bewusstsein rises: {name}")
@@ -158,16 +157,16 @@ class Bewusstsein:
                 )
             return False
         else:
-            begriffe = [self.get(begriff_id) for begriff_id in begriff_ids] + [self]
+            begriffe = [self.get(begriff_id) for begriff_id in begriff_ids]
             args = tuple(begriffe)
             # print(f"relation.criterium({args})")
             # print(f"({relation.criterium(*args)})")
-            return relation.criterium(*args)
+            return relation.criterium(*args, self)
 
-    def determine_relations(self, a, b):
+    def determine_relations(self, *args):
         """yield relations the Bewusstsein thinks exist between a and b"""
         for relation in self.known_relations:
-            if self.relation_applies(relation, begriff_ids=[a, b]):
+            if self.relation_applies(relation, begriff_ids=args):
                 yield relation
 
     def say(self, sentence):
@@ -183,3 +182,9 @@ class Bewusstsein:
     def __repr__(self):
         size = len(self._begriffe)
         return f"<Bewusstsein :: {self.name} -- knows {size} Begriffe>"
+
+
+def is_compatible(bewusstseins_inhalt, x):
+    if isinstance(x, Relation):
+        for begriff in bewusstseins_inhalt:
+            return isinstance(begriff)

@@ -13,9 +13,7 @@ class TestBewusstsein(unittest.TestCase):
         b = Bewusstsein(name="TestBewusstsein")
         a = Begriff(name="A")
         b.learn(a)
-        self.assertTrue(
-            b.relation_applies(Identität(), [b.get("A").allgemeinheit, Begriff.id])
-        )
+        self.assertTrue(b.relation_applies(Identität(), [b.get("A").id, b.get("A").id]))
         self.assertEqual(b.get("A"), Unknown())
         self.assertFalse(b.other == b.self)
         with pytest.raises(ValueError, match=r".* can not be learned .*"):

@@ -70,7 +70,7 @@
 <a name="usage"></a>
 ## Usage
 
-> `superstructure` requires python3.7 or higher, as well as [`redis`](https://redis.io), because, as of now, it stores its data as pickled objects there
+> `superstructure` requires python3.7 or higher
 
 <!-- SETUP -->
 <a name="setup"></a>
@@ -87,15 +87,10 @@ $ python3 -m pip install --editable .
 <a name="running"></a>
 ### Running
 
-* start `redis`
-```shell
-$ redis-server
-```
-
-* start `superstructure`
-```shell
+* start `superstructure` in CLI mode
+```sh
 $ source env/bin/activate
-$ python3 main.py
+$ python3 superstructure/cli.py
 ```
 
 
@@ -147,13 +142,15 @@ $ twine upload dist/*  # CAUTION: upload wheel to pypi (requires ~/.pypirc)
 
 ```sh
 $ source env/bin/activate
+$ export BETTER_EXCEPTIONS=1
 $ python3 -mpytest tests
+$ python3 main.py
 ```
 
 <!-- STYLE GUIDE -->
 <a name="style"></a>
 ### Style Guide
-* development on `superstructure` should use `black` for formatting and `bandit` for linting
+* development on `superstructure` should use `black` for formatting and `bandit` + `flake8` for linting
 * development happens on `dev`, merging into `master` constitutes a version bump
 
 
@@ -178,14 +175,18 @@ $ python3 -mpytest tests
 ├── superstructure
 |   |
 |   ├── metastructure
-|   |   ├── forms.py
-|   |   ├── geist.py
 |   |   ├── grundbegriffe.py
-|   |   ├── logik.py
-|   |   └── utils.py
+|   |   ├── form.py
+|   |   ├── geist.py
+|   |   └── logik.py
 |   |
-|   └── infrastructure
-|       └── logo.py
+|   ├── infrastructure
+|   |   ├── storage
+|   |   |   └── pickled.py
+|   |   |
+|   |   └── logo.py
+|   |
+|   └── cli.py
 |
 └── tests
 |       ├── test_geist.py

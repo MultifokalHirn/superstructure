@@ -4,6 +4,9 @@ from superstructure.infrastructure.logo import print_logo
 from superstructure.infrastructure.storage.pickled import load, save
 from superstructure.metastructure.geist import Bewusstsein
 
+# from superstructure.metastructure.logik import Begriff
+# from superstructure.metastructure.grundbegriffe import Identität
+
 
 def main(name="weltgeist", verbose=True):
     if verbose:
