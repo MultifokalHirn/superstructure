@@ -1,6 +1,7 @@
 import itertools
 
 import click
+
 from superstructure.infrastructure.logo import print_logo
 from superstructure.infrastructure.storage.pickled import load, save
 from superstructure.metastructure.geist import Bewusstsein
