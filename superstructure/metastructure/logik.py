@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 from .form import LogischeForm
 
 
@@ -17,44 +15,25 @@ class Begriff(LogischeForm):
     objective reality is a spook"""
 
     def __init__(
-        self,
-        name=None,
-        synonyms=[],
-        aufhebung_id=None,
-        allgemeinheit_id=None,
-        einzelheit_id=None,
+        self, name=None, aufhebung=None, allgemeinheit=None, einzelheit=None,
     ):
-        self._id = uuid4()
         self._name = name
-        self._synonyms = synonyms
         self._aufhebung = None
         self._negation = None
         self._allgemeinheit = None
         self._einzelheit = None
-        if einzelheit_id is not None and allgemeinheit_id is not None:
+        if einzelheit is not None and allgemeinheit is not None:
             raise ValueError()
-        if aufhebung_id is not None:
-            self.aufhebung = aufhebung_id
-        if allgemeinheit_id is not None:
-            self.allgemeinheit = allgemeinheit_id
-        if einzelheit_id is not None:
-            self.einzelheit = einzelheit_id
-
-    @property
-    def id(self):
-        return self._id
+        if aufhebung is not None:
+            self.aufhebung = aufhebung
+        if allgemeinheit is not None:
+            self.allgemeinheit = allgemeinheit
+        if einzelheit is not None:
+            self.einzelheit = einzelheit
 
     @property
     def name(self):
-        return self._name.lower()
-
-    @property
-    def synonyms(self):
-        return [s.lower() for s in self._synonyms]
-
-    @property
-    def names(self):
-        return self.synonyms + [self.name]
+        return self._name
 
     @property
     def aufhebung(self):
@@ -90,11 +69,11 @@ class Begriff(LogischeForm):
     def __eq__(self, other):
         """Overrides the default implementation"""
         if isinstance(other, type(self)):
-            return self.id == other.id
+            return self.name == other.name
         return False
 
     def __hash__(self):
-        return hash(self.id)
+        return hash(self.name)
 
     def __repr__(self):
         return f"<Begriff :: {self.name}>"
@@ -107,39 +86,27 @@ class Unknown(LogischeForm):
         self._name = "Unknown"
 
     @property
-    def id(self):
-        return self.name
-
-    @property
     def name(self):
-        return self._name.lower()
-
-    @property
-    def synonyms(self):
-        return []
-
-    @property
-    def names(self):
-        return [self.name]
+        return self._name
 
     @property
     def aufhebung(self):
-        return self.id
+        return self
 
     @property
     def allgemeinheit(self):
-        return self.id
+        return self
 
     @property
     def einzelheit(self):
-        return self.id
+        return self
 
     def __eq__(self, other):
         """Overrides the default implementation"""
         return isinstance(other, type(self))
 
     def __hash__(self):
-        return hash(self.id)
+        return hash(self.name)
 
     def __repr__(self):
         return f"<{self.name}>"

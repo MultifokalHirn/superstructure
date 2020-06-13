@@ -10,10 +10,6 @@ class Identität(Relation):
             nodes=2, criterium=criterium, is_directed=False, name="Identität"
         )
 
-    @property
-    def id(self):
-        return self.name
-
     def __repr__(self):
         return f"<{self.name}>"
 
@@ -23,14 +19,10 @@ class Allgemeinheit(Relation):
 
     def __init__(self):
         # a is einzelheit of b for geist
-        criterium = lambda a, b, geist: a.einzelheit == b.id
+        criterium = lambda a, b, geist: a.einzelheit == b
         super().__init__(
             nodes=2, criterium=criterium, is_directed=True, name="Allgemeinheit"
         )
-
-    @property
-    def id(self):
-        return self.name
 
     def __repr__(self):
         return f"<{self.name}>"
@@ -41,14 +33,10 @@ class Einzelheit(Relation):
 
     def __init__(self):
         # a is einzelheit of b for geist
-        criterium = lambda a, b, geist: a.allgemeinheit == b.id
+        criterium = lambda a, b, geist: a.allgemeinheit == b
         super().__init__(
             nodes=2, criterium=criterium, is_directed=True, name="Einzelheit"
         )
-
-    @property
-    def id(self):
-        return self.name
 
     def __repr__(self):
         return f"<{self.name}>"
@@ -62,10 +50,6 @@ class AnsichSein(Relation):
         super().__init__(
             nodes=1, criterium=criterium, is_directed=False, name="AnsichSein"
         )
-
-    @property
-    def id(self):
-        return self.name
 
     @property
     def einzelheit(self):
@@ -84,16 +68,10 @@ class FürUnsSein(Relation):
 
     def __init__(self):
         # geist has a notion of a that is not Leere
-        criterium = lambda a, geist: any(
-            [geist.get(name) is not Leere() for name in a.names]
-        )
+        criterium = lambda a, geist: a in geist.begriffe
         super().__init__(
             nodes=1, criterium=criterium, is_directed=False, name="FürUnsSein"
         )
-
-    @property
-    def id(self):
-        return self.name
 
     @property
     def allgemeinheit(self):
@@ -115,20 +93,16 @@ class Etwas(Relation):
         super().__init__(nodes=1, criterium=criterium, is_directed=False, name="Etwas")
 
     @property
-    def id(self):
-        return self.name
-
-    @property
     def aufhebung(self):
-        return self.id  # TODO
+        return self  # TODO
 
     @property
     def allgemeinheit(self):
-        return self.id  # TODO
+        return self  # TODO
 
     @property
     def einzelheit(self):
-        return self.id  # TODO
+        return self  # TODO
 
     def __repr__(self):
         return f"<{self.name}>"
@@ -141,20 +115,16 @@ class Leere(Begriff):
         super().__init__(name="leere")
 
     @property
-    def id(self):
-        return self.name
-
-    @property
     def aufhebung(self):
-        return self.id  # TODO
+        return self  # TODO
 
     @property
     def allgemeinheit(self):
-        return self.id  # TODO
+        return self  # TODO
 
     @property
     def einzelheit(self):
-        return self.id  # TODO
+        return self  # TODO
 
     def __repr__(self):
         return f"<{self.name}>"

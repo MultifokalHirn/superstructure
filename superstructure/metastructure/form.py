@@ -9,10 +9,6 @@ class LogischeForm(metaclass=AllgemeineForm):
         pass
 
     @property
-    def id(self):
-        return self.__name__
-
-    @property
     def negation(self):
         pass
 

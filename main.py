@@ -4,32 +4,48 @@ from superstructure.infrastructure.logo import print_logo
 from superstructure.infrastructure.storage.pickled import load, save
 from superstructure.metastructure.geist import Bewusstsein
 
-# from superstructure.metastructure.logik import Begriff
+from superstructure.metastructure.logik import Begriff
+
 # from superstructure.metastructure.grundbegriffe import Identität
 
 
-def main(name="weltgeist", verbose=True):
+def main(name="weltgeist", verbose=False):
     if verbose:
         print("[verbose mode]\n")
     print_logo()
-    b = load(name=name)
-    if b is not None:
-        print(f"{b} woke up!")
+    bewusstsein = load(name=name)
+    if bewusstsein is not None:
+        print(f"{bewusstsein} woke up!")
     else:
-        b = Bewusstsein(name=name, verbose=verbose)
-        print(f"Created {b}")
-    b.spill()
-    # begriff_id_combos = [(begriff_id,) for begriff_id in b._begriffe.keys()]
-    begriff_id_combos = list(itertools.product(b._begriffe.keys(), repeat=2))
-    for (a_id, b_id) in begriff_id_combos:
-        relations = [relation.name for relation in (b.determine_relations(a_id, b_id))]
+        bewusstsein = Bewusstsein(name=name, verbose=verbose)
+        print(f"Created {bewusstsein}")
+    alex = Begriff(name="Alex")
+    bewusstsein.learn("Alex", alex)
+    bewusstsein.learn("Alexander", alex)
+    # bewusstsein.spill()
+    alex = bewusstsein.get("Alex")
+    alexander = bewusstsein.get("Alexander")
+    # begriff_combos = [(begriff_id,) for begriff_id in bewusstsein._begriffe.keys()]
+    begriff_combos = [(alex, alexander)]
+    begriff_combos = list(
+        itertools.product(
+            [bewusstsein.get(name) for name in bewusstsein.vocabulary], repeat=2
+        )
+    )
+    for (begriff_a, begriff_b) in begriff_combos:
+        relations = [
+            relation.name
+            for relation in (
+                bewusstsein.determine_relations(begriff_a.content, begriff_b.content)
+            )
+        ]
         if len(relations) > 0:
-            if a_id == b_id:
-                topic = b.get(b_id).name
+            if begriff_a.name == begriff_b.name:
+                topic = begriff_a.name
             else:
-                topic = f"{b.get(a_id).name} and {b.get(b_id).name}"
+                topic = f"{begriff_a.name} and {begriff_b.name}"
             print(f"{topic} : {relations}")
-    save(b)
+    save(bewusstsein)
 
 
 if __name__ == "__main__":

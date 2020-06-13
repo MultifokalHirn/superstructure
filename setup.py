@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/MultifokalHirn/superstructure",
     packages=setuptools.find_packages(),
-    install_requires=["Click",],
+    install_requires=["Click", "flexible-dotdict", "dill"],
     py_modules=["superstructure"],
     classifiers=[
         # Classifiers: https://pypi.org/classifiers/

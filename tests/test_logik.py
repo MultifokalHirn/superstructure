@@ -21,13 +21,13 @@ class TestLogik(unittest.TestCase):
     def test_basic_logik(self):
         b = Bewusstsein(name="TestBewusstsein")
         i = Begriff(name="I")
-        j = Begriff(name="J", allgemeinheit_id=i.id)
-        i.einzelheit = j.id
-        b.learn(i)
-        b.learn(j)
+        j = Begriff(name="J", allgemeinheit=i)
+        i.einzelheit = j
+        b.learn(i.name, i)
+        b.learn(j.name, j)
         # self.assertEqual(i.allgemeinheit, Begriff().id)
-        self.assertEqual(j.allgemeinheit, i.id)
-        self.assertTrue(b.relation_applies(Einzelheit(), [j.id, i.id]))
+        self.assertEqual(j.allgemeinheit, i)
+        self.assertTrue(b.relation_applies(Einzelheit(), [j, i]))
 
 
 if __name__ == "__main__":
