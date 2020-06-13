@@ -83,7 +83,7 @@ class Bewusstsein(Geist):
         if len(begriffe) == 0:
             self.learn_grundbegriffe()
         if self.verbose:
-            self.say("Nani?")  # insert witty introduction here
+            self.say(f"Hello! I am {self.itself}.")
 
     @property
     def begriffe(self):
@@ -95,22 +95,19 @@ class Bewusstsein(Geist):
 
     @property
     def itself(self):
-        return self.get("self")
+        return self.get("self").content
 
     def get(self, info):
-        """Bewusstsein returns their Begriff(e) of/in {info}:
-        {name: begriff}
+        """Bewusstsein returns their begriff of/in info in the form of DotDict(name=name, content=begriff)
         """
         if isinstance(info, str):
-            # case: info is a name
             begriff = self.vocabulary.get(info, Unknown())
             return DotDict(name=info, content=begriff)
         elif isinstance(info, Iterable):
-            # case: info is a list of names
             return [self.get(name) for name in info]
         else:
             raise TypeError(
-                f"geist :: Bewusstsein.get(a): a should be str or Iterable, got {type(info)}! ({info})"
+                f"Bewusstsein.get(a): a should be str or Iterable, got {type(info)}! ({info})"
             )
 
     def learn(self, name, begriff):
@@ -130,7 +127,7 @@ class Bewusstsein(Geist):
             if is_compatible(self.vocabulary, begriff):
                 self._update(begriff)
             else:
-                self.say(f"a {name} is not a {begriff}!!")
+                self.say(f"a {name} is not a {begriff}!")
 
     def _update(self, name, begriff):
         # update a name in vocabulary
@@ -187,6 +184,11 @@ class Bewusstsein(Geist):
             if self.relation_applies(relation, begriffe=args):
                 yield relation
 
+    def reflect(self):
+        """go through set of things that should apply if self is sane"""
+        if not isinstance(self.itself, Geist):
+            raise ValueError("AAAAAH")
+
     def say(self, sentence):
         if sentence:
             print(f'  {self.name}: "{sentence}"')
@@ -197,8 +199,11 @@ class Bewusstsein(Geist):
             self.say(f"I know {name} as {begriff}")
 
     def __repr__(self):
-        size = len(self.vocabulary)
-        return f"<Bewusstsein :: {self.name} -- vocabulary of {size}>"
+        if self.vocabulary:
+            size = len(self.vocabulary)
+            return f"<Bewusstsein {self.name}, vocabulary size: {size}>"
+        else:
+            return f"<Bewusstsein {self.name}>"
 
 
 def is_compatible(bewusstseins_inhalt, x):

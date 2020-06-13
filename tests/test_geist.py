@@ -2,8 +2,9 @@ import sys
 import unittest
 
 import better_exceptions
+
 from superstructure.metastructure.geist import Bewusstsein
-from superstructure.metastructure.grundbegriffe import Identität
+from superstructure.metastructure.grundbegriffe import FürUnsSein, Identität
 from superstructure.metastructure.logik import Begriff, Unknown
 
 
@@ -17,8 +18,17 @@ class TestBewusstsein(unittest.TestCase):
         )
         self.assertEqual(b.get("B").content, Unknown())
         self.assertFalse(a == b.itself)
-        b.learn(b.name, b)
-        # b.determine_relations()
+        for begriff in b.begriffe:
+            self.assertTrue(b.relation_applies(FürUnsSein(), begriffe=[begriff]))
+        try:
+            i = b.itself
+            b.learn(b.itself.name, a)
+            b.reflect()
+        except ValueError:
+            b.learn(i.name, i)
+        else:
+            self.assertFalse(True)
+        b.reflect()
 
 
 def patch(self, err, test):

@@ -3,7 +3,7 @@ import unittest
 
 import better_exceptions
 from superstructure.metastructure.geist import Bewusstsein
-from superstructure.metastructure.grundbegriffe import Einzelheit
+from superstructure.metastructure.grundbegriffe import Einzelheit, Allgemeinheit
 from superstructure.metastructure.logik import Begriff
 
 
@@ -25,9 +25,13 @@ class TestLogik(unittest.TestCase):
         i.einzelheit = j
         b.learn(i.name, i)
         b.learn(j.name, j)
-        # self.assertEqual(i.allgemeinheit, Begriff().id)
+        i = b.get(i.name).content
+        j = b.get(j.name).content
         self.assertEqual(j.allgemeinheit, i)
+        self.assertEqual(i.einzelheit, j)
         self.assertTrue(b.relation_applies(Einzelheit(), [j, i]))
+        self.assertTrue(b.relation_applies(Allgemeinheit(), [i, j]))
+        b.reflect()
 
 
 if __name__ == "__main__":
