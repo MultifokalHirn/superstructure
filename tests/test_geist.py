@@ -18,14 +18,15 @@ class TestBewusstsein(unittest.TestCase):
         self.assertFalse(a == b.itself)
         for begriff in b.begriffe:
             self.assertTrue(b.relation_applies(FürUnsSein(), begriffe=(begriff,)))
-        try:
-            i = b.itself
-            b.learn(b.itself.name, a)
-            b.reflect()
-        except ValueError:
-            b.learn(i.name, i)
-        else:
-            self.assertFalse(True)
+        # try:
+        # i = b.itself
+        b.learn(b.itself.name, a)
+        b.spill()
+        b.reflect()
+        # except ValueError:
+        #     b.learn(i.name, i)
+        # else:
+        #     self.assertFalse(True)
         b.reflect()
 
 

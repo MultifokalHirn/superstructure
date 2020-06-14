@@ -4,6 +4,7 @@ from superstructure.infrastructure.logo import print_logo
 from superstructure.infrastructure.storage.pickled import load, save
 from superstructure.metastructure.geist import Selbstbewusstsein
 from superstructure.metastructure.logik import Begriff
+from superstructure.metastructure.grundbegriffe import FürUnsSein
 
 
 def main(name="Weltgeist", verbose=False):
@@ -39,13 +40,17 @@ def main(name="Weltgeist", verbose=False):
                     bewusstsein.get(word_a).content, bewusstsein.get(word_b).content,
                 )
             )
+            if relation != FürUnsSein()
         ]
+        if word_a == word_b:
+            relations.remove("Identität")
+            topic = f"{word_a}"
+        else:
+            topic = f"{word_a} and {word_b}"
         if len(relations) > 0:
-            if word_a == word_b:
-                topic = word_a
-            else:
-                topic = f"{word_a} and {word_b}"
             bewusstsein.say(f"{topic}: {relations}")
+    # print(bool(bewusstsein))
+    # print(bool(Selbstbewusstsein))
     save(bewusstsein)
 
 

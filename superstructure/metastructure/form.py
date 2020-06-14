@@ -1,3 +1,4 @@
+import weakref
 from abc import ABCMeta as AllgemeineForm  # Form an sich
 from sys import intern
 
@@ -5,8 +6,18 @@ from sys import intern
 class LogischeForm(metaclass=AllgemeineForm):
     """endliche Form, Sein an sich"""
 
+    _instances = set()
+
+    def __init__(self):
+        # print(f"{type(self)} adding instances")
+        self._instances.add(weakref.ref(self))
+
     @property
     def name(self):
+        pass
+
+    @property
+    def position(self):
         pass
 
     @property
@@ -21,10 +32,6 @@ class LogischeForm(metaclass=AllgemeineForm):
     def allgemeinheit(self):
         pass
 
-    @property
-    def einzelheit(self):
-        pass
-
     def __eq__(self, other):
         """Overrides the default implementation"""
         if isinstance(other, type(self)) or isinstance(self, type(other)):
@@ -37,8 +44,26 @@ class LogischeForm(metaclass=AllgemeineForm):
             #         )
             # return False
 
+    @classmethod
+    def einzelheiten(cls):
+        dead = set()
+        for ref in cls._instances:
+            obj = ref()
+            if obj is not None:
+                yield obj
+            else:
+                dead.add(ref)
+        cls._instances -= dead
+
     def __hash__(self):
         return hash(self.name)
+
+    def __lt__(self, other):
+        return self.name < other.name
+
+    # def __bool__(self):
+    #     """whether this has a positive instance, is an sich"""
+    #     return False
 
     def __repr__(self):
         return f"<{type(self).__name__} :: {self.name}>"

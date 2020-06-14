@@ -15,56 +15,54 @@ class Begriff(LogischeForm):
     objective reality is a spook"""
 
     def __init__(
-        self, name=None, aufhebung=None, allgemeinheit=None, einzelheit=None,
+        self, name=None, aufhebung=None, allgemeinheit=None, negation=None,
     ):
         self._name = name
         self._aufhebung = None
         self._negation = None
-        self._allgemeinheit = None
-        self._einzelheit = None
-        if einzelheit is not None and allgemeinheit is not None:
-            raise ValueError()
+        self._allgemeinheit = type(self)
         if aufhebung is not None:
             self.aufhebung = aufhebung
         if allgemeinheit is not None:
             self.allgemeinheit = allgemeinheit
-        if einzelheit is not None:
-            self.einzelheit = einzelheit
+        if negation is not None:
+            self.negation = negation
+        super().__init__()
 
     @property
     def name(self):
         return self._name
 
     @property
-    def aufhebung(self):
-        return self._aufhebung
+    def position(self):
+        return self
 
     @property
     def negation(self):
         return self._negation
 
     @property
+    def aufhebung(self):
+        return self._aufhebung
+
+    @property
     def allgemeinheit(self):
         return self._allgemeinheit
 
-    @property
-    def einzelheit(self):
-        return self._einzelheit
-
-    @allgemeinheit.setter
-    def allgemeinheit(self, value):
+    @negation.setter
+    def negation(self, begriff):
         "setting"
-        self._allgemeinheit = value
+        self._negation = begriff
 
     @aufhebung.setter
-    def aufhebung(self, value):
+    def aufhebung(self, begriff):
         "setting"
-        self._aufhebung = value
+        self._aufhebung = begriff
 
-    @einzelheit.setter
-    def einzelheit(self, value):
+    @allgemeinheit.setter
+    def allgemeinheit(self, begriff):
         "setting"
-        self._einzelheit = value
+        self._allgemeinheit = begriff
 
 
 class Unknown(LogischeForm):
@@ -78,19 +76,23 @@ class Unknown(LogischeForm):
         return self._name
 
     @property
+    def position(self):
+        return self
+
+    @property
+    def negation(self):
+        return self
+
+    @property
     def aufhebung(self):
         return self
 
     @property
     def allgemeinheit(self):
-        return self
-
-    @property
-    def einzelheit(self):
-        return self
+        return type(self)
 
     def __eq__(self, other):
-        """Overrides the default implementation"""
+        """Overrides the LogischeForm implementation"""
         return isinstance(other, type(self))
 
 
@@ -104,15 +106,23 @@ class Relation(Begriff):
             raise ValueError("Relation needs to have at least one node")
         self._nodes = nodes  # number of begriffe for relation
         self._is_directed = is_directed
-        self._criterium = criterium  # lambda expression with ordered arguments
+        if criterium is None:
 
-    @property
-    def criterium(self):
+            def f(a, b, geist=None):
+                print(f"EMPTY RELATION {self}")
+                return False
+
+            criterium = f
+        self._criterium = criterium  # function
+
+    def criterium(self, *args, **kwargs):
         if self.is_directed:
-            return self._criterium
+            return self._criterium(*args, **kwargs)
         else:
             # TODO copy criterium, switch the arguments and ver-unde (and) them
-            return self._criterium
+            return self._criterium(*args, **kwargs) and self._criterium(
+                *reversed(args), **kwargs
+            )
 
     @property
     def is_directed(self):

@@ -1,75 +1,28 @@
 from collections.abc import Iterable
-
+from sortedcontainers import SortedSet
 from dotdict import DotDict
 
-from .form import LogischeForm
 from .grundbegriffe import (
     Allgemeinheit,
+    Negation,
+    Aufhebung,
     AnsichSein,
     Einzelheit,
     FürUnsSein,
+    FürSichSein,
+    AnUndFürSichSein,
     Identität,
     Grundbegriff,
+    Etwas,
+    Leere,
 )
-from .logik import Relation, Unknown
+from .logik import Relation, Unknown, Begriff
 
 
-class Geist(LogischeForm):
+class Bewusstsein(Begriff):
     def __init__(
-        self, name=None, aufhebung=None, allgemeinheit=None, einzelheit=None,
+        self, begriffe=SortedSet(), vocabulary={}, verbose=False, *args, **kwargs
     ):
-        self._name = name
-        self._aufhebung = None
-        self._negation = None
-        self._allgemeinheit = None
-        self._einzelheit = None
-        if einzelheit is not None and allgemeinheit is not None:
-            raise ValueError()
-        if aufhebung is not None:
-            self.aufhebung = aufhebung
-        if allgemeinheit is not None:
-            self.allgemeinheit = allgemeinheit
-        if einzelheit is not None:
-            self.einzelheit = einzelheit
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def aufhebung(self):
-        return self._aufhebung
-
-    @property
-    def negation(self):
-        return self._negation
-
-    @property
-    def allgemeinheit(self):
-        return self._allgemeinheit
-
-    @property
-    def einzelheit(self):
-        return self._einzelheit
-
-    @allgemeinheit.setter
-    def allgemeinheit(self, value):
-        "setting"
-        self._allgemeinheit = value
-
-    @aufhebung.setter
-    def aufhebung(self, value):
-        "setting"
-        self._aufhebung = value
-
-    @einzelheit.setter
-    def einzelheit(self, value):
-        "setting"
-        self._einzelheit = value
-
-
-class Bewusstsein(Geist):
-    def __init__(self, begriffe=set(), vocabulary={}, verbose=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # print("kwargs")
         # print(kwargs)
@@ -96,7 +49,7 @@ class Bewusstsein(Geist):
         """
         if isinstance(info, str):
             begriff = self.vocabulary.get(info, Unknown())
-            if begriff is None:
+            if begriff is None or isinstance(begriff, Forgotten):
                 if self.verbose:
                     self.say(f"Heard of {info} but don't remember...")
                 begriff = Unknown()
@@ -140,15 +93,21 @@ class Bewusstsein(Geist):
         if name not in self.vocabulary:
             raise ValueError(f"Trying to forget unknown begriff {name}")
         else:
-            self._vocabulary[name] = None
+            self._vocabulary[name] = Forgotten()
 
     def learn_grundbegriffe(self):
         """should fill up the Bewusstseins vocabulary with most basic Begriffe, for example a self, relations such as Identität and so on"""
         self.learn(Identität().name, Identität())
+        self.learn(Negation().name, Negation())
+        self.learn(Aufhebung().name, Aufhebung())
         self.learn(Allgemeinheit().name, Allgemeinheit())
         self.learn(Einzelheit().name, Einzelheit())
         self.learn(AnsichSein().name, AnsichSein())
         self.learn(FürUnsSein().name, FürUnsSein())
+        self.learn(FürSichSein().name, FürSichSein())
+        self.learn(AnUndFürSichSein().name, AnUndFürSichSein())
+        self.learn(Etwas().name, Etwas())
+        self.learn(Leere().name, Leere())
 
     @property
     def known_relations(self, nodes=None):
@@ -181,7 +140,7 @@ class Bewusstsein(Geist):
             return False
         else:
             args = tuple(begriffe)
-            return relation.criterium(*args, self)
+            return relation.criterium(*args, geist=self)
 
     def determine_relations(self, *args):
         """yield relations the Bewusstsein thinks exist between a and b"""
@@ -191,8 +150,10 @@ class Bewusstsein(Geist):
 
     def reflect(self):
         """go through set of things that should apply if self is sane"""
-        if not isinstance(self.itself, Geist):
-            raise ValueError("AAAAAH")
+        if type(self.itself) not in self.__class__.__bases__:
+            raise ValueError(
+                f"BROKEN VIEW ON SELF {self.itself} is not one of {self.__class__.__bases__}"
+            )
 
     def say(self, sentence):
         if sentence:
@@ -221,14 +182,19 @@ class Bewusstsein(Geist):
 
 class Selbstbewusstsein(Bewusstsein):
     def __init__(self, *args, **kwargs):
-        itself = Bewusstsein(name="myself")
-        kwargs["begriffe"] = set([itself])
-        kwargs["vocabulary"] = {"myself": itself, "self": itself}
+        itself = Bewusstsein(name=kwargs["name"])
+        kwargs["begriffe"] = SortedSet([itself])
+        kwargs["vocabulary"] = {"myself": itself}
         super().__init__(*args, **kwargs)
         if self.verbose:
             self.say(
                 f"Hello! I am a new Bewusstsein and I see myself as {self.itself}."
             )
+
+
+class Forgotten(Unknown):
+    def __init__(self):
+        self._name = "Forgotten"
 
 
 def is_compatible(bewusstseins_inhalt, x):
