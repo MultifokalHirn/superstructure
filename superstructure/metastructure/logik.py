@@ -66,18 +66,6 @@ class Begriff(LogischeForm):
         "setting"
         self._einzelheit = value
 
-    def __eq__(self, other):
-        """Overrides the default implementation"""
-        if isinstance(other, type(self)):
-            return self.name == other.name
-        return False
-
-    def __hash__(self):
-        return hash(self.name)
-
-    def __repr__(self):
-        return f"<Begriff :: {self.name}>"
-
 
 class Unknown(LogischeForm):
     """polar opposite of a Begriff"""
@@ -104,12 +92,6 @@ class Unknown(LogischeForm):
     def __eq__(self, other):
         """Overrides the default implementation"""
         return isinstance(other, type(self))
-
-    def __hash__(self):
-        return hash(self.name)
-
-    def __repr__(self):
-        return f"<{self.name}>"
 
 
 class Relation(Begriff):
@@ -142,6 +124,3 @@ class Relation(Begriff):
     @property
     def nodes(self):
         return self._nodes
-
-    def __repr__(self):
-        return f"<Relation :: {self.name}>"

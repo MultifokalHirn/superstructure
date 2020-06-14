@@ -31,7 +31,6 @@ class TestLogik(unittest.TestCase):
         self.assertEqual(i.einzelheit, j)
         self.assertTrue(b.relation_applies(Einzelheit(), [j, i]))
         self.assertTrue(b.relation_applies(Allgemeinheit(), [i, j]))
-        b.reflect()
 
 
 if __name__ == "__main__":

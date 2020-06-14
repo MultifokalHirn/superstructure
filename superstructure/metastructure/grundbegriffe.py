@@ -1,7 +1,12 @@
 from .logik import Begriff, Relation
 
 
-class Identität(Relation):
+class Grundbegriff:
+    def __repr__(self):
+        return f"<{type(self).__name__}>"
+
+
+class Identität(Relation, Grundbegriff):
     """Identität an sich"""
 
     def __init__(self):
@@ -10,11 +15,8 @@ class Identität(Relation):
             nodes=2, criterium=criterium, is_directed=False, name="Identität"
         )
 
-    def __repr__(self):
-        return f"<{self.name}>"
 
-
-class Allgemeinheit(Relation):
+class Allgemeinheit(Relation, Grundbegriff):
     """relation applies, if b is the Einzelheit of a"""
 
     def __init__(self):
@@ -24,11 +26,8 @@ class Allgemeinheit(Relation):
             nodes=2, criterium=criterium, is_directed=True, name="Allgemeinheit"
         )
 
-    def __repr__(self):
-        return f"<{self.name}>"
 
-
-class Einzelheit(Relation):
+class Einzelheit(Relation, Grundbegriff):
     """relation applies, if b is the Allgemeinheit of a"""
 
     def __init__(self):
@@ -38,11 +37,8 @@ class Einzelheit(Relation):
             nodes=2, criterium=criterium, is_directed=True, name="Einzelheit"
         )
 
-    def __repr__(self):
-        return f"<{self.name}>"
 
-
-class AnsichSein(Relation):
+class AnsichSein(Relation, Grundbegriff):
     """AnsichSein an sich"""
 
     def __init__(self):
@@ -59,11 +55,8 @@ class AnsichSein(Relation):
     def aufhebung(self):
         return "Etwas"
 
-    def __repr__(self):
-        return f"<{self.name}>"
 
-
-class FürUnsSein(Relation):
+class FürUnsSein(Relation, Grundbegriff):
     """FürUnsSein an sich"""
 
     def __init__(self):
@@ -81,11 +74,8 @@ class FürUnsSein(Relation):
     def aufhebung(self):
         return "Etwas"
 
-    def __repr__(self):
-        return f"<{self.name}>"
 
-
-class Etwas(Relation):
+class Etwas(Relation, Grundbegriff):
     """Etwas an sich"""
 
     def __init__(self):
@@ -104,11 +94,8 @@ class Etwas(Relation):
     def einzelheit(self):
         return self  # TODO
 
-    def __repr__(self):
-        return f"<{self.name}>"
 
-
-class Leere(Begriff):
+class Leere(Relation, Grundbegriff):
     """the absolute absence """
 
     def __init__(self):
@@ -125,6 +112,3 @@ class Leere(Begriff):
     @property
     def einzelheit(self):
         return self  # TODO
-
-    def __repr__(self):
-        return f"<{self.name}>"

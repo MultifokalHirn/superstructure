@@ -1,9 +1,17 @@
 from collections.abc import Iterable
+
 from dotdict import DotDict
 
-from .grundbegriffe import Allgemeinheit, AnsichSein, Einzelheit, FürUnsSein, Identität
-from .logik import Relation, Unknown
 from .form import LogischeForm
+from .grundbegriffe import (
+    Allgemeinheit,
+    AnsichSein,
+    Einzelheit,
+    FürUnsSein,
+    Identität,
+    Grundbegriff,
+)
+from .logik import Relation, Unknown
 
 
 class Geist(LogischeForm):
@@ -59,31 +67,17 @@ class Geist(LogischeForm):
         "setting"
         self._einzelheit = value
 
-    def __eq__(self, other):
-        """Overrides the default implementation"""
-        if isinstance(other, type(self)):
-            return self.name == other.name
-        return False
-
-    def __hash__(self):
-        return hash(self.name)
-
-    def __repr__(self):
-        return f"<Geist :: {self.name}>"
-
 
 class Bewusstsein(Geist):
-    def __init__(self, begriffe={}, verbose=False, *args, **kwargs):
+    def __init__(self, begriffe=set(), vocabulary={}, verbose=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # print("kwargs")
+        # print(kwargs)
         self.state = "coherent"  # should become singleton
-        itself = Geist(name="self")
-        self._begriffe = set([itself])
-        self._vocabulary = {"self": itself}  # {name: begriff}
+        self._begriffe = begriffe
+        self._vocabulary = vocabulary  # {name: begriff}
         self.verbose = verbose
-        if len(begriffe) == 0:
-            self.learn_grundbegriffe()
-        if self.verbose:
-            self.say(f"Hello! I am {self.itself}.")
+        self.learn_grundbegriffe()
 
     @property
     def begriffe(self):
@@ -95,26 +89,30 @@ class Bewusstsein(Geist):
 
     @property
     def itself(self):
-        return self.get("self").content
+        return self.get("myself").content
 
     def get(self, info):
         """Bewusstsein returns their begriff of/in info in the form of DotDict(name=name, content=begriff)
         """
         if isinstance(info, str):
             begriff = self.vocabulary.get(info, Unknown())
+            if begriff is None:
+                if self.verbose:
+                    self.say(f"Heard of {info} but don't remember...")
+                begriff = Unknown()
             return DotDict(name=info, content=begriff)
         elif isinstance(info, Iterable):
             return [self.get(name) for name in info]
         else:
             raise TypeError(
-                f"Bewusstsein.get(a): a should be str or Iterable, got {type(info)}! ({info})"
+                f"{type(self).__name__ }.get({info}): {info} should be str or Iterable, but is {type(info)}!"
             )
 
     def learn(self, name, begriff):
         if begriff in self.begriffe:
             if self.verbose:
                 self.say(f"I already know {begriff}.")
-            if self.get(name) != begriff:
+            if self.get(name).content != begriff:
                 self._update(name, begriff)
         else:
             self.begriffe.add(begriff)
@@ -127,13 +125,13 @@ class Bewusstsein(Geist):
             if is_compatible(self.vocabulary, begriff):
                 self._update(begriff)
             else:
-                self.say(f"a {name} is not a {begriff}!")
+                self.say(f"A {name} is not a {begriff}!")
 
     def _update(self, name, begriff):
         # update a name in vocabulary
         if begriff not in self.begriffe:
             raise ValueError(
-                f"Trying to update the word {name} to mean {begriff}, which {self.name} does not know "
+                f"Trying to update the word {name} to mean {begriff}, which {self} does not know "
             )
         else:
             self._vocabulary[name] = begriff
@@ -163,15 +161,22 @@ class Bewusstsein(Geist):
         else:
             return relations
 
-    def relation_applies(self, relation, begriffe=[]):
+    def relation_applies(self, relation, begriffe):
+        # begriffe can either be a tuple of words or Begriff objects
+        if len(begriffe) == 0:
+            if self.verbose:
+                self.say(f"{relation} can not apply for no Begriffe ({begriffe})")
+            return False
+        if isinstance(begriffe[0], str):
+            begriffe = tuple(self.get(word).content for word in begriffe)
         if relation.nodes != len(begriffe):
-            begriffe_set = set(begriffe)
+            begriffe_set = tuple(set(begriffe))
             if len(begriffe_set) < len(begriffe):
                 return self.relation_applies(relation, begriffe_set)
             if self.verbose:
                 self.say(
                     f"{relation} can only apply for {relation.nodes} Begriff{'e' if relation.nodes != 1 else ''}, "
-                    f"thus it can not apply for {self.get(begriffe)}"
+                    f"thus it can not apply for {begriffe}"
                 )
             return False
         else:
@@ -195,15 +200,35 @@ class Bewusstsein(Geist):
 
     def spill(self):
         """say out all knowledge, only for testing"""
-        for name, begriff in self.vocabulary.items():
-            self.say(f"I know {name} as {begriff}")
+        for begriff in self.begriffe:
+            if not isinstance(begriff, Grundbegriff):
+                self.spill_knowledge_on(begriff)
+
+    def spill_knowledge_on(self, begriff):
+        names = []
+        for k, v in self.vocabulary.items():
+            if v == begriff:
+                names.append(k)
+        self.say(f"I know {begriff} as {' and '.join([str(n) for n in names])}.")
 
     def __repr__(self):
-        if self.vocabulary:
+        if self.verbose:
             size = len(self.vocabulary)
-            return f"<Bewusstsein {self.name}, vocabulary size: {size}>"
+            return f"<{type(self).__name__} :: {self.name} - knows {size} words>"
         else:
-            return f"<Bewusstsein {self.name}>"
+            return f"<{type(self).__name__} :: {self.name}>"
+
+
+class Selbstbewusstsein(Bewusstsein):
+    def __init__(self, *args, **kwargs):
+        itself = Bewusstsein(name="myself")
+        kwargs["begriffe"] = set([itself])
+        kwargs["vocabulary"] = {"myself": itself, "self": itself}
+        super().__init__(*args, **kwargs)
+        if self.verbose:
+            self.say(
+                f"Hello! I am a new Bewusstsein and I see myself as {self.itself}."
+            )
 
 
 def is_compatible(bewusstseins_inhalt, x):
