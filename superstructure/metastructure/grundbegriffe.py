@@ -20,6 +20,10 @@ class Identität(Relation, Grundbegriff):
             nodes=2, criterium=criterium, is_directed=False, name="Identität"
         )
 
+    @property
+    def negation(self):
+        return Negation()
+
 
 class Negation(Relation, Grundbegriff):
     """relation applies, if b is the Negation of a"""
@@ -32,16 +36,18 @@ class Negation(Relation, Grundbegriff):
             nodes=2, criterium=criterium, is_directed=True, name="Negation"
         )
 
+    @property
+    def negation(self):
+        return Identität()
+
 
 class Aufhebung(Relation, Grundbegriff):
     """relation applies, if a is the Aufhebung of b and c"""
 
     def __init__(self):
         def criterium(a, b, c, geist=None):
-            return (
-                a == b.aufhebung
-                and a == c.aufhebung
-                and Negation().criterium(b, c, geist=geist)
+            return (a == b.aufhebung or a == c.aufhebung) and Negation().criterium(
+                b, c, geist=geist
             )
 
         super().__init__(
