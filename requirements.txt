@@ -1,5 +1,5 @@
 Click==7.1.2
-dill==0.3.1.1
+dill==0.3.2
 dotobject==1.2.1
 flexible-dotdict==0.2.1
 redis==3.5.3
