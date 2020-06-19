@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 .DS_Store
-pickled_data
-pickled_data
-pickled_data
+./pickled_data
+./superstructure/pickled_data
+resources

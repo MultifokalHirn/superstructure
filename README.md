@@ -33,7 +33,7 @@
     * [Discussion](#discussion)
 * [Further Reading](#further_reading)
     * [Documentation](#documentation)
-    * [External Resources](#external_resources)
+    * [Books, Papers, and other External Resources](#external_resources)
     * [Development Notes](#notes)
 * [Licensing](#licensing)
 * [Acknowledgements](#acknowledgements)
@@ -143,8 +143,13 @@ $ twine upload dist/*  # CAUTION: upload wheel to pypi (requires ~/.pypirc)
 ```sh
 $ source env/bin/activate
 $ export BETTER_EXCEPTIONS=1
-$ python3 -mpytest tests
+$ python3 -mpytest --cov=superstructure --cov-report term-missing tests
 $ python3 main.py
+```
+or simply
+
+```sh
+$ ./run_tests
 ```
 
 <!-- STYLE GUIDE -->
@@ -180,6 +185,9 @@ $ python3 main.py
 |   |   ├── geist.py
 |   |   └── logik.py
 |   |
+|   ├── hyperstructure
+|   |   └── vernunft.py
+|   |
 |   ├── infrastructure
 |   |   ├── storage
 |   |   |   └── pickled.py
@@ -195,7 +203,8 @@ $ python3 main.py
 └── main.py
 ```
 
-* [_metastructure_](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure): constitutes the logical backend
+* [_metastructure_](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/metastructure): constitutes the set of structures underlying the superstructure
+* [_hyperstructure_](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/hyperstructure): constitutes the tooling for analyzing structures found in `metastructure`
 * [_infrastructure_](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure): constitutes the tooling for user interaction
 * [_tests_](https://github.com/MultifokalHirn/superstructure/blob/dev/tests): constitutes tests
 
@@ -203,11 +212,14 @@ $ python3 main.py
 
 <!-- EXTERNAL RESOURCES -->
 <a name="external_resources"></a>
-### External Resources
+### Books, Papers, and other External Resources
 
 * G. W. F. Hegel: [_Die Wissenschaft der Logik_](http://hegel.logik.1.abcphil.de)
-* nLab: [Formalization of _Hegel's Science of Logic_ in Categorical logic / in Modal homotopy type theory](https://ncatlab.org/nlab/show/Science+of+Logic#FormalizationText)
 * Thomas Sören Hoffmann: [_Georg Wilhelm Friedrich Hegel - Eine Propädeutik_](https://www.verlagshaus-roemerweg.de/Marix_Verlag/Thomas_Soeren_Hoffmann-Georg_Wilhelm_Friedrich_Hegel-EAN:9783865392909.html)
+* Yaozhi Jiang: [_Mathematical Foundation for Dialectical Logic - An Introduction for Making Dialectical Logic Mathematically_](https://www.researchgate.net/publication/333679776_Mathematical_Foundation_for_Dialectical_Logic_-An_Introduction_for_Making_Dialectical_Logic_Mathematically)
+* Huacan He, Yanquan Zhou, and Zhicheng Chen: [_Research on Mathematical Dialectical Logic for Intelligent Information Processing_](www.mdpi.com%2F2504-3900%2F1%2F3%2F149%2Fpdf&usg=AOvVaw1CQNOH4PHOZT5htUXa5oFk)
+* nLab: [Formalization of _Hegel's Science of Logic_ in Categorical logic / in Modal homotopy type theory](https://ncatlab.org/nlab/show/Science+of+Logic#FormalizationText)
+* Hrgb. Andreas Arndt, Christian Iber and Günter Kruck: [_Hegels Lehre vom Begriff, Urteil und Schluss_](https://www.degruyter.com/view/title/311014)
 * Sven Jürgensen: [_Freiheit in den Systemen Hegels und Schellings_](https://books.google.ae/books?id=sL_fb9p-q5YC&dq=hegel+bestimmt+unbestimmt&hl=en)
 * [hegel.net](https://hegel.net/en/e0.htm)
 * [github.com/m-strasser/hegelizer](https://github.com/m-strasser/hegelizer)
