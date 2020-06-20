@@ -2,6 +2,7 @@ import sys
 import unittest
 
 import better_exceptions
+
 from superstructure.infrastructure.cli.commands import main
 
 

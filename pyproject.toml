@@ -4,15 +4,16 @@
 # character.
 
 [tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
 line_length = 160
 case_sensitive = true
-use_parentheses = true
-include_trailing_comma = true
-multi_line_output = 3
-force_grid_wrap = 0
+
 
 [build-system]
 # These are the assumed default build requirements from pip:
 # https://pip.pypa.io/en/stable/reference/pip/#pep-517-and-518-support
-requires = ["setuptools>=41.2.0", "wheel"]
+requires = ["setuptools>=47.3.1", "wheel"]
 build-backend = "setuptools.build_meta"

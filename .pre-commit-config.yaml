@@ -10,11 +10,17 @@ repos:
     -   id: file-contents-sorter
         files: requirements-dev.txt
 
+# -   repo: https://github.com/asottile/seed-isort-config
+#     rev: v2.1.1
+#     hooks:
+#     -   id: seed-isort-config
+
 # -   repo: https://github.com/pre-commit/mirrors-isort
 #     rev: v4.3.21
 #     hooks:
 #     -   id: isort
 #         additional_dependencies: [toml]
+#         args: ['-m 3', '-tc' , '-w 160', '-sp .isort.cfg']
 
 -   repo: https://github.com/psf/black
     rev: stable
@@ -28,7 +34,7 @@ repos:
     -   id: flake8
         additional_dependencies: ['pep8-naming']
         # Ignore all format-related checks as Black takes care of those.
-        args: ['--ignore', 'E2,W5,E731', '--select', 'E,W,F,N', '--max-line-length=160']
+        args: ['--ignore', 'E203, E231, E266, E501, W503, E731, E501, E731', '--select', 'B, C, E, F, W, N, T4', '--max-line-length=160', '--max-complexity=16']
 
 -   repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
     sha: v1.0.4

@@ -1,13 +1,15 @@
 import sys
 import unittest
-import pytest
+
 import better_exceptions
-from superstructure.metastructure.logik import Begriff, Unknown
-from superstructure.metastructure.geist import Selbstbewusstsein
+import pytest
+
 from superstructure.hyperstructure.vernunft import (
-    get_relations_between_known_begriffe,
     get_negations,
+    get_relations_between_known_begriffe,
 )
+from superstructure.metastructure.geist import Selbstbewusstsein
+from superstructure.metastructure.logik import Begriff, Unknown
 
 
 class TestVernunft(unittest.TestCase):

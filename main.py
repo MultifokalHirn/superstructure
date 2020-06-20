@@ -1,11 +1,11 @@
+from superstructure.hyperstructure.vernunft import (
+    get_negations,
+    get_relations_between_known_begriffe,
+)
 from superstructure.infrastructure.logo import print_logo
 from superstructure.infrastructure.storage.pickled import load  # , save
 from superstructure.metastructure.geist import Selbstbewusstsein
 from superstructure.metastructure.logik import Begriff
-from superstructure.hyperstructure.vernunft import (
-    get_relations_between_known_begriffe,
-    get_negations,
-)
 
 
 def main(name="Weltgeist", verbose=False):

@@ -5,12 +5,9 @@ from subprocess import CalledProcessError  # nosec
 import better_exceptions
 import pytest
 
-from superstructure.infrastructure.logo import (
-    print_hegel,
-    print_logo,
-)
-from superstructure.infrastructure.storage.pickled import load, save
 from superstructure.infrastructure.cli.utils import init, save_pickled
+from superstructure.infrastructure.logo import print_hegel, print_logo
+from superstructure.infrastructure.storage.pickled import load, save
 from superstructure.metastructure.geist import Selbstbewusstsein
 
 
