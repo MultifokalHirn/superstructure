@@ -14,7 +14,6 @@ from .grundbegriffe import (
     FürUnsSein,
     Grundbegriff,
     Identität,
-    Leere,
     Negation,
     Selbstidentität,
 )
@@ -32,8 +31,6 @@ class Bewusstsein(Begriff):
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        # print("kwargs")
-        # print(kwargs)
         self.state = "coherent"  # should become singleton
         self._begriffe = begriffe
         self._vocabulary = vocabulary  # {name: begriff}
@@ -76,22 +73,41 @@ class Bewusstsein(Begriff):
         else:
             return begriff in self.begriffe
 
-    def learn(self, name, begriff, force=False):
+    def learn(self, name, begriff, force=True):
         if begriff in self.begriffe:
             if self.verbose:
                 self.say(f"I already know {begriff}.")
             if name not in self.vocabulary:
-                self._update(name, begriff, force=force)
+                self.update_meaning(name, begriff, force=force)
         else:
+            for related_begriff in begriff.related:
+                if related_begriff not in self.begriffe:
+                    if force and (
+                        isinstance(related_begriff, Begriff) or related_begriff.is_pure
+                    ):
+                        self.begriffe.add(related_begriff)
+                        self.update_meaning(related_begriff.name, related_begriff)
+                    else:
+                        raise ValueError(
+                            f"Trying to learn {begriff} with unknown related Begriff {related_begriff}!"
+                        )
             self.begriffe.add(begriff)
-            self._update(begriff.name, begriff, force=force)
+            self.update_meaning(begriff.name, begriff, force=force)
             if begriff.name != name:
-                self._update(name, begriff, force=force)
+                self.update_meaning(name, begriff, force=force)
+
+    def update_begriff(self, begriff, force=False):
+        for known_begriff in self.begriffe:
+            if known_begriff.name == begriff.name:
+                self._begriffe.remove(known_begriff)
+                self._begriff.add(begriff)
+                return
+        raise ValueError(f"Trying to update unknown Begriff {begriff}. ")
 
     def handle(self, name, begriff):
         # if begriffs of information can be added to known begriffe without raising an "incoherent" state,
         if begriff in self.begriffe:
-            self._update(name=name, begriff=begriff)
+            self.update_meaning(name=name, begriff=begriff)
         subjective_begriff = self.get(name).begriff
         if begriff != subjective_begriff:
             if name in self.vocabulary and self.knows(subjective_begriff):
@@ -103,11 +119,11 @@ class Bewusstsein(Begriff):
                     if self.verbose:
                         self.say(f"{begriff} is not compatible with what I know!")
 
-    def _update(self, name, begriff, force=False):
+    def update_meaning(self, name, begriff, force=False):
         # update a name in vocabulary
         if begriff not in self.begriffe:
             raise ValueError(
-                f"Trying to update the word {name} to mean {begriff}, which {self} does not know "
+                f"Trying to update the word {name} to mean {begriff}, which {self} does not know."
             )
         else:
             # case begriff is known
@@ -137,22 +153,22 @@ class Bewusstsein(Begriff):
                 and known_begriff.negation != Unknown()
             ):
                 return False
-        return True
+        return True  # TODO needs to default to False, but logic is missing
 
     def learn_grundbegriffe(self):
         """should fill up the Bewusstseins vocabulary with most basic Begriffe, for example a self, relations such as Identität and so on"""
-        self.learn(Identität().name, Identität())
-        self.learn(Selbstidentität().name, Selbstidentität())
-        self.learn(Negation().name, Negation())
-        self.learn(Aufhebung().name, Aufhebung())
-        self.learn(Allgemeinheit().name, Allgemeinheit())
-        self.learn(Einzelheit().name, Einzelheit())
-        self.learn(AnsichSein().name, AnsichSein())
-        self.learn(FürUnsSein().name, FürUnsSein())
-        self.learn(FürSichSein().name, FürSichSein())
-        self.learn(AnUndFürSichSein().name, AnUndFürSichSein())
-        self.learn(Etwas().name, Etwas())
-        self.learn(Leere().name, Leere())
+        self.learn(Identität().name, Identität(), force=True)
+        self.learn(Selbstidentität().name, Selbstidentität(), force=True)
+        self.learn(Negation().name, Negation(), force=True)
+        self.learn(Aufhebung().name, Aufhebung(), force=True)
+        self.learn(Allgemeinheit().name, Allgemeinheit(), force=True)
+        self.learn(Einzelheit().name, Einzelheit(), force=True)
+        self.learn(AnsichSein().name, AnsichSein(), force=True)
+        self.learn(FürUnsSein().name, FürUnsSein(), force=True)
+        self.learn(FürSichSein().name, FürSichSein(), force=True)
+        self.learn(AnUndFürSichSein().name, AnUndFürSichSein(), force=True)
+        self.learn(Etwas().name, Etwas(), force=True)
+        self.learn("Leere", Begriff(name="Leere"), force=True)
 
     @property
     def known_relations(self, nodes=None):
@@ -245,12 +261,12 @@ class Bewusstsein(Begriff):
             f"Hello, I am a {self.itself.structure} named {self.itself.name}, but to you I am {self}."
         )
 
-    def __repr__(self):
-        if self.verbose:
-            size = len(self.vocabulary)
-            return f"<{self.structure} '{self.name}' - knows {size} words and itself as {self.itself}>"
-        else:
-            return f"<{self.structure} '{self.name}'>"
+    # def __repr__(self):
+    #     if self.verbose:
+    #         size = len(self.vocabulary)
+    #         return f"<{self.structure} '{self.name}' - knows {size} words and itself as {self.itself}>"
+    #     else:
+    #         return f"<{self.structure} '{self.name}'>"
 
 
 class Selbstbewusstsein(Bewusstsein):
@@ -265,6 +281,7 @@ class Selbstbewusstsein(Bewusstsein):
 
 class Forgotten(Unknown):
     def __init__(self):
+        super().__init__()
         self._name = "Forgotten"
 
     def __eq__(self, other):

@@ -10,11 +10,11 @@ from superstructure.infrastructure.logo import print_logo
 
 def main(name: str, verbose: bool, path: str = data_store):
     if verbose:
+        print_logo()
         click.echo("[verbose mode]\n")
-    print_logo()
     bewusstsein = init(name=name, verbose=verbose, path=path)
     bewusstsein.summarize()
     bewusstsein.say(get_relations_between_known_begriffe(bewusstsein))
     bewusstsein.say(get_negations(bewusstsein))
 
-    save_pickled(bewusstsein)
+    save_pickled(bewusstsein, path=path, create=True)

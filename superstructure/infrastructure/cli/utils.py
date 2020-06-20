@@ -12,5 +12,5 @@ def init(name: str, verbose: bool, path=data_store) -> Bewusstsein:
         return Selbstbewusstsein(name=name, verbose=verbose)
 
 
-def save_pickled(bewusstsein: Bewusstsein, path=data_store) -> None:
-    save(bewusstsein, path=path)
+def save_pickled(bewusstsein: Bewusstsein, path=data_store, create=False) -> None:
+    save(bewusstsein, path=path, create=create)

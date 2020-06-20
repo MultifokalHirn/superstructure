@@ -1,4 +1,4 @@
-import weakref
+# import weakref
 from abc import ABCMeta as AllgemeineForm  # Form an sich
 from sys import intern
 
@@ -10,11 +10,17 @@ class LogischeForm(metaclass=AllgemeineForm):
 
     def __init__(self):
         # print(f"{type(self)} adding instances")
-        self._instances.add(weakref.ref(self))
+        # self._instances.add(weakref.ref(self))
+        # self.is_pure = True
+        return
 
     @property
     def structure(self):
         return type(self).__name__
+
+    @property
+    def is_pure(self):
+        pass
 
     @property
     def name(self):
@@ -36,17 +42,9 @@ class LogischeForm(metaclass=AllgemeineForm):
     def allgemeinheit(self):
         pass
 
-    def __eq__(self, other):
-        """Overrides the default implementation"""
-        if isinstance(other, type(self)) or isinstance(self, type(other)):
-            return intern(self.name) is intern(other.name)
-        else:
-            # TODO: test this properly!! seems dangerous
-            return super().__eq__(other)
-            # raise ValueError(
-            #             f"object comparison: {self} ({type(self)}) and {other} {type(other)} are of different types!"
-            #         )
-            # return False
+    @property
+    def related(self):
+        return set()
 
     @classmethod
     def einzelheiten(cls):
@@ -59,8 +57,24 @@ class LogischeForm(metaclass=AllgemeineForm):
                 dead.add(ref)
         cls._instances -= dead
 
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        if isinstance(other, type(self)) or isinstance(self, type(other)):
+            return (
+                intern(self.name)
+                is intern(other.name)
+                # and self.related == other.related  # this is important
+            )
+        else:
+            # TODO: test this properly!! seems dangerous
+            return super().__eq__(other)
+            # raise ValueError(
+            #             f"object comparison: {self} ({type(self)}) and {other} {type(other)} are of different types!"
+            #         )
+            # return False
+
     def __hash__(self):
-        return hash(self.name)
+        return hash(self._name)
 
     def __lt__(self, other):
         return self.name < other.name
@@ -70,4 +84,4 @@ class LogischeForm(metaclass=AllgemeineForm):
     #     return False
 
     def __repr__(self):
-        return f"<{type(self).__name__} :: {self.name}>"
+        return f"<{type(self).__name__} '{self.name}'>"

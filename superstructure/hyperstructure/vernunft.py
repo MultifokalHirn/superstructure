@@ -9,22 +9,23 @@ from superstructure.metastructure.logik import Unknown
 
 
 def get_negations(bewusstsein: Bewusstsein) -> List[str]:
-    negations = []
+    urteile = []
     no_negation = SortedSet()
     for begriff in bewusstsein.begriffe:
-        if begriff.negation == Unknown():
+        if begriff.negation is None or begriff.negation == Unknown():
             no_negation.add(begriff)
         else:
-            negations.append(f"Negation of {begriff} is {begriff.negation}.")
+            if f"{begriff.negation} and {begriff} are opposites." not in urteile:
+                urteile.append(f"{begriff} and {begriff.negation} are opposites.")
     for begriff in no_negation:
-        negations.append(f"Negation of {begriff} is {begriff.negation}.")
-    return negations
+        urteile.append(f"Negation of {begriff} is {begriff.negation}.")
+    return urteile
 
 
 def get_relations_between_known_begriffe(
     bewusstsein, accept_identicals: bool = False
 ) -> List[str]:
-    relations_between_known_begriffe = []
+    urteile = []
     word_combos = itertools.product(
         [bewusstsein.get(name).name for name in bewusstsein.vocabulary], repeat=2
     )
@@ -67,7 +68,7 @@ def get_relations_between_known_begriffe(
         else:
             topic = f"{word_a} and {word_b}"
         if len(relations) > 0:
-            relations_between_known_begriffe.append(
+            urteile.append(
                 f"Relations for '{topic}': {' and '.join([str(r) for r in relations])}"
             )
-    return relations_between_known_begriffe
+    return urteile

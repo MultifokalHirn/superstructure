@@ -20,7 +20,7 @@ def load(name="Weltgeist", path=data_store):
     return _get_bewusstsein_dict(path=path).get(name)
 
 
-def save(bewusstsein, path=data_store):
+def save(bewusstsein, path=data_store, create=False):
     if not isinstance(bewusstsein, LogischeForm):
         raise ValueError(
             f"pickled.save: trying to save {bewusstsein}, but it does not have the LogischeForm."
@@ -28,7 +28,7 @@ def save(bewusstsein, path=data_store):
 
     bewusstsein_dict = _get_bewusstsein_dict(path=path)
     bewusstsein_dict[bewusstsein.name] = bewusstsein
-    if not os.path.exists(path):
+    if not create and not os.path.exists(path):
         raise FileNotFoundError(f"{path} does not exist!")
     with open(path, "wb") as f:
         pickle.dump(bewusstsein_dict, f)

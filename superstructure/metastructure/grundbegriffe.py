@@ -84,6 +84,13 @@ class Allgemeinheit(Grundbegriff, Relation):
             nodes=2, criterium=criterium, is_directed=True, name="Allgemeinheit"
         )
 
+    @property
+    def negation(self):
+        if self.is_pure:
+            return Einzelheit.allgemein()
+        else:
+            return Einzelheit()
+
 
 class Einzelheit(Grundbegriff, Relation):
     """relation applies, if b is the Allgemeinheit of a"""
@@ -94,11 +101,18 @@ class Einzelheit(Grundbegriff, Relation):
             if inspect.isclass(b):
                 return a in b.einzelheiten()
             else:
-                return False
+                return a.allgemeinheit == b
 
         super().__init__(
             nodes=2, criterium=criterium, is_directed=True, name="Einzelheit"
         )
+
+    @property
+    def negation(self):
+        if self.is_pure:
+            return Allgemeinheit.allgemein()
+        else:
+            return Allgemeinheit()
 
 
 class AnsichSein(Grundbegriff, Relation):
@@ -139,7 +153,10 @@ class FürUnsSein(Grundbegriff, Relation):
 
     @property
     def aufhebung(self):
-        return Etwas()
+        if self.is_pure:
+            return Etwas.allgemein()
+        else:
+            return Etwas()
 
 
 class FürSichSein(Grundbegriff, Relation):
@@ -180,13 +197,13 @@ class AnUndFürSichSein(Grundbegriff, Relation):
             nodes=1, criterium=criterium, is_directed=False, name="AnUndFürSichSein"
         )
 
-    @property
-    def negation(self):
-        return Unknown()  # TODO
+    # @property
+    # def negation(self):
+    #     return None  # TODO
 
     # @property
     # def aufhebung(self):
-    #     return Unknown()  # TODO
+    #     return None  # TODO
 
 
 class Etwas(Grundbegriff, Relation):
@@ -201,27 +218,12 @@ class Etwas(Grundbegriff, Relation):
 
     # @property
     # def aufhebung(self):
-    #     return Unknown()  # TODO
-
-    @property
-    def negation(self):
-        return Unknown()  # TODO
-
-    @property
-    def allgemeinheit(self):
-        return Unknown()  # TODO
-
-
-class Leere(Grundbegriff, Begriff):
-    """the absolute absence """
-
-    def __init__(self):
-        super().__init__(name="Leere")
+    #     return None  # TODO
 
     # @property
-    # def aufhebung(self):
-    #     return Unknown()  # TODO
+    # def negation(self):
+    #     return None  # TODO
 
-    @property
-    def allgemeinheit(self):
-        return type(self)
+    # @property
+    # def allgemeinheit(self):
+    #     return None  # TODO

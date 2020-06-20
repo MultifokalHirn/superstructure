@@ -1,4 +1,5 @@
 from .form import LogischeForm
+import inspect
 
 
 class Begriff(LogischeForm):
@@ -7,13 +8,35 @@ class Begriff(LogischeForm):
     thus begriff.aufhebung is always just what is true for the Bewusstsein, not 'objectively'\
     objective reality is a spook"""
 
+    @classmethod
+    def allgemein(cls):
+        obj = Begriff.__new__(Begriff)  # Does not call __init__
+        super(
+            Begriff, obj
+        ).__init__()  # Don't forget to call any polymorphic base class initializers
+        obj._name = f"Pure{type(obj).__name__}"
+        obj._is_pure = True
+        obj._aufhebung = None
+        obj._negation = None
+        obj._allgemeinheit = None
+
+        return obj
+
     def __init__(
-        self, name=None, aufhebung=None, allgemeinheit=None, negation=None,
+        self,
+        name=None,
+        aufhebung=None,
+        allgemeinheit=None,
+        negation=None,
+        *args,
+        **kwargs,
     ):
-        self._name = name
+        self._is_pure = False
+        if name is not None:
+            self._name = name
         self._aufhebung = None
         self._negation = None
-        self._allgemeinheit = type(self)
+        self._allgemeinheit = None
         if aufhebung is not None:
             self.aufhebung = aufhebung
         if allgemeinheit is not None:
@@ -27,6 +50,10 @@ class Begriff(LogischeForm):
         return self._name
 
     @property
+    def is_pure(self):
+        return self._is_pure
+
+    @property
     def position(self):
         return self
 
@@ -34,28 +61,47 @@ class Begriff(LogischeForm):
     def negation(self):
         return self._negation
 
-    @property
-    def aufhebung(self):
-        return self._aufhebung
-
-    @property
-    def allgemeinheit(self):
-        return self._allgemeinheit
-
     @negation.setter
     def negation(self, begriff):
         "setting"
         self._negation = begriff
+
+    @property
+    def aufhebung(self):
+        return self._aufhebung
 
     @aufhebung.setter
     def aufhebung(self, begriff):
         "setting"
         self._aufhebung = begriff
 
+    @property
+    def allgemeinheit(self):
+        if self._allgemeinheit is None and not self.is_pure:
+            a = type(self).allgemein()
+            if inspect.isclass(a):
+                raise ValueError()
+            return a
+        else:
+            return self._allgemeinheit
+
     @allgemeinheit.setter
     def allgemeinheit(self, begriff):
         "setting"
         self._allgemeinheit = begriff
+
+    @property
+    def related(self):
+        return [
+            begriff
+            for begriff in {
+                self.position,
+                self.negation,
+                self.aufhebung,
+                self.allgemeinheit,
+            }
+            if begriff not in [self, None]
+        ]
 
 
 class Unknown(LogischeForm):
@@ -69,6 +115,10 @@ class Unknown(LogischeForm):
         return self._name
 
     @property
+    def is_pure(self):
+        return True
+
+    @property
     def position(self):
         return self
 
@@ -82,7 +132,11 @@ class Unknown(LogischeForm):
 
     @property
     def allgemeinheit(self):
-        return type(self)
+        return self
+
+    @property
+    def related(self):
+        return set()
 
     def __eq__(self, other):
         """Overrides the LogischeForm implementation"""
@@ -96,6 +150,19 @@ class Unknown(LogischeForm):
 class Relation(Begriff):
     """Relation between Begriffe"""
 
+    @classmethod
+    def allgemein(cls):
+        obj = Begriff.__new__(Begriff)  # Does not call __init__
+        super(
+            Begriff, obj
+        ).__init__()  # Don't forget to call any polymorphic base class initializers
+        obj._is_pure = True
+        obj._name = f"Pure{cls.__name__}"
+        obj._aufhebung = None
+        obj._negation = None
+        obj._allgemeinheit = None
+        return obj
+
     def __init__(self, nodes=2, criterium=None, is_directed=True, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -104,7 +171,9 @@ class Relation(Begriff):
         self._nodes = nodes  # number of begriffe for relation
         self._is_directed = is_directed
         if criterium is None:
-            raise ValueError(f"Trying to define relation {self} without criterium.")
+            raise ValueError(
+                f"Trying to define relation {kwargs.get('name', 'UNKNOWN')} without criterium."
+            )
         self._criterium = criterium  # function
 
     def criterium(self, *args, **kwargs):
