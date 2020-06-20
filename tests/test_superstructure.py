@@ -8,7 +8,9 @@ from superstructure.infrastructure.cli.commands import main
 
 class TestSuperstructure(unittest.TestCase):
     def test_cli(self):
-        main(name="TestSuperstructure", verbose=True)
+        main(
+            name="TestSuperstructure", verbose=True, path="tests/fixtures/pickled_data"
+        )
         # main()
 
 
