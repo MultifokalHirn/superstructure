@@ -13,6 +13,10 @@ class LogischeForm(metaclass=AllgemeineForm):
         self._instances.add(weakref.ref(self))
 
     @property
+    def structure(self):
+        return type(self).__name__
+
+    @property
     def name(self):
         pass
 

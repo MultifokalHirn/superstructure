@@ -1,13 +1,6 @@
 from .form import LogischeForm
 
 
-class ReinerBegriff:
-    """the Begriff 'class' itself"""
-
-    def __init__(self):
-        self._name = "reinerbegriff"
-
-
 class Begriff(LogischeForm):
     """probably not the perfect name, what is meant is a singular Thing of any sort; \
     important: a Begriff is always a _of_ some thing and a thing of a Bewusstsein.
@@ -95,6 +88,10 @@ class Unknown(LogischeForm):
         """Overrides the LogischeForm implementation"""
         return isinstance(other, type(self))
 
+    def __repr__(self):
+        """Overrides the LogischeForm implementation"""
+        return f"<{self.structure}>"
+
 
 class Relation(Begriff):
     """Relation between Begriffe"""
@@ -107,12 +104,7 @@ class Relation(Begriff):
         self._nodes = nodes  # number of begriffe for relation
         self._is_directed = is_directed
         if criterium is None:
-
-            def f(a, b, geist=None):
-                print(f"EMPTY RELATION {self}")
-                return False
-
-            criterium = f
+            raise ValueError(f"Trying to define relation {self} without criterium.")
         self._criterium = criterium  # function
 
     def criterium(self, *args, **kwargs):
@@ -121,7 +113,7 @@ class Relation(Begriff):
         else:
             # TODO copy criterium, switch the arguments and ver-unde (and) them
             return self._criterium(*args, **kwargs) and self._criterium(
-                *reversed(args), **kwargs
+                *args[::-1], **kwargs
             )
 
     @property

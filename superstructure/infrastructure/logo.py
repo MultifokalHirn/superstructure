@@ -73,14 +73,19 @@ def print_logo():
     print("")
 
 
-def print_hegel():  # nosec
-    rows, columns = subprocess.check_output(["stty", "size"]).split()
-    if columns >= 100:
+def print_hegel(terminal_width=None):  # nosec
+    if terminal_width is None:
+        terminal_height, terminal_width = subprocess.check_output(
+            ["stty", "size"]
+        ).split()
+    if terminal_width >= 100:
         print_hegel100()
-    elif columns >= 80:
+    elif terminal_width >= 80:
         print_hegel80()
-    elif columns >= 60:
+    elif terminal_width >= 60:
         print_hegel60()
+    else:
+        print("")
 
 
 def print_hegel100():

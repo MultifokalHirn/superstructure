@@ -4,10 +4,10 @@ import inspect
 
 class Grundbegriff:
     def __repr__(self):
-        return f"<{type(self).__name__}>"
+        return f"<{self.structure}>"
 
 
-class Identität(Relation, Grundbegriff):
+class Identität(Grundbegriff, Relation):
     """identity"""
 
     def __init__(self):
@@ -25,7 +25,23 @@ class Identität(Relation, Grundbegriff):
         return Negation()
 
 
-class Negation(Relation, Grundbegriff):
+class Selbstidentität(Grundbegriff, Relation):
+    """selfidentity"""
+
+    def __init__(self):
+        def criterium(a, geist=None):
+            return a == a
+
+        super().__init__(
+            nodes=1, criterium=criterium, is_directed=True, name="Selbstidentität"
+        )
+
+    # @property
+    # def negation(self):
+    #     return Negation()
+
+
+class Negation(Grundbegriff, Relation):
     """relation applies, if b is the Negation of a"""
 
     def __init__(self):
@@ -41,7 +57,7 @@ class Negation(Relation, Grundbegriff):
         return Identität()
 
 
-class Aufhebung(Relation, Grundbegriff):
+class Aufhebung(Grundbegriff, Relation):
     """relation applies, if a is the Aufhebung of b and c"""
 
     def __init__(self):
@@ -55,7 +71,7 @@ class Aufhebung(Relation, Grundbegriff):
         )
 
 
-class Allgemeinheit(Relation, Grundbegriff):
+class Allgemeinheit(Grundbegriff, Relation):
     """relation applies, if b is the Einzelheit of a"""
 
     def __init__(self):
@@ -68,7 +84,7 @@ class Allgemeinheit(Relation, Grundbegriff):
         )
 
 
-class Einzelheit(Relation, Grundbegriff):
+class Einzelheit(Grundbegriff, Relation):
     """relation applies, if b is the Allgemeinheit of a"""
 
     def __init__(self):
@@ -84,12 +100,12 @@ class Einzelheit(Relation, Grundbegriff):
         )
 
 
-class AnsichSein(Relation, Grundbegriff):
+class AnsichSein(Grundbegriff, Relation):
     """AnsichSein an sich"""
 
     def __init__(self):
         def criterium(a, geist=None):
-            return not isinstance(a, Relation) and isinstance(a, Begriff)
+            return isinstance(a, Begriff) and not isinstance(a, Relation)
 
         super().__init__(
             nodes=1, criterium=criterium, is_directed=False, name="AnsichSein"
@@ -104,7 +120,7 @@ class AnsichSein(Relation, Grundbegriff):
         return Etwas()
 
 
-class FürUnsSein(Relation, Grundbegriff):
+class FürUnsSein(Grundbegriff, Relation):
     """FürUnsSein an sich"""
 
     def __init__(self):
@@ -125,7 +141,7 @@ class FürUnsSein(Relation, Grundbegriff):
         return Etwas()
 
 
-class FürSichSein(Relation, Grundbegriff):
+class FürSichSein(Grundbegriff, Relation):
     """FürSichSein """
 
     def __init__(self):
@@ -140,16 +156,16 @@ class FürSichSein(Relation, Grundbegriff):
             nodes=1, criterium=criterium, is_directed=False, name="FürSichSein"
         )
 
-    @property
-    def negation(self):
-        return AnsichSein()
+    # @property
+    # def negation(self):
+    #     return AnsichSein()
 
-    @property
-    def aufhebung(self):
-        return Etwas()
+    # @property
+    # def aufhebung(self):
+    #     return Etwas()
 
 
-class AnUndFürSichSein(Relation, Grundbegriff):
+class AnUndFürSichSein(Grundbegriff, Relation):
     """AnUndFürSichSein """
 
     def __init__(self):
@@ -167,12 +183,12 @@ class AnUndFürSichSein(Relation, Grundbegriff):
     def negation(self):
         return Unknown()  # TODO
 
-    @property
-    def aufhebung(self):
-        return Unknown()  # TODO
+    # @property
+    # def aufhebung(self):
+    #     return Unknown()  # TODO
 
 
-class Etwas(Relation, Grundbegriff):
+class Etwas(Grundbegriff, Relation):
     """Etwas an sich"""
 
     def __init__(self):
@@ -182,9 +198,9 @@ class Etwas(Relation, Grundbegriff):
 
         super().__init__(nodes=1, criterium=criterium, is_directed=False, name="Etwas")
 
-    @property
-    def aufhebung(self):
-        return Unknown()  # TODO
+    # @property
+    # def aufhebung(self):
+    #     return Unknown()  # TODO
 
     @property
     def negation(self):
@@ -195,15 +211,15 @@ class Etwas(Relation, Grundbegriff):
         return Unknown()  # TODO
 
 
-class Leere(Begriff, Grundbegriff):
+class Leere(Grundbegriff, Begriff):
     """the absolute absence """
 
     def __init__(self):
         super().__init__(name="Leere")
 
-    @property
-    def aufhebung(self):
-        return Unknown()  # TODO
+    # @property
+    # def aufhebung(self):
+    #     return Unknown()  # TODO
 
     @property
     def allgemeinheit(self):
