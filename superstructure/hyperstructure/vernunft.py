@@ -3,9 +3,9 @@ from typing import List
 
 from sortedcontainers import SortedSet
 
+from superstructure.metastructure.geist import Bewusstsein
 from superstructure.metastructure.grundbegriffe import FürUnsSein, Selbstidentität
 from superstructure.metastructure.logik import Unknown
-from superstructure.metastructure.geist import Bewusstsein
 
 
 def get_negations(bewusstsein: Bewusstsein) -> List[str]:

@@ -1,4 +1,4 @@
-from superstructure.infrastructure.storage.pickled import load, save, data_store
+from superstructure.infrastructure.storage.pickled import data_store, load, save
 from superstructure.metastructure.geist import Bewusstsein, Selbstbewusstsein
 
 

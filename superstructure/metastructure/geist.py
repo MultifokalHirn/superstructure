@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 
 from dotdict import DotDict
-from sortedcontainers import SortedSet, SortedDict
+from sortedcontainers import SortedDict, SortedSet
 
 from .grundbegriffe import (
     Allgemeinheit,

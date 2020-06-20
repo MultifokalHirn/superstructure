@@ -1,5 +1,6 @@
-from .logik import Relation, Unknown, Begriff
 import inspect
+
+from .logik import Begriff, Relation, Unknown
 
 
 class Grundbegriff:
