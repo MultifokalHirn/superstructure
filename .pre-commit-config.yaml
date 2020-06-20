@@ -34,7 +34,7 @@ repos:
     -   id: flake8
         additional_dependencies: ['pep8-naming']
         # Ignore all format-related checks as Black takes care of those.
-        args: ['--ignore', 'E203, E231, E266, E501, W503, E731, E501, E731', '--select', 'B, C, E, F, W, N, T4', '--max-line-length=160', '--max-complexity=16']
+        args: ['--ignore', 'E203, E231, E266, E501, W503, E731, E501, E731', '--select', 'B, C, E, F, W, N, T4', '--max-line-length=160', '--max-complexity=18']
 
 -   repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
     sha: v1.0.4

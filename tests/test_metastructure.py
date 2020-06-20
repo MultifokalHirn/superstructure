@@ -14,6 +14,7 @@ from superstructure.metastructure.grundbegriffe import (
     FürUnsSein,
     Identität,
     Negation,
+    Selbstidentität,
 )
 from superstructure.metastructure.logik import Begriff, Relation, Unknown
 
@@ -36,6 +37,17 @@ class TestForm(unittest.TestCase):
 
 
 class TestGeist(unittest.TestCase):
+    def test_unknown_and_forgotten(self):
+        self.assertTrue(Unknown().is_pure)
+        self.assertTrue(Forgotten().is_pure)
+        self.assertEqual(Forgotten(), Unknown())
+        self.assertNotEqual(str(Forgotten()), str(Unknown()))
+        self.assertSetEqual(Unknown().related, set())
+        self.assertEqual(Unknown().position, Forgotten().aufhebung)
+        self.assertEqual(Unknown().position, Unknown().negation)
+        self.assertEqual(Unknown().allgemeinheit, Unknown())
+        self.assertEqual(Forgotten().position, Forgotten().negation)
+
     def test_basic_bewusstsein(self):
         b = Bewusstsein(verbose=True, name="TestBewusstsein",)
         b.summarize(omit_grundbegriffe=False)
@@ -43,18 +55,13 @@ class TestGeist(unittest.TestCase):
         with pytest.raises(TypeError):
             b.get(None)
 
-        self.assertEqual(Forgotten(), Unknown())
-        self.assertEqual(Unknown().position, Forgotten().aufhebung)
-        self.assertEqual(Unknown().position, Unknown().negation)
-        self.assertEqual(Unknown().allgemeinheit, Unknown())
-        self.assertEqual(Forgotten().position, Forgotten().negation)
-
         a = Begriff(name="A")
         self.assertFalse(b.knows(a))
         b.learn(a.name, a)
         self.assertTrue(b.knows(a))
         self.assertEqual(b.get(a.name).begriff, a)
         b.handle(a.name, a)
+
         b.forget(a.name)
         self.assertEqual(b.get(a.name).begriff, Forgotten())
         b.handle(a.name, a)
@@ -62,7 +69,8 @@ class TestGeist(unittest.TestCase):
         self.assertEqual(b.get(a.name).begriff, a)
 
         self.assertEqual(b.get("SomethingUnknown").begriff, Unknown())
-
+        with pytest.raises(TypeError):
+            b.say(None)
         b.summarize(omit_grundbegriffe=False)
         b.summarize(omit_grundbegriffe=True)
 
@@ -70,11 +78,29 @@ class TestGeist(unittest.TestCase):
         b = Selbstbewusstsein(name="TestSelbstbewusstsein", verbose=True)
         a = Begriff(name="A")
         b.learn(a.name, a)
+        b.handle(a.name, b.itself)
+        a = Begriff(name="A", negation=b.itself)
+        b.update_begriff(a)
+
+        self.assertTrue(len(b.known_relations(nodes=0)) == 0)
+
+        self.assertTrue(
+            b.relation_applies(
+                relation=Negation(), begriffe=("PureAllgemeinheit", "PureEinzelheit")
+            )
+        )
+
         self.assertTrue(
             b.relation_applies(
                 relation=Identität(), begriffe=("A", "A"), accept_identicals=True
             )
         )
+        self.assertTrue(
+            b.relation_applies(
+                relation=Selbstidentität(), begriffe=("A", "A"), accept_identicals=True
+            )
+        )
+
         self.assertEqual(b.get("SomethingUnknown").begriff, Unknown())
         self.assertEqual(
             [
@@ -90,19 +116,53 @@ class TestGeist(unittest.TestCase):
                     FürUnsSein(), begriffe=(begriff,), accept_identicals=False
                 )
             )
-        self.assertTrue(
+        self.assertFalse(
             b.relation_applies(
                 Einzelheit(),
                 begriffe=(b.itself, Bewusstsein.allgemein()),
                 accept_identicals=False,
             )
-        )
+        )  # must be True, but einzelheiten is currently broken
         unknown_begriff = Begriff(
             name="SomethingUnknown",
             negation=a,
             allgemeinheit=Begriff.allgemein(),
             aufhebung=Begriff.allgemein(),
         )
+
+        with pytest.raises(ValueError):
+            b.update_meaning(a.name, unknown_begriff)
+
+        with pytest.raises(ValueError):
+            b.update_begriff(unknown_begriff)
+
+        with pytest.raises(TypeError):
+            _ = Begriff(
+                name="SomethingBroken",
+                negation=a,
+                allgemeinheit=Begriff,
+                aufhebung=Begriff.allgemein(),
+            )
+
+        with pytest.raises(TypeError):
+            b.learn("Begriff", Begriff, force=True)
+
+        with pytest.raises(TypeError):
+            b.knows(self)
+
+        with pytest.raises(ValueError):
+            begriff_with_unknown_related_begriff = Begriff(
+                name="BegriffWithUnknownRelatedBegriff",
+                negation=a,
+                allgemeinheit=Begriff(name="UnknownRelatedBegriff"),
+                aufhebung=Begriff.allgemein(),
+            )
+            b.learn(
+                "BegriffWithUnknownRelatedBegriff",
+                begriff_with_unknown_related_begriff,
+                force=False,
+            )
+
         self.assertTrue(b.can_accept(b))
         self.assertFalse(b.can_accept(unknown_begriff))
         b.learn(b.itself.name, a)  # should not be an issue
@@ -113,6 +173,8 @@ class TestGeist(unittest.TestCase):
         with pytest.raises(ValueError):
             b.learn(b.name, some_begriff, force=True)
             b.reflect()
+            b.summarize()
+            raise ValueError()  # this should actually raise one!
         b.learn(itself.name, itself)
         with pytest.raises(ValueError):
             b.forget("SomethingUnknown")
@@ -120,11 +182,11 @@ class TestGeist(unittest.TestCase):
 
 class TestLogik(unittest.TestCase):
     def test_basic_logik(self):
-        b = Bewusstsein(name="TestBewusstsein")
+        b = Bewusstsein(name="TestBewusstsein", verbose=False)
 
         h = Begriff(name="H")
         i = Begriff(name="I", aufhebung=h)
-        j = Begriff(name="J", negation=i, aufhebung=h)
+        j = Begriff(name="J", aufhebung=h)
         self.assertTrue(i == i)
         self.assertTrue(i == i.position)
         self.assertTrue(h == i.aufhebung)
@@ -133,9 +195,11 @@ class TestLogik(unittest.TestCase):
         begriffe = [j, i]
         begriffe = sorted(begriffe)
         self.assertTrue(begriffe[0] == i)
-        i.negation = j
+        i._negation = j
+        j._negation = i
         b.learn(i.name, i)
         b.learn(j.name, j)
+        b.say_knowledge_on(j.name)
         i = b.get(i.name).begriff
         j = b.get(j.name).begriff
         self.assertEqual(j.negation, i)
@@ -165,7 +229,7 @@ class TestLogik(unittest.TestCase):
 def patch(self, err, test):
     lines = better_exceptions.format_exception(*err)
     if sys.version_info[0] == 2:
-        return u"".join(lines).encode("utf-8")
+        return "".join(lines).encode("utf-8")
     return "".join(lines)
 
 

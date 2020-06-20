@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-
+from copy import copy
 from dotdict import DotDict
 from sortedcontainers import SortedDict, SortedSet
 
@@ -31,7 +31,7 @@ class Bewusstsein(Begriff):
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        self.state = "coherent"  # should become singleton
+        self.is_coherent = True
         self._begriffe = begriffe
         self._vocabulary = vocabulary  # {name: begriff}
         self.verbose = verbose
@@ -68,40 +68,117 @@ class Bewusstsein(Begriff):
             )
 
     def knows(self, begriff):
+        if begriff in [Unknown(), Forgotten(), None]:
+            return False
+        if not isinstance(begriff, Begriff):
+            raise TypeError(f"Can only know Begriffe, got {type(begriff)} ({begriff})")
         if begriff in [Forgotten(), Unknown()]:
             return False
         else:
             return begriff in self.begriffe
 
-    def learn(self, name, begriff, force=True):
+    def patch_begriffe(decorated):  # noqa
+        def magic(self, *args, **kwargs):
+            should_patch = decorated(self, *args, **kwargs)
+            if not should_patch:
+                return
+            # self.say("patching!!")
+            is_coherent = True
+            # check if pureBegriffe exist of which come information can be generated through their particulars
+            begriffe = copy(self._begriffe)
+            for purebegriff in [begriff for begriff in begriffe if begriff.is_pure]:
+                if not self.knows(purebegriff):
+                    continue
+                if not self.knows(purebegriff.negation):
+                    for begriff in [
+                        begriff for begriff in self.begriffe if not begriff.is_pure
+                    ]:
+                        if begriff.allgemeinheit.name == purebegriff.name:
+                            if (
+                                self.knows(begriff.negation)
+                                and not begriff.negation.is_pure
+                            ):
+                                patched_begriff = copy(purebegriff)
+                                new_negation = begriff.negation.allgemein()
+                                patched_begriff._negation = new_negation
+                                new_negation._negation = patched_begriff
+                                if self.knows(new_negation):
+                                    self._begriffe.remove(new_negation)
+                                self._begriffe.add(new_negation)
+                                self._begriffe.remove(purebegriff)
+                                self._begriffe.add(patched_begriff)
+                                self._vocabulary[patched_begriff.name] = patched_begriff
+                                self._vocabulary[new_negation.name] = new_negation
+            begriffe = copy(self._begriffe)
+            for begriff in begriffe:
+                if not self.knows(begriff):
+                    continue
+                if self.knows(begriff.negation):
+                    if begriff.negation.negation != begriff:
+                        if begriff.negation.negation is None:
+                            patched_begriff = copy(begriff.negation)
+                            patched_begriff.negation = begriff
+                            self._begriffe.remove(begriff.negation)
+                            self._begriffe.add(patched_begriff)
+                            self._vocabulary[patched_begriff.name] = patched_begriff
+                        else:
+                            is_coherent = False
+            # check if begriffe reference unknown begriffe
+            begriffe = copy(self._begriffe)
+            for begriff in begriffe:
+                if not self.knows(begriff):
+                    continue
+                if begriff.negation not in [
+                    Unknown(),
+                    Forgotten(),
+                    None,
+                ] and not self.knows(begriff.negation):
+                    patched_begriff = copy(begriff)
+                    patched_begriff._negation = None
+                    self._begriffe.remove(begriff)
+                    self._begriffe.add(patched_begriff)
+                    self._vocabulary[patched_begriff.name] = patched_begriff
+            self.is_coherent = is_coherent
+
+        return magic
+
+    @patch_begriffe
+    def learn(self, name, begriff, force=True) -> bool:
+        if not isinstance(begriff, Begriff):
+            raise TypeError(f"Can only learn Begriffe, got {type(begriff)} ({begriff})")
         if begriff in self.begriffe:
             if self.verbose:
                 self.say(f"I already know {begriff}.")
-            if name not in self.vocabulary:
-                self.update_meaning(name, begriff, force=force)
+                # self.say(f"update_meaning of {name} to {begriff}.")
+            self.update_meaning(name, begriff, force=force)
         else:
             for related_begriff in begriff.related:
                 if related_begriff not in self.begriffe:
                     if force and (
                         isinstance(related_begriff, Begriff) or related_begriff.is_pure
                     ):
-                        self.begriffe.add(related_begriff)
+                        self._begriffe.add(related_begriff)
                         self.update_meaning(related_begriff.name, related_begriff)
                     else:
                         raise ValueError(
                             f"Trying to learn {begriff} with unknown related Begriff {related_begriff}!"
                         )
-            self.begriffe.add(begriff)
+            self._begriffe.add(begriff)
             self.update_meaning(begriff.name, begriff, force=force)
             if begriff.name != name:
                 self.update_meaning(name, begriff, force=force)
+            if self.verbose:
+                self.say(f"I just learned {begriff} as {name}!")
+            return True
 
-    def update_begriff(self, begriff, force=False):
+    @patch_begriffe
+    def update_begriff(self, begriff, force=False) -> bool:
         for known_begriff in self.begriffe:
             if known_begriff.name == begriff.name:
                 self._begriffe.remove(known_begriff)
-                self._begriff.add(begriff)
-                return
+                self._begriffe.add(begriff)
+                self.update_meaning(known_begriff.name, begriff)
+                return True
         raise ValueError(f"Trying to update unknown Begriff {begriff}. ")
 
     def handle(self, name, begriff):
@@ -119,7 +196,8 @@ class Bewusstsein(Begriff):
                     if self.verbose:
                         self.say(f"{begriff} is not compatible with what I know!")
 
-    def update_meaning(self, name, begriff, force=False):
+    @patch_begriffe
+    def update_meaning(self, name, begriff, force=False) -> bool:
         # update a name in vocabulary
         if begriff not in self.begriffe:
             raise ValueError(
@@ -133,7 +211,9 @@ class Bewusstsein(Begriff):
                 or self.get(name).content == Forgotten()
             ):
                 self._vocabulary[name] = begriff
+                return True
 
+    @patch_begriffe
     def forget(self, name):
         if name not in self.vocabulary:
             raise ValueError(f"Trying to forget unknown begriff {name}")
@@ -142,6 +222,7 @@ class Bewusstsein(Begriff):
             self._vocabulary[name] = Forgotten()
             if begriff not in self.vocabulary.values():
                 self.begriffe.remove(begriff)
+                return True
 
     def can_accept(self, begriff):
         # checks if begriff can be integrated into known begriffe, without creating incoherence
@@ -157,6 +238,8 @@ class Bewusstsein(Begriff):
 
     def learn_grundbegriffe(self):
         """should fill up the Bewusstseins vocabulary with most basic Begriffe, for example a self, relations such as Identität and so on"""
+        reiner_begriff = Begriff.allgemein()
+        self.learn(reiner_begriff.name, reiner_begriff, force=True)
         self.learn(Identität().name, Identität(), force=True)
         self.learn(Selbstidentität().name, Selbstidentität(), force=True)
         self.learn(Negation().name, Negation(), force=True)
@@ -170,7 +253,6 @@ class Bewusstsein(Begriff):
         self.learn(Etwas().name, Etwas(), force=True)
         self.learn("Leere", Begriff(name="Leere"), force=True)
 
-    @property
     def known_relations(self, nodes=None):
         """list the relations the Bewusstsein has a Begriff of"""
         relations = [
@@ -211,7 +293,7 @@ class Bewusstsein(Begriff):
 
     def determine_relations(self, *args, accept_identicals=False):
         """yield relations the Bewusstsein thinks exist between a and b"""
-        for relation in self.known_relations:
+        for relation in self.known_relations():
             if self.relation_applies(
                 relation, begriffe=args, accept_identicals=accept_identicals
             ):
@@ -232,7 +314,7 @@ class Bewusstsein(Begriff):
                 self.say(sentence)
             print("")
         else:
-            raise ValueError(
+            raise TypeError(
                 f"{self.structure}.say() only with str or list, not {type(stuff)}. (got {stuff})"
             )
 

@@ -1,5 +1,3 @@
-import inspect
-
 from .logik import Begriff, Relation, Unknown
 
 
@@ -98,7 +96,7 @@ class Einzelheit(Grundbegriff, Relation):
     def __init__(self):
         # a is einzelheit of b for geist
         def criterium(a, b, geist=None):
-            if inspect.isclass(b):
+            if b.is_pure:
                 return a in b.einzelheiten()
             else:
                 return a.allgemeinheit == b

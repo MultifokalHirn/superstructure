@@ -1,5 +1,4 @@
 from .form import LogischeForm
-import inspect
 
 
 class Begriff(LogischeForm):
@@ -59,6 +58,8 @@ class Begriff(LogischeForm):
 
     @property
     def negation(self):
+        # if self.is_pure:
+        #     return type(self._negation).allgemein()
         return self._negation
 
     @negation.setter
@@ -78,16 +79,16 @@ class Begriff(LogischeForm):
     @property
     def allgemeinheit(self):
         if self._allgemeinheit is None and not self.is_pure:
-            a = type(self).allgemein()
-            if inspect.isclass(a):
-                raise ValueError()
-            return a
-        else:
-            return self._allgemeinheit
+            self._allgemeinheit = type(self).allgemein()
+        return self._allgemeinheit
 
     @allgemeinheit.setter
     def allgemeinheit(self, begriff):
         "setting"
+        if not isinstance(begriff, Begriff):
+            raise TypeError(
+                f"Can only set Begriffe as Allgemeinheit, got {type(begriff)} ({begriff})"
+            )
         self._allgemeinheit = begriff
 
     @property
@@ -177,13 +178,12 @@ class Relation(Begriff):
         self._criterium = criterium  # function
 
     def criterium(self, *args, **kwargs):
+        result = self._criterium(*args, **kwargs)
         if self.is_directed:
-            return self._criterium(*args, **kwargs)
+            return result
         else:
-            # TODO copy criterium, switch the arguments and ver-unde (and) them
-            return self._criterium(*args, **kwargs) and self._criterium(
-                *args[::-1], **kwargs
-            )
+            args_reverse = args[::-1]
+            return result and self._criterium(*args_reverse, **kwargs)
 
     @property
     def is_directed(self):
