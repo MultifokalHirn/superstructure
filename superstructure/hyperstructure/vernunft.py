@@ -5,7 +5,7 @@ from sortedcontainers import SortedSet
 
 from superstructure.metastructure.geist import Bewusstsein
 from superstructure.metastructure.grundbegriffe import FürUnsSein, Selbstidentität
-from superstructure.metastructure.logik import Unknown
+from superstructure.metastructure.core import Unknown
 
 
 def get_negations(bewusstsein: Bewusstsein) -> List[str]:

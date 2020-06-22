@@ -184,7 +184,7 @@ $ ./run_tests
 |   |   ├── grundbegriffe.py
 |   |   ├── form.py
 |   |   ├── geist.py
-|   |   └── logik.py
+|   |   └── core.py
 |   |
 |   ├── hyperstructure
 |   |   └── vernunft.py
@@ -199,7 +199,7 @@ $ ./run_tests
 |
 └── tests
 |       ├── test_geist.py
-|       └── test_logik.py
+|       └── test_core.py
 |
 └── main.py
 ```

@@ -11,7 +11,7 @@ This package is a library filled with classes and functions. `metastructure` is 
 
 coming soon
 
-### logik
+### core
 
 coming soon
 

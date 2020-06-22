@@ -18,7 +18,6 @@ class Begriff(LogischeForm):
         obj._aufhebung = None
         obj._negation = None
         obj._allgemeinheit = None
-
         return obj
 
     def __init__(

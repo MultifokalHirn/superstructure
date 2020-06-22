@@ -9,7 +9,7 @@ from superstructure.hyperstructure.vernunft import (
     get_relations_between_known_begriffe,
 )
 from superstructure.metastructure.geist import Selbstbewusstsein
-from superstructure.metastructure.logik import Begriff, Unknown
+from superstructure.metastructure.core import Begriff, Unknown
 
 
 class TestVernunft(unittest.TestCase):

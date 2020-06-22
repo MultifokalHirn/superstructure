@@ -5,7 +5,7 @@ from superstructure.hyperstructure.vernunft import (
 from superstructure.infrastructure.logo import print_logo
 from superstructure.infrastructure.storage.pickled import load  # , save
 from superstructure.metastructure.geist import Selbstbewusstsein
-from superstructure.metastructure.logik import Begriff
+from superstructure.metastructure.core import Begriff
 
 
 def main(name="Weltgeist", verbose=False):

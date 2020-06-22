@@ -17,7 +17,7 @@ from .grundbegriffe import (
     Negation,
     Selbstidentität,
 )
-from .logik import Begriff, Relation, Unknown
+from .core import Begriff, Relation, Unknown
 
 
 class Bewusstsein(Begriff):

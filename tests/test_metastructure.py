@@ -16,7 +16,9 @@ from superstructure.metastructure.grundbegriffe import (
     Negation,
     Selbstidentität,
 )
-from superstructure.metastructure.logik import Begriff, Relation, Unknown
+
+# from superstructure.metastructure.core import Begriff, Relation, Unknown
+from superstructure.metastructure.core import Begriff, Relation, Unknown  # noqa
 
 
 class TestForm(unittest.TestCase):
@@ -34,6 +36,13 @@ class TestForm(unittest.TestCase):
             form.related,
         ]:
             continue
+
+
+# class TestBestimmung(unittest.TestCase):
+#     def test_bestimmung(self):
+#         bestimmteAllgemeinheit = Begriff("UnbestimmteAllgemeinheit", wesen=[],)
+#         assertTrue(unbestimmteAllgemeinheit.is_bestimmt)
+#         human = Begriff("UnbestimmteAllgemeinheit",)
 
 
 class TestGeist(unittest.TestCase):
@@ -181,7 +190,7 @@ class TestGeist(unittest.TestCase):
 
 
 class TestLogik(unittest.TestCase):
-    def test_basic_logik(self):
+    def test_basic_core(self):
         b = Bewusstsein(name="TestBewusstsein", verbose=False)
 
         h = Begriff(name="H")

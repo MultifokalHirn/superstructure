@@ -1,4 +1,4 @@
-from .logik import Begriff, Relation, Unknown
+from .core import Relation, Unknown
 
 
 class Grundbegriff:
@@ -31,9 +31,7 @@ class Selbstidentität(Grundbegriff, Relation):
         def criterium(a, geist=None):
             return a == a
 
-        super().__init__(
-            nodes=1, criterium=criterium, is_directed=True, name="Selbstidentität"
-        )
+        super().__init__(nodes=1, criterium=criterium, name="Selbstidentität")
 
     # @property
     # def negation(self):
@@ -113,16 +111,70 @@ class Einzelheit(Grundbegriff, Relation):
             return Allgemeinheit()
 
 
+class Sein(Grundbegriff, Relation):
+    """Being"""
+
+    def __init__(self):
+        def criterium(a, geist=None):
+            return geist.knows(a)
+
+        super().__init__(nodes=1, criterium=criterium, name="Sein")
+
+    @property
+    def negation(self):
+        return NichtSein()
+
+    @property
+    def aufhebung(self):
+        return Werden()
+
+
+class NichtSein(Grundbegriff, Relation):
+    """NonBeing"""
+
+    def __init__(self):
+        def criterium(a, geist=None):
+            return not geist.knows(a)
+
+        super().__init__(nodes=1, criterium=criterium, name="NichtSein")
+
+    @property
+    def negation(self):
+        return Sein()
+
+    @property
+    def aufhebung(self):
+        return Werden()
+
+
+class Werden(Grundbegriff, Relation):
+    """Becoming"""
+
+    def __init__(self):
+        def criterium(a, geist=None):
+            return geist.knows(a) and geist.unsure_about(
+                a
+            )  # unsure_about should be something like that its part of an inconsistency
+
+        super().__init__(nodes=1, criterium=criterium, name="Werden")
+
+    # @property
+    # def negation(self):
+    #     return Sein()
+
+    # @property
+    # def aufhebung(self):
+    #     return Werden()
+
+
 class AnsichSein(Grundbegriff, Relation):
     """AnsichSein an sich"""
 
     def __init__(self):
         def criterium(a, geist=None):
-            return isinstance(a, Begriff) and not isinstance(a, Relation)
+            return False  # True would be just as useful, so pick which ever you like
 
-        super().__init__(
-            nodes=1, criterium=criterium, is_directed=False, name="AnsichSein"
-        )
+        super().__init__(nodes=1, criterium=criterium, name="AnsichSein")
 
     @property
     def negation(self):
@@ -187,13 +239,9 @@ class AnUndFürSichSein(Grundbegriff, Relation):
     def __init__(self):
         # geist has a notion of itself
         def criterium(a, geist=None):
-            return FürSichSein().criterium(a, geist=geist) and AnsichSein().criterium(
-                a, geist=geist
-            )
+            return geist.knows(a) and a == geist
 
-        super().__init__(
-            nodes=1, criterium=criterium, is_directed=False, name="AnUndFürSichSein"
-        )
+        super().__init__(nodes=1, criterium=criterium, name="AnUndFürSichSein")
 
     # @property
     # def negation(self):
