@@ -4,11 +4,11 @@
 * The goal is to contextualize superstructure and to thus clarify where I am coming from with it.
 
 
-## Pure Process (Being)
-> Where there is only Movement
+## Pure Nothingness
+> Where there is not difference between Being and absolute Absence
 
-### Unreflected Existence
-* All comes from itself
+* Unreflected Existence would just as much be Inexistence
+
 
 ## Unity in Stasis (Being)
 > Where the Whole is the Whole and there is nothing else
