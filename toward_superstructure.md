@@ -47,9 +47,9 @@
 > Where the Disjunction is the Disjunction
 
 ### Logicism - The Disjunction of Disjunction and Unity
-* [Carnap](https://www.gleichsatz.de/b-u-t/trad/carn1a.html#dies): The Disjunction as the first Axiom of the logic
+* [Carnap](https://www.gleichsatz.de/b-u-t/trad/carn1a.html#dies): disjunction as the first axiom of formal logic
     * Overlooking the fundamentality of disjunctions between ideas and phenomena was the fundamental error of past thinkers!
-* Logical Atomism: *Atoms are disjunct, a disjunction can not be an atom.*
+* Logical Atomism: *atoms are disjunct and a disjunction can not be an atom*
     * Russell - [The Antihegel](https://ncatlab.org/nlab/show/Logic+as+the+Essence+of+Philosophy)?
     * Russell understands propositional logic as proving the Hegelian dialectic wrong:
     *   *"But to say “the particular is the universal” is self-contradictory. Again Hegel does not suspect a mistake but proceeds to synthesise particular and universal in the individual, or concrete universal. This is an example of how, for want of care at the start, vast and imposing systems of philosophy are built upon stupid and trivial confusions, which, but for the almost incredible fact that they are unintentional, one would be tempted to characterise as puns."*
@@ -62,9 +62,9 @@
     * **The epitome of the potency of formal logic, the proof, ultimately reveals its own impotence**
 
 ## Process in Unity and Unity in Process (Becoming)
-> Where there is only Movement of the Whole, which is the Unity of Disjunction
+> Where there is only Movement of the Whole, which is the Unity of the Disjunction of Movement (Becoming) And Stasis (Being)
 
-### Cybernetics - The Unity of the Disjunction of Data and Process
+### Cybernetics - The Unity of the Disjunction of Being as Data and Becoming as Process
 * Whitehead: process philosophy (?)
 * Lawvere: *"It is my belief that in the next decade and in the next century the technical advances forged by category theorists will be of value to dialectical philosophy, lending precise form with disputable mathematical models to ancient philosophical distinctions such as general vs. particular, objective vs. subjective, being vs. becoming, space vs. quantity, equality vs. difference, quantitative vs. qualitative etc. In turn the explicit attention by mathematicians to such philosophical questions is necessary to achieve the goal of making mathematics (and hence other sciences) more widely learnable and useable. Of course this will require that philosophers learn mathematics and that mathematicians learn philosophy."*
 
