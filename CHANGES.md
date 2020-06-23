@@ -1,5 +1,7 @@
 # notes
 
+## June 22
+* directed relation better name symmetrical!
 
 ## June 21
 * rename core.py to core.py
@@ -71,6 +73,8 @@
         * `johnsName = john.as([named.as(BestimmteAllgemeinheit)])`
         * name = Begriff(properties={"defining_qualities": ["namensträger"]})
         * when adding a quality, automatically add that quality as unbestimmtenBegriff?
+        * how to handle: John has a different name for someone else
+        * FOR NOW: assume only for the Bewusstsein itself
 
 ### Scenario
 
@@ -122,11 +126,11 @@ $ contemplate
 >       Is the 'string_value' of all NAMEs always the same? (y/n) n
 >   'last_name' as a WORD is a kind of: NAME
 >   Is 'is_alive' (as a BINARY) a quality of a NAME? (y/n): n
->   Next to HUMANs, a 'body' is a quality or part of a: ANIMAL
+>   As for HUMANs, a 'body' is a quality or part of a: ANIMAL
 >     You mean the ANIMAL's 'body' as a:
->   Is 'is_alive' (as a BINARY) a quality of a NAME?
+>   Is 'is_alive' (as a BINARY) a quality of a NAME? (y/n): n
 >   Is a LIVING_BEING a kind of NAME? (y/n): n
->     Good, that would would have complicated things!
+>     Good, that would have complicated things!
 >
 $ exit
 >   bye!
@@ -187,19 +191,19 @@ John:
         NAME:
             properties:
                 string_value:
-                    "John"
+                    John
 
 Johnson:
     as_a:
         NAME:
             properties:
                 string_value:
-                    "Johnson"
+                    Johnson
 
 is_alive:
     as_a:
         BINARY:
-            properties: [is_true, is_false]
+            properties:
 
 body:
     as_a:
