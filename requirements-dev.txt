@@ -2,7 +2,7 @@
 bandit==1.6.2
 better_exceptions==0.2.2
 black==19.10b0
-coveralls==2.0.0
+coveralls==2.1.0
 flake8==3.8.3
 hypothesis==5.19.0
 isort==5.0.4
