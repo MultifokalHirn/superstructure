@@ -4,4 +4,4 @@ dotobject==1.2.1
 flexible-dotdict==0.2.1
 redis==3.5.3
 redisworks==0.3.0
-sortedcontainers==2.2.2
+sortedcontainers==2.3.0
