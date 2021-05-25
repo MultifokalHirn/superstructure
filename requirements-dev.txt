@@ -4,7 +4,7 @@ better_exceptions==0.3.3
 black==21.5b1
 coveralls==2.1.2
 flake8==3.9.2
-hypothesis==6.13.0
+hypothesis==6.13.5
 isort==5.8.0
 pre-commit==2.12.1
 pytest-cov==2.10.1
