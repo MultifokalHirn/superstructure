@@ -1,4 +1,4 @@
-Click==7.1.2
+Click==8.0.1
 dill==0.3.4
 dotobject==1.2.2
 flexible-dotdict==0.2.1
