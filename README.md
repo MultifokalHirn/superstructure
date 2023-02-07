@@ -209,6 +209,22 @@ $ ./run_tests
 * [_infrastructure_](https://github.com/MultifokalHirn/superstructure/blob/dev/superstructure/infrastructure): constitutes the tooling for user interaction
 * [_tests_](https://github.com/MultifokalHirn/superstructure/blob/dev/tests): constitutes tests
 
+<!-- Notes -->
+<a name="notes"></a>
+### Notes on Phenomenology of Spirit
+#### Summary
+Phenomenology of Spirit by G.W.F. Hegel is a philosophical work that explores the concept of Spirit and its relationship to the individual. The book is divided into three sections: the Phenomenology of Spirit, the Science of Logic, and the Philosophy of Right. In the Phenomenology of Spirit, Hegel examines the development of Spirit from its most basic form, the immediate consciousness, to its highest form, the absolute Spirit. He argues that Spirit is a process of self-realization, in which the individual must overcome the limitations of their immediate consciousness in order to reach a higher level of understanding. In the Science of Logic, Hegel examines the nature of logic and its role in the development of Spirit. He argues that logic is the foundation of all knowledge and that it is essential for the development of Spirit. Finally, in the Philosophy of Right, Hegel examines the concept of right and its relationship to the individual. He argues that right is the basis of all ethical behavior and that it is essential for the development of Spirit. The overall message of the book is that Spirit is a process of self-realization, in which the individual must overcome the limitations of their immediate consciousness in order to reach a higher level of understanding.
+
+#### Important ideas
+* The true form of philosophy is intuition, or immediate knowledge of the Absolute.
+* The individual's share in the total work of Spirit is very small.
+* Language is the more truthful form of expression, as it expresses the true content of sense-certainty.
+* The power of the negative is essential to Spirit's progress.
+* The ethical order exists as something given, and the customs and laws are a specific ethical substance.
+* War is the form in which the essential moment of the ethical substance, the absolute freedom of the ethical self from every existential form, is present in its actual and authentic existence.
+* The supreme reality and the reality which stands in the greatest antithesis to universal freedom is the freedom and individuality of actual self-consciousness itself.
+* The shapes of the totality of Spirit display themselves in a temporal succession, for only the whole has true actuality and therefore the form of pure freedom in face of an other.
+* The divine Being descends from its universality, through the mediation of the Cult, into individuality, and thus unites itself with reality.
 
 
 <!-- EXTERNAL RESOURCES -->
@@ -224,6 +240,7 @@ $ ./run_tests
 * Sven Jürgensen: [_Freiheit in den Systemen Hegels und Schellings_](https://books.google.ae/books?id=sL_fb9p-q5YC&dq=hegel+bestimmt+unbestimmt&hl=en)
 * [hegel.net](https://hegel.net/en/e0.htm)
 * [github.com/m-strasser/hegelizer](https://github.com/m-strasser/hegelizer)
+* https://labs.kagi.com/ai/sum?url=https://archive.org/stream/phenomenology-of-spirit-g-w-f-hegel/Phenomenology%2520of%2520Spirit%2520-%2520G%2520W%2520F%2520Hegel_djvu.txt&expand=1
 
 <!-- DEVELOPMENT NOTES -->
 <a name="notes"></a>
